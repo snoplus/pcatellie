@@ -1,0 +1,5 @@
+/Processing/env.sh
+*/.sconsign.dblite
+*/build
+*/myrat
+*/Compare
