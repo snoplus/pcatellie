@@ -1,0 +1,10 @@
+{ 
+	 "type": "TUNING",
+	 "index": "",
+	 "timestamp": "2019-08-028T04:45:52.40Z",
+	 "version": 0,
+	 "run_range": [1, 300000],
+	 "pass": 0,
+	 "channel": 88,
+	 "ipw": 8803
+}

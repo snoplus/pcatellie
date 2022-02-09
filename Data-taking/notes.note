@@ -1,0 +1,11 @@
+AUTOMATION
+
+run fake tellie server
+make sure tubii server is running
+start orca
+
+ORCA
+controller - fe - communicates with gui
+model - backend
+.xib - gui structure
+

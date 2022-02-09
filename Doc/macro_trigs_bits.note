@@ -1,0 +1,50 @@
+TrigType
+
+bits:
+if(fBits->TestBit(trigType,0)) fb0_NHit100Lo->Fill(fTinj);
+if(fBits->TestBit(trigType,1)) fb1_NHit100Med->Fill(fTinj);
+if(fBits->TestBit(trigType,2)) fb2_NHit100Hi->Fill(fTinj);
+if(fBits->TestBit(trigType,3)) fb3_NHit20->Fill(fTinj);
+if(fBits->TestBit(trigType,4)) fb4_NHit20LB->Fill(fTinj);
+if(fBits->TestBit(trigType,5)) fb5_ESumLo->Fill(fTinj);
+if(fBits->TestBit(trigType,6)) fb6_ESumHi->Fill(fTinj);
+if(fBits->TestBit(trigType,7)) fb7_OWLN->Fill(fTinj);
+if(fBits->TestBit(trigType,8)) fb8_OWLELo->Fill(fTinj);
+if(fBits->TestBit(trigType,9)) fb9_OWLEHi->Fill(fTinj);
+if(fBits->TestBit(trigType,10)) fb10_PulseGT->Fill(fTinj);
+if(fBits->TestBit(trigType,11)) fb11_Prescale->Fill(fTinj);
+if(fBits->TestBit(trigType,12)) fb12_Pedestal->Fill(fTinj);
+if(fBits->TestBit(trigType,13)) fb13_Pong->Fill(fTinj);
+if(fBits->TestBit(trigType,14)) fb14_Sync->Fill(fTinj);
+if(fBits->TestBit(trigType,15)) fb15_EXTASY->Fill(fTinj);
+if(fBits->TestBit(trigType,16)) fb16_Ext2->Fill(fTinj);
+if(fBits->TestBit(trigType,17)) fb17_Ext3->Fill(fTinj);
+if(fBits->TestBit(trigType,18)) fb18_Ext4->Fill(fTinj);
+if(fBits->TestBit(trigType,19)) fb19_Ext5->Fill(fTinj);
+if(fBits->TestBit(trigType,20)) fb20_Ext6->Fill(fTinj);
+if(fBits->TestBit(trigType,21)) fb21_Ext7->Fill(fTinj);
+if(fBits->TestBit(trigType,22)) fb22_Ext8PulseAsync->Fill(fTinj);
+if(fBits->TestBit(trigType,23)) fb23_SpecialRaw->Fill(fTinj);
+if(fBits->TestBit(trigType,24)) fb24_NCD->Fill(fTinj);
+if(fBits->TestBit(trigType,25)) fb25_SoftGT->Fill(fTinj);
+if(fBits->TestBit(trigType,26)) fb26_MissedTrig->Fill(fTinj);
+
+names:
+/rat/procset trigType "N100Low"
+/rat/procset trigType "N100Med"
+/rat/procset trigType "N100High"
+/rat/procset trigType "N20"
+/rat/procset trigType "N20LB"
+/rat/procset trigType "EXT2"
+/rat/procset trigType "EXT3"
+/rat/procset trigType "EXT4"
+/rat/procset trigType "EXT5"
+/rat/procset trigType "EXT6"
+/rat/procset trigType "EXT7"
+/rat/procset trigType "EXT8PulseAsy"
+/rat/procset trigType "ESHigh"
+/rat/procset trigType "PulseGT"
+
+this to use:
+/rat/procset trigType "EXTASY"
+

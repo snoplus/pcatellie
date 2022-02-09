@@ -1,0 +1,46 @@
+LIST OF ALL CHECKS / CUTS:
+
+ TODO: all EXTA check to macro as well ?
+
+ // Trigger type
+ trig = ev.GetTrigType();
+ if (!(trig & 0x8000)){ CNEXTA++; continue; }    // EXT trigger only
+
+ // loops over PMTs
+ const RAT::DS::CalPMTs& pmts = ev.GetCalPMTs();   // calib PMTs
+ for(int iPMT=0; iPMT<pmts.GetNormalCount(); iPMT++) {
+... RAT::DS::PMTCal pmt = pmts.GetNormalPMT(iPMT);
+}
+
+// PMT status and channel status
+TODO: lot of this can be obsolete and superseded
+const RAT::DU::PMTCalStatus& pmtStatus = RAT::DU::Utility::Get()->GetPMTCalStatus();
+const RAT::DU::ChanHWStatus& chs = RAT::DU::Utility::Get()->GetChanHWStatus();
+const RAT::DU::PMTInfo& pmtinfo_loop = RAT::DU::Utility::Get()->GetPMTInfo();
+unsigned int status = pmtStatus.GetHitStatus(pmt);
+if(status & (1<<pmtStatus.kCHSBit)){ CCHS++; continue; }
+if(status & (1<<pmtStatus.kECABit)){ CECA++; continue; }
+if(status & (1<<pmtStatus.kPCABit)){ CPCA++; continue; }
+if(status & (1<<pmtStatus.kXTalkBit)){ CXT++; continue; }
+if ( !chs.IsTubeOnline(pmtID) ){ COFF++; continue; }
+if ( !chs.IsEnabled() ){ CE++; continue; }
+if ( !chs.IsChannelOnline(pmtID) ){ CCO++; continue; }
+if ( !chs.IsDAQEnabled(pmtID) ){ CDAQ++; continue; }
+if ( pmtinfo_loop.GetType(pmtID) != 1 ){ CNN++; continue; }
+
+// PMT position check
+const RAT::DU::PMTInfo& pmtinfo = RAT::DU::Utility::Get()->GetPMTInfo();
+TVector3 pmtPos = pmtinfo.GetPosition(pmtID);       // position [mm]
+if (pmtPos.Mag()==0) { CMAG++; continue; }
+
+// LPC checks
+if (lpc.GetTIR() == 1) { CTIR++; continue; }           // total internal reflection
+if (lpc.GetPathValid() == 0) { CPV++; continue; }      // check whether path parameters are valid
+if (lpc.GetResvHit() == 1) { CRH++; continue; }        // whether end point was within locality
+
+// additional path checks
+if (lpc.GetTotalDist() <= 12000){ CDIST++; continue;}        // this rejects near reflections
+if (lpc.GetDistInInnerAV() <= 7000){ CDAV++; continue;}      // this rejects other weird paths
+
+// ang cut
+if ( (theta > 12) || (theta < 0) ) { CANG++; continue; }

@@ -1,0 +1,15 @@
+{
+  "_id": "03cf9a5691a119344d8c9827c10882f4",
+  "_rev": "2-20e8cca58b507d322b5451816fcaa099",
+  "type": "TUNING",
+  "index": "",
+  "timestamp": "2019-08-028T04:45:52.40Z",
+  "version": 0,
+  "run_range": [
+    1,
+    300000
+  ],
+  "pass": 0,
+  "channel": 1,
+  "ipw": 3000
+}

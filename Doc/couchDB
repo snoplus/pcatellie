@@ -1,0 +1,10 @@
+db: tellie_auto
+
+access:
+	admin: tellieadmin, snoplusdb
+	member: snoplus
+	
+doc with belly fibres:
+http://dbug.sp.snolab.ca:6984/_utils/#database/tellie_auto/18233c121006886f6c49f569cc5126e3
+
+

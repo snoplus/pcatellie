@@ -1,0 +1,27 @@
+/rat/physics_list/OmitAll true
+
+/rat/inzdab/load_default
+
+# Make sure to set the medium correct. This is needed to the TOF correction
+/rat/db/set DETECTOR geo_file "geo/snoplus_full.geo"
+
+/rat/db/load /home/michal/Automation/Processing/fits/belly_fibres.ratdb
+/rat/db/load /home/michal/Automation/Processing/temp_ratdb/ECA_PDST.ratdb
+/rat/db/load /home/michal/Automation/Processing/temp_ratdb/ECA_TSLP.ratdb
+/rat/db/load /home/michal/Automation/Processing/temp_ratdb/PCA_TW.ratdb
+/rat/db/load /home/michal/Automation/Processing/temp_ratdb/PMT_DQXX.ratdb
+
+/run/initialize
+
+/rat/proc calibratePMT
+ /rat/procset eca 1
+ /rat/procset pca 1
+
+/rat/proc user
+
+/rat/proc count
+/rat/procset update 5000
+
+/rat/inzdab/read
+
+exit
