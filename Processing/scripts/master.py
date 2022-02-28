@@ -49,7 +49,9 @@ def load_env():
     pca_cons = os.getenv("PCA_CONS")
     bench_root = os.getenv("BENCH_ROOT")
     upl_bench = os.getenv("UPL_BENCH")
-    return scripts_loc, upl_env, upl_val1, upl_val2, upl_fits, upl_ratdb, make_table, fits_folder, dir_fit_file, ang_fit_file, offset_fit_file, default_dir, tables_loc, tables_scripts, val1_log, val2_log, dir_log, as_log, pca_log, bench_log, data_loc, plots, runtime_loc, compare_table, compare_all, cdb_add, cdb_db, cdb_user, cdb_pw, create_bench_apply, bench_cd, bench_tw, bench_peak, pca_cons, bench_root, upl_bench
+    create_pca_proc = os.getenv("CREATE_PCA_PROC")
+    checkpca_loc = os.getenv("CHECKPCA_LOC")
+    return scripts_loc, upl_env, upl_val1, upl_val2, upl_fits, upl_ratdb, make_table, fits_folder, dir_fit_file, ang_fit_file, offset_fit_file, default_dir, tables_loc, tables_scripts, val1_log, val2_log, dir_log, as_log, pca_log, bench_log, data_loc, plots, runtime_loc, compare_table, compare_all, cdb_add, cdb_db, cdb_user, cdb_pw, create_bench_apply, create_pca_proc, bench_cd, bench_tw, bench_peak, pca_cons, bench_root, upl_bench, checkpca_loc
 
 def parse_arguments():
     ### Parse arguments
@@ -576,10 +578,96 @@ def move_pca_files():
     os.system( cmd )
     insert_line()
 
+def create_pca_proc_mac() :
+    print "Creating pca proc macro:"
+    pca_proc_macro  = new_table.split(".")[0] + '_pca.mac'
+    cmd = "python " + scripts_loc + create_pca_proc + " " + " ".join([str(item) for item in good_runs])
+    print cmd
+    job = call_command( cmd )
+    wait_for_job(job, 2)
+    insert_line()
+    return pca_proc_macro
+
+def call_pca_proc(pca_proc_macro):
+    print "Calling pca proc:"
+    cmd = "rat " + runtime_loc + pca_proc_macro
+    print cmd
+    job = call_command( cmd )
+    wait_for_job(job, 10800) # this is 15h, need to test
+    insert_line()
+    return
+
+def call_checkPCA(pca_root, tw_table, gf_table, global_offset):
+    print "Calling checkPCA script:"
+    run_n = pca_root.split("_")[1]
+    cmd = checkpca_loc + "CheckPCALaser " + pca_root + " " + tw_table + " " + gf_table + " 200 400 " + run_n + " " + str(global_offset)
+    print cmd
+    #job = call_command( cmd )
+    #wait_for_job(job, 360)
+    insert_line()
+    return
+
+def call_compareTW(tw_table):
+    print "Calling compareTW script:"
+    old_table = get_previous_tw(pca_cons)
+    new_run_n, old_run_n = extract_run_numbers(tw_table, old_table)
+    cmd = checkpca_loc + "CompareTW " + tw_table + " " + old_table + " 200 400 " + new_run_n + " " + old_run_n
+    print cmd
+    #job = call_command( cmd )
+    #wait_for_job(job, 180)
+    insert_line()
+    return
+
+def move_pca_plots(plots, runlist):
+    print "Moving PCA plots:"
+    # make dataset folder
+    sorted_runlist = sorted(runlist)
+    run_name = "SET_" + str(sorted_runlist[0])
+    cmd = "mkdir " + plots + str(run_name)
+    print cmd
+    #os.system( cmd )
+    insert_line()
+    # move PMT plots
+    cmd = "mkdir PMTs"
+    print cmd
+    #os.system( cmd )
+    insert_line()
+    cmd2 = "mv PMT-* PMTs"
+    print cmd2
+    #os.system( cmd2 )
+    insert_line()
+    cmd3 = "mv TW_PMT-* PMTs"
+    print cmd3
+    #os.system( cmd3 )
+    insert_line()
+    cmd4 = "mv PMTs " + plots + str(run_name)
+    print cmd4
+    #os.system( cmd4 )
+    insert_line()
+    # move other plots
+    cmd = "mv *.png " + plots + str(run_name)
+    print cmd
+    #os.system( cmd )
+    insert_line()
+    # move constants
+    cmd = "mv *.root " + pca_cons
+    print cmd
+    #os.system( cmd )
+    insert_line()
+    cmd = "mv *.ratdb " + pca_cons
+    print cmd
+    #os.system( cmd )
+    insert_line()
+    # move log
+    cmd = "mv *.log " + pca_cons
+    print cmd
+    #os.system( cmd )
+    insert_line()
+
 if __name__=="__main__":
 
     ### load environment
-    scripts_loc, upl_env, upl_val1, upl_val2, upl_fits, upl_ratdb, make_table, fits_folder, dir_fit_file, ang_fit_file, offset_fit_file, default_dir, tables_loc, tables_scripts, val1_log, val2_log, dir_log, as_log, pca_log, bench_log, data_loc, plots, runtime_loc, compare_table, compare_all, cdb_add, cdb_db, cdb_user, cdb_pw, create_bench_apply, bench_cd, bench_tw, bench_peak, pca_cons, bench_root, upl_bench = load_env()
+    scripts_loc, upl_env, upl_val1, upl_val2, upl_fits, upl_ratdb, make_table, fits_folder, dir_fit_file, ang_fit_file, offset_fit_file, default_dir, tables_loc, tables_scripts, val1_log, val2_log, dir_log, as_log, pca_log, bench_log, data_loc, plots, runtime_loc, compare_table, compare_all, cdb_add, cdb_db, cdb_user, cdb_pw, create_bench_apply, create_pca_proc, bench_cd, bench_tw, bench_peak, pca_cons, bench_root, upl_bench, checkpca_loc = load_env()
 
     ### parse arguments
     args = parse_arguments()
@@ -641,10 +729,21 @@ if __name__=="__main__":
     # upload table
     #upload_table(new_table, scripts_loc, upl_ratdb)
 
-    ### Benchmarking scripts
-    # benchmarking 1: apply
+    ### PCA Processor
+    # create macro
     tw_table = "PCATW_201388_0.ratdb" # for test, need to get this from PCA proc / set
     gf_table = "PCAGF_201388_0.ratdb"
+    new_table = "123456.ratdb" # for test, will get from new_table portion
+    pca_root = "PCA_201388_0.root"
+    global_offset = 305.48 # need to get this from log file
+    #pca_proc_macro = create_pca_proc_mac()
+    #call_pca_proc(pca_proc_macro)
+    #call_checkPCA(pca_root, tw_table, gf_table, global_offset)
+    #call_compareTW(tw_table)
+    move_pca_plots(plots, runlist)
+
+    ### Benchmarking scripts
+    # benchmarking 1: apply
     #bench_apply_macro = create_bench_apply_mac(tw_table, gf_table)
 
     # benchmarking 2: process
@@ -659,10 +758,10 @@ if __name__=="__main__":
     #move_bench_plots(plots, runlist)
 
     # move pca files
-    move_pca_files()
+    #move_pca_files()
 
     # cleanup
-    cleanup(runtime_loc)
+    #cleanup(runtime_loc)
 
     # check final job count
     #get_final_job_count(jobs)
