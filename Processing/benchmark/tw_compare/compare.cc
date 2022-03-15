@@ -186,7 +186,7 @@ int main(int argc, char* argv[]) {
     packresult = PCABitPack.PCAPacker(PCABitPack.UNPACK, PCABitPack.GRADIENT_INTERCEPT, TWpoints1[loc_word_fit], thisi, thisr);
     std::string binary = std::bitset<32>(TWstatus1[i]).to_string();
     int isOff = atoi(&binary[30]);
-    if (isOff != 1){
+    if (isOff == 1){
       IDs1.push_back( i );
       Intercept1.push_back( thisi );
       Gradient1.push_back( thisr );
@@ -194,7 +194,7 @@ int main(int argc, char* argv[]) {
     packresult = PCABitPack.PCAPacker(PCABitPack.UNPACK, PCABitPack.GRADIENT_INTERCEPT, TWpoints2[loc_word_fit], thisi_old, thisr_old);
     std::string binary2 = std::bitset<32>(TWstatus2[i]).to_string();
     int isOff_old = atoi(&binary2[30]);
-    if (isOff_old != 1){
+    if (isOff_old == 1){
       IDs2.push_back( i );
       Intercept2.push_back( thisi_old );
       Gradient2.push_back( thisr_old );

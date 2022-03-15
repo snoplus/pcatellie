@@ -906,7 +906,7 @@ namespace RAT {
     if (maxS/meanS > 1.+TOL || minS/meanS < 1.-TOL) {
       stableNHitFlag = 0;
     } else { stableNHitFlag = 1; }
-    logFile_Flags << "Stable NHit flag: " << extaFlag << endl;
+    logFile_Flags << "Stable NHit flag: " << stableNHitFlag << endl;
     fprintf(logFile, "Rolling NHit mean: %f\n", meanS);
     fprintf(logFile, "Rolling NHit min: %f\n", minS);
     fprintf(logFile, "Rolling NHit max: %f\n", maxS);

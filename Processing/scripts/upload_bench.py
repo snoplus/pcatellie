@@ -110,6 +110,14 @@ def parse_content(content, timestamp, type):
                 Run1TW = int(re.search(r'\d+', line.split(":")[1]).group())
             if "Run2:" in line:
                 Run2TW = int(re.search(r'\d+', line.split(":")[1]).group())
+            if "min_grad:" in line:
+                min_grad = re.findall(r"[-+]?\d*\.\d+|\d+", line)[0]
+            if "max_grad:" in line:
+                max_grad = re.findall(r"[-+]?\d*\.\d+|\d+", line)[0]
+            if "min_inter:" in line:
+                min_inter = re.findall(r"[-+]?\d*\.\d+|\d+", line)[0]
+            if "max_inter:" in line:
+                max_inter = re.findall(r"[-+]?\d*\.\d+|\d+", line)[0]
         json_data2 = {
         "Run1TW": Run1TW,
         "Run2TW": Run2TW,
@@ -118,7 +126,11 @@ def parse_content(content, timestamp, type):
         "off1": off1,
         "off2": off2,
         "goodCount": goodCount,
-        "badCount": badCount
+        "badCount": badCount,
+        "min_grad": min_grad,
+        "max_grad": max_grad,
+        "min_inter": min_inter,
+        "max_inter": max_inter
         }
         return json_data2
     elif type == "peak":
