@@ -578,6 +578,14 @@ def move_pca_files():
     os.system( cmd )
     insert_line()
 
+def set_new_names(new_table):
+    new_set_name = new_table.split(".")[0]
+    tw_table = "PCATW_" + new_set_name + "_0.ratdb" # make sure this works
+    gf_table = "PCAGF_" + new_set_name + "_0.ratdb"
+    pca_root = "PCA_" + new_set_name + "_0.root"
+    pca_log_file = "PCA_log_" + new_set_name + "_0.root"
+    return tw_table, gf_table, pca_root, pca_log_file
+
 def create_pca_proc_mac() :
     print "Creating pca proc macro:"
     pca_proc_macro  = new_table.split(".")[0] + '_pca.mac'
@@ -596,6 +604,11 @@ def call_pca_proc(pca_proc_macro):
     wait_for_job(job, 10800) # this is 15h, need to test
     insert_line()
     return
+
+def get_global_offset(pca_log_file):
+    # get the global offset from log file
+    global_offset = 100.00
+    return global_offset
 
 def call_checkPCA(pca_root, tw_table, gf_table, global_offset):
     print "Calling checkPCA script:"
@@ -696,22 +709,31 @@ if __name__=="__main__":
     ### start processing here
     jobs = []
 
-    test_run = good_runs
-    # call processing scripts here
-    #call_validate1(test_run, plots)
-    #upload_val1(upl_val1, scripts_loc, test_run)
+    ### call processing scripts here
+    # validation 1
+    if args.val1 == 1:
+        test_run = good_runs
+        #call_validate1(test_run, plots)
+        #upload_val1(upl_val1, scripts_loc, test_run)
 
-    # call fits scripts
-    #call_position_fit(test_run)
-    #move_fits(fits_folder, runtime_loc)
-    #call_angsys_fit(test_run)
-    #move_fits(fits_folder, runtime_loc)
-    #call_offset_fit(test_run)
-    #move_fits(fits_folder, runtime_loc)
-    #upload_fits(upl_fits, scripts_loc, good_runs)
+    ### call fits scripts
+    if args.fit1 == 1:
+        #call_position_fit(test_run)
+        #move_fits(fits_folder, runtime_loc)
 
-    #call_validate2(test_run)
-    #upload_val2(upl_val2, scripts_loc, test_run)
+    if args.fit2 == 1:
+        #call_angsys_fit(test_run)
+        #move_fits(fits_folder, runtime_loc)
+
+    if args.fit3 == 1:
+        #call_offset_fit(test_run)
+        #move_fits(fits_folder, runtime_loc)
+        #upload_fits(upl_fits, scripts_loc, good_runs)
+
+    # validation 2
+    if args.val2 == 1:
+        #call_validate2(test_run)
+        #upload_val2(upl_val2, scripts_loc, test_run)
 
     # create run folder
     #create_run_folder(plots, test_run)
@@ -720,22 +742,22 @@ if __name__=="__main__":
     #move_plots(plots, runtime_loc, test_run)
 
     # make pca table
-    #new_table = make_pca_table(make_table, scripts_loc, tables_loc, test_run)
+    if args.pca_tab == 1:
+        #new_table = make_pca_table(make_table, scripts_loc, tables_loc, test_run)
 
     # compare table & move plots
-    #compare_tables_two(tables_loc, tables_scripts, compare_table, good_runs)
-    #compare_tables_all(tables_scripts, compare_all)
+    if args.pca_tab_comp == 1:
+        #compare_tables_two(tables_loc, tables_scripts, compare_table, good_runs)
+        #compare_tables_all(tables_scripts, compare_all)
 
     # upload table
-    #upload_table(new_table, scripts_loc, upl_ratdb)
+    if args.pca_tab_upl == 1:
+        #upload_table(new_table, scripts_loc, upl_ratdb)
 
     ### PCA Processor
     # create macro
-    tw_table = "PCATW_201388_0.ratdb" # for test, need to get this from PCA proc / set
-    gf_table = "PCAGF_201388_0.ratdb"
-    new_table = "123456.ratdb" # for test, will get from new_table portion
-    pca_root = "PCA_201388_0.root"
-    global_offset = 305.48 # need to get this from log file
+    tw_table, gf_table, pca_root, pca_log_file = set_new_names(new_table)
+    global_offset = get_global_offset(pca_log_file) # need to get this from log file
     #pca_proc_macro = create_pca_proc_mac()
     #call_pca_proc(pca_proc_macro)
     #call_checkPCA(pca_root, tw_table, gf_table, global_offset)
