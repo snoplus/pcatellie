@@ -6,10 +6,10 @@
 /rat/db/set DETECTOR geo_file "geo/snoplus_full.geo"
 
 /rat/db/load /home/michal/Automation/Processing/fits/belly_fibres.ratdb
-/rat/db/load /home/michal/Automation/Processing/temp_ratdb/ECA_PDST.ratdb
-/rat/db/load /home/michal/Automation/Processing/temp_ratdb/ECA_TSLP.ratdb
-/rat/db/load /home/michal/Automation/Processing/temp_ratdb/PCA_TW.ratdb
-/rat/db/load /home/michal/Automation/Processing/temp_ratdb/PMT_DQXX.ratdb
+#/rat/db/load /home/michal/Automation/Processing/temp_ratdb/ECA_PDST.ratdb
+#/rat/db/load /home/michal/Automation/Processing/temp_ratdb/ECA_TSLP.ratdb
+#/rat/db/load /home/michal/Automation/Processing/temp_ratdb/PCA_TW.ratdb
+#/rat/db/load /home/michal/Automation/Processing/temp_ratdb/PMT_DQXX.ratdb
 
 /run/initialize
 
