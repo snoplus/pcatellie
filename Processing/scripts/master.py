@@ -583,8 +583,9 @@ def set_new_names(new_table):
     tw_table = "PCATW_" + new_set_name + "_0.ratdb" # make sure this works
     gf_table = "PCAGF_" + new_set_name + "_0.ratdb"
     pca_root = "PCA_" + new_set_name + "_0.root"
-    pca_log_file = "PCA_log_" + new_set_name + "_0.root"
-    return tw_table, gf_table, pca_root, pca_log_file
+    pca_log_file = "PCA_log_" + new_set_name + "_0.ratdb"
+    bench_root = new_set_name + ".root"
+    return tw_table, gf_table, pca_root, pca_log_file, bench_root
 
 def create_pca_proc_mac() :
     print "Creating pca proc macro:"
@@ -605,9 +606,20 @@ def call_pca_proc(pca_proc_macro):
     insert_line()
     return
 
-def get_global_offset(pca_log_file):
+def get_global_offset():
     # get the global offset from log file
-    global_offset = 100.00
+    log_files = []
+    for file in os.listdir("."):
+        if file.endswith(".log"):
+            log_files.append( file )
+    latest_file = max(log_files, key=os.path.getctime)
+
+    with open(latest_file) as f:
+        log_data = f.readlines()
+
+    for line in log_data:
+        if "Global time offset" in line:
+            global_offset = float(line.split(" ")[4])
     return global_offset
 
 def call_checkPCA(pca_root, tw_table, gf_table, global_offset):
@@ -692,7 +704,7 @@ if __name__=="__main__":
 
     ### for everything else, we need a runlist to process
     runlist = parse_run_list(args.run_list_file)
-    #create_dataset_doc(runlist, cdb_add, cdb_db, cdb_user, cdb_pw)
+    create_dataset_doc(runlist, cdb_add, cdb_db, cdb_user, cdb_pw)
 
     ### check runs exist
     good_runs, supplied_runs_c, good_runs_c = check_data_exists(runlist, data_loc)
@@ -756,13 +768,13 @@ if __name__=="__main__":
 
     ### PCA Processor
     # create macro
-    tw_table, gf_table, pca_root, pca_log_file = set_new_names(new_table)
-    global_offset = get_global_offset(pca_log_file) # need to get this from log file
+    #tw_table, gf_table, pca_root, pca_log_file, bench_root = set_new_names(new_table)
     #pca_proc_macro = create_pca_proc_mac()
     #call_pca_proc(pca_proc_macro)
+    #global_offset = get_global_offset()
     #call_checkPCA(pca_root, tw_table, gf_table, global_offset)
     #call_compareTW(tw_table)
-    move_pca_plots(plots, runlist)
+    #move_pca_plots(plots, runlist)
 
     ### Benchmarking scripts
     # benchmarking 1: apply
@@ -774,8 +786,7 @@ if __name__=="__main__":
     # benchmarking 3: compare scripts
     #cd_log = call_cd_compare(bench_cd, tw_table)
     #tw_log = call_tw_compare(bench_tw, tw_table)
-    temp_root = "201388.root" # for test, need to get this from bench process
-    #peak_log = call_peak_compare(bench_peak, temp_root)
+    #peak_log = call_peak_compare(bench_peak, bench_root)
     #upload_bench(cd_log, tw_log, peak_log, scripts_loc, upl_bench)
     #move_bench_plots(plots, runlist)
 
