@@ -142,15 +142,15 @@ def set_job_limit(cores_arg):
 
 def call_validate1(good_runs, plots):
     print "Calling validate1 script..."
-    #while job_counter <= cores:      will introduce this later
     for run in good_runs:
-        print "Run: ", run
+	while job_counter <= cores: 
+    	   print "Run: ", run
 
-        cmd = val1_log + "myrat " + val1_log + "template.mac -i " + data_loc + run
-        print cmd
-        process_val1 = call_command( cmd )
-        jobs.append( process_val1 )
-        insert_line()
+           cmd = val1_log + "myrat " + val1_log + "template.mac -i " + data_loc + run
+           print cmd
+           process_val1 = call_command( cmd )
+           jobs.append( process_val1 )
+           insert_line()
 
     jobs_running(jobs)
 
@@ -584,8 +584,8 @@ def set_new_names(new_table):
     gf_table = "PCAGF_" + new_set_name + "_0.ratdb"
     pca_root = "PCA_" + new_set_name + "_0.root"
     pca_log_file = "PCA_log_" + new_set_name + "_0.ratdb"
-    bench_root = new_set_name + ".root"
-    return tw_table, gf_table, pca_root, pca_log_file, bench_root
+    bench_root_file = new_set_name + ".root"
+    return tw_table, gf_table, pca_root, pca_log_file, bench_root_file
 
 def create_pca_proc_mac() :
     print "Creating pca proc macro:"
@@ -704,7 +704,7 @@ if __name__=="__main__":
 
     ### for everything else, we need a runlist to process
     runlist = parse_run_list(args.run_list_file)
-    create_dataset_doc(runlist, cdb_add, cdb_db, cdb_user, cdb_pw)
+    #create_dataset_doc(runlist, cdb_add, cdb_db, cdb_user, cdb_pw)
 
     ### check runs exist
     good_runs, supplied_runs_c, good_runs_c = check_data_exists(runlist, data_loc)
@@ -725,53 +725,55 @@ if __name__=="__main__":
     # validation 1
     if args.val1 == 1:
         test_run = good_runs
-        #call_validate1(test_run, plots)
-        #upload_val1(upl_val1, scripts_loc, test_run)
+        call_validate1(test_run, plots)
+        upload_val1(upl_val1, scripts_loc, test_run)
 
     ### call fits scripts
     if args.fit1 == 1:
-        #call_position_fit(test_run)
+        call_position_fit(test_run)
         #move_fits(fits_folder, runtime_loc)
 
     if args.fit2 == 1:
-        #call_angsys_fit(test_run)
+        call_angsys_fit(test_run)
         #move_fits(fits_folder, runtime_loc)
 
     if args.fit3 == 1:
-        #call_offset_fit(test_run)
+        call_offset_fit(test_run)
         #move_fits(fits_folder, runtime_loc)
-        #upload_fits(upl_fits, scripts_loc, good_runs)
+        upload_fits(upl_fits, scripts_loc, good_runs)
 
     # validation 2
     if args.val2 == 1:
-        #call_validate2(test_run)
-        #upload_val2(upl_val2, scripts_loc, test_run)
+        call_validate2(test_run)
+        upload_val2(upl_val2, scripts_loc, test_run)
+
+    move_fits(fits_folder, runtime_loc)
 
     # create run folder
-    #create_run_folder(plots, test_run)
+    create_run_folder(plots, test_run)
 
     # move plots
-    #move_plots(plots, runtime_loc, test_run)
+    move_plots(plots, runtime_loc, test_run)
 
     # make pca table
     if args.pca_tab == 1:
-        #new_table = make_pca_table(make_table, scripts_loc, tables_loc, test_run)
+        new_table = make_pca_table(make_table, scripts_loc, tables_loc, test_run)
 
     # compare table & move plots
     if args.pca_tab_comp == 1:
-        #compare_tables_two(tables_loc, tables_scripts, compare_table, good_runs)
-        #compare_tables_all(tables_scripts, compare_all)
+        compare_tables_two(tables_loc, tables_scripts, compare_table, good_runs)
+        compare_tables_all(tables_scripts, compare_all)
 
     # upload table
-    if args.pca_tab_upl == 1:
+    #if args.pca_tab_upl == 1:
         #upload_table(new_table, scripts_loc, upl_ratdb)
 
     ### PCA Processor
     # create macro
-    #tw_table, gf_table, pca_root, pca_log_file, bench_root = set_new_names(new_table)
-    #pca_proc_macro = create_pca_proc_mac()
-    #call_pca_proc(pca_proc_macro)
-    #global_offset = get_global_offset()
+    tw_table, gf_table, pca_root, pca_log_file, bench_root_file = set_new_names(new_table)
+    pca_proc_macro = create_pca_proc_mac()
+    call_pca_proc(pca_proc_macro)
+    global_offset = get_global_offset()
     #call_checkPCA(pca_root, tw_table, gf_table, global_offset)
     #call_compareTW(tw_table)
     #move_pca_plots(plots, runlist)
@@ -786,7 +788,7 @@ if __name__=="__main__":
     # benchmarking 3: compare scripts
     #cd_log = call_cd_compare(bench_cd, tw_table)
     #tw_log = call_tw_compare(bench_tw, tw_table)
-    #peak_log = call_peak_compare(bench_peak, bench_root)
+    #peak_log = call_peak_compare(bench_peak, bench_root_file)
     #upload_bench(cd_log, tw_log, peak_log, scripts_loc, upl_bench)
     #move_bench_plots(plots, runlist)
 
@@ -797,4 +799,4 @@ if __name__=="__main__":
     #cleanup(runtime_loc)
 
     # check final job count
-    #get_final_job_count(jobs)
+    get_final_job_count(jobs)
