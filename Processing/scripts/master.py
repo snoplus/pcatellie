@@ -143,14 +143,13 @@ def set_job_limit(cores_arg):
 def call_validate1(good_runs, plots):
     print "Calling validate1 script..."
     for run in good_runs:
-	while job_counter <= cores: 
-    	   print "Run: ", run
+	   print "Run: ", run
 
-           cmd = val1_log + "myrat " + val1_log + "template.mac -i " + data_loc + run
-           print cmd
-           process_val1 = call_command( cmd )
-           jobs.append( process_val1 )
-           insert_line()
+       cmd = val1_log + "myrat " + val1_log + "template.mac -i " + data_loc + run
+       print cmd
+       process_val1 = call_command( cmd )
+       jobs.append( process_val1 )
+       insert_line()
 
     jobs_running(jobs)
 
