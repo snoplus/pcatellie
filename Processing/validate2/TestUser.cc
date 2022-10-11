@@ -232,9 +232,9 @@ namespace RAT {
     fits_file_ang = getenv("ANG_FIT_FILE");
     fits_file_dir = getenv("DIR_FIT_FILE");
     fits_file_offset = getenv("OFFSET_FIT_FILE");
-    ang_fit_file << fits_folder << "/" << fits_file_ang;
-    dir_fit_file << fits_folder << "/" << fits_file_dir;
-    offset_fit_file << fits_folder << "/" << fits_file_offset;
+    ang_fit_file << fits_file_ang;
+    dir_fit_file << fits_file_dir;
+    offset_fit_file << fits_file_offset;
     delim = "\t";
 
     // Validation

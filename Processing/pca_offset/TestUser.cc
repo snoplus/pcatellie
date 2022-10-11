@@ -186,8 +186,8 @@ namespace RAT {
     fits_folder = getenv("FITS_FOLDER");
     fits_file_ang = getenv("ANG_FIT_FILE");
     fits_file_dir = getenv("DIR_FIT_FILE");
-    ang_fit_file << fits_folder << "/" << fits_file_ang;
-    dir_fit_file << fits_folder << "/" << fits_file_dir;
+    ang_fit_file << fits_file_ang;
+    dir_fit_file << fits_file_dir;
     delim = "\t";
     LOCALITY = atoi(getenv("LOCALITY"));
     fLEDWavelength = 506.0*1e-6;

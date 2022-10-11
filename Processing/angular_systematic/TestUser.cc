@@ -198,7 +198,7 @@ namespace RAT {
     energy = util::WavelengthToEnergy(fLEDWavelength);
     fits_folder = getenv("FITS_FOLDER");
     fits_file = getenv("DIR_FIT_FILE");
-    dir_fit_file << fits_folder << "/" << fits_file;
+    dir_fit_file << fits_file;
     delim = "\t";
     MAXANG = atoi(getenv("ANG_SYS_ANG"));
     NBINS = 24;
