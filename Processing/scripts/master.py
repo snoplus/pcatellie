@@ -91,14 +91,27 @@ def check_jobs(jobs):
             fail += 1
     return running, success, fail
 
-def jobs_running(jobs):
-    # check jobs are running
+def jobs_running(cmds):
+    while len(cmds) > 0:                    # keep submitting jobs if there are any in q
+        print "Jobs to submit: ", len(cmds)
+        if check_jobs(jobs)[0] < cores:     # if we have empty slot(s), submit
+            print "Submitting: ", cmds[0]
+            process = call_command( cmds[0] )
+            jobs.append( process )
+            del cmds[0]
+        # wait for slots                    
+        print check_jobs(jobs)                
+        time.sleep(10)
+    print "All submitted, now waiting..."
     while check_jobs(jobs)[0] != 0:
         print check_jobs(jobs)
         time.sleep(10)
-    print "DONE: ALL JOBS"
-    insert_line()
-    return
+        insert_line()
+    else: 
+        print "DONE: ALL JOBS"
+        print check_jobs(jobs)
+        insert_line()
+        return
 
 def reupload_env():
     # submit reupload
@@ -142,73 +155,67 @@ def set_job_limit(cores_arg):
 
 def call_validate1(good_runs, plots):
     print "Calling validate1 script..."
+    cmds = []
     for run in good_runs:
-	   print "Run: ", run
+        print "Run: ", run
+        cmd = val1_log + "myrat " + val1_log + "template.mac -i " + data_loc + run
+        cmds.append( cmd )
+        insert_line()
 
-       cmd = val1_log + "myrat " + val1_log + "template.mac -i " + data_loc + run
-       print cmd
-       process_val1 = call_command( cmd )
-       jobs.append( process_val1 )
-       insert_line()
-
-    jobs_running(jobs)
-
+    print "Jobs in queue: ", len(cmds)
+    jobs_running( cmds )
     return
 
 def call_position_fit(good_runs):
     print "Calling position fit script..."
+    cmds = []
     for run in good_runs:
         print "Run: ", run
-
         cmd = dir_log + "myrat " + dir_log + "template.mac -i " + data_loc + run
-        print cmd
-        process_posf = call_command( cmd )
-        jobs.append( process_posf )
+        cmds.append( cmd )
         insert_line()
 
-    jobs_running(jobs)
+    print "Jobs in queue: ", len(cmds)
+    jobs_running( cmds )
     return
 
 def call_angsys_fit(good_runs):
     print "Calling ang sys fit script..."
+    cmds = []
     for run in good_runs:
         print "Run: ", run
-
         cmd = as_log + "myrat " + as_log + "template.mac -i " + data_loc + run
-        print cmd
-        process_angsys = call_command( cmd )
-        jobs.append( process_angsys )
+        cmds.append( cmd )
         insert_line()
 
-    jobs_running(jobs)
+    print "Jobs in queue: ", len(cmds)
+    jobs_running( cmds )
     return
 
 def call_offset_fit(good_runs):
     print "Calling pca offset script..."
+    cmds = []
     for run in good_runs:
         print "Run: ", run
-
         cmd = pca_log + "myrat " + pca_log + "template.mac -i " + data_loc + run
-        print cmd
-        process_offset = call_command( cmd )
-        jobs.append( process_offset )
+        cmds.append( cmd )
         insert_line()
 
-    jobs_running(jobs)
+    print "Jobs in queue: ", len(cmds)
+    jobs_running( cmds )
     return
 
 def call_validate2(good_runs):
     print "Calling validate2 script..."
+    cmds = []
     for run in good_runs:
         print "Run: ", run
-
         cmd = val2_log + "myrat " + val2_log + "template.mac -i " + data_loc + run
-        print cmd
-        process_val2 = call_command( cmd )
-        jobs.append( process_val2 )
+        cmds.append( cmd )
         insert_line()
 
-    jobs_running(jobs)
+    print "Jobs in queue: ", len(cmds)
+    jobs_running( cmds )
     return
 
 def get_final_job_count(jobs):
@@ -703,7 +710,7 @@ if __name__=="__main__":
 
     ### for everything else, we need a runlist to process
     runlist = parse_run_list(args.run_list_file)
-    #create_dataset_doc(runlist, cdb_add, cdb_db, cdb_user, cdb_pw)
+    create_dataset_doc(runlist, cdb_add, cdb_db, cdb_user, cdb_pw)
 
     ### check runs exist
     good_runs, supplied_runs_c, good_runs_c = check_data_exists(runlist, data_loc)
@@ -730,15 +737,15 @@ if __name__=="__main__":
     ### call fits scripts
     if args.fit1 == 1:
         call_position_fit(test_run)
-        #move_fits(fits_folder, runtime_loc)
+        move_fits(fits_folder, runtime_loc)
 
     if args.fit2 == 1:
         call_angsys_fit(test_run)
-        #move_fits(fits_folder, runtime_loc)
+        move_fits(fits_folder, runtime_loc)
 
     if args.fit3 == 1:
         call_offset_fit(test_run)
-        #move_fits(fits_folder, runtime_loc)
+        move_fits(fits_folder, runtime_loc)
         upload_fits(upl_fits, scripts_loc, good_runs)
 
     # validation 2
@@ -769,10 +776,10 @@ if __name__=="__main__":
 
     ### PCA Processor
     # create macro
-    tw_table, gf_table, pca_root, pca_log_file, bench_root_file = set_new_names(new_table)
-    pca_proc_macro = create_pca_proc_mac()
-    call_pca_proc(pca_proc_macro)
-    global_offset = get_global_offset()
+    #tw_table, gf_table, pca_root, pca_log_file, bench_root_file = set_new_names(new_table)
+    #pca_proc_macro = create_pca_proc_mac()
+    #call_pca_proc(pca_proc_macro)
+    #global_offset = get_global_offset()
     #call_checkPCA(pca_root, tw_table, gf_table, global_offset)
     #call_compareTW(tw_table)
     #move_pca_plots(plots, runlist)
