@@ -7,12 +7,12 @@ def load_env():
     return runtime_loc, data_loc
 
 def get_args():
-    if len(sys.argv) < 3:
+    if len(sys.argv) < 4:
         print "Please provide the runlist"
         exit()
     else:
         runs = []
-        for run in sys.argv[1:]:
+        for run in sys.argv[2:]:
             runs.append( run )
         return runs
 
@@ -29,6 +29,7 @@ def create_content(runs, data_loc):
     macro += '/rat/db/set PCA_GENERATION pca_verbosity 2\n'
     macro += '/rat/db/set PCA_GENERATION pca_source_mode 0\n'
     macro += '/rat/db/set PCA_GENERATION applyAngSys 1\n\n'
+    macro += '/rat/db/load ../pca_tables/tables/' + sys.argv[2] + '\n\n'
 
     for run in runs:
         macro += '/rat/inzdab/load ' + data_loc + run + '\n'
