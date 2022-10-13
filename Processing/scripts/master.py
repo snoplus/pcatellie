@@ -596,7 +596,7 @@ def set_new_names(new_table):
 def create_pca_proc_mac() :
     print "Creating pca proc macro:"
     pca_proc_macro  = new_table.split(".")[0] + '_pca.mac'
-    cmd = "python " + scripts_loc + create_pca_proc + " " + new_table + " ".join([str(item) for item in good_runs])
+    cmd = "python " + scripts_loc + create_pca_proc + " " + new_table + " " + " ".join([str(item) for item in good_runs])
     print cmd
     job = call_command( cmd )
     wait_for_job(job, 2)
