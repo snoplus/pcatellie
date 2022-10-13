@@ -595,7 +595,7 @@ def set_new_names(new_table):
 
 def create_pca_proc_mac() :
     print "Creating pca proc macro:"
-    pca_proc_macro  = new_table.split(".")[0] + '_pca.mac'
+    pca_proc_macro  = new_table.split(".")[0] + '_pca_proc.mac'
     cmd = "python " + scripts_loc + create_pca_proc + " " + new_table + " " + " ".join([str(item) for item in good_runs])
     print cmd
     job = call_command( cmd )
@@ -710,7 +710,7 @@ if __name__=="__main__":
 
     ### for everything else, we need a runlist to process
     runlist = parse_run_list(args.run_list_file)
-    create_dataset_doc(runlist, cdb_add, cdb_db, cdb_user, cdb_pw)
+    #create_dataset_doc(runlist, cdb_add, cdb_db, cdb_user, cdb_pw)
 
     ### check runs exist
     good_runs, supplied_runs_c, good_runs_c = check_data_exists(runlist, data_loc)
@@ -776,8 +776,8 @@ if __name__=="__main__":
     # create macro
     tw_table, gf_table, pca_root, pca_log_file, bench_root_file = set_new_names(new_table)
     pca_proc_macro = create_pca_proc_mac()
-    #call_pca_proc(pca_proc_macro)
-    #global_offset = get_global_offset()
+    call_pca_proc(pca_proc_macro)
+    global_offset = get_global_offset()
     #call_checkPCA(pca_root, tw_table, gf_table, global_offset)
     #call_compareTW(tw_table)
     #move_pca_plots(plots, runlist)
