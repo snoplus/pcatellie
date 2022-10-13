@@ -89,15 +89,18 @@ def check_jobs(jobs):
             success += 1
         else:
             fail += 1
+            failed_jobs.append( job )
     return running, success, fail
 
 def jobs_running(cmds):
+    failed_jobs = []
     while len(cmds) > 0:                    # keep submitting jobs if there are any in q
         print "Jobs to submit: ", len(cmds)
         if check_jobs(jobs)[0] < cores:     # if we have empty slot(s), submit
             print "Submitting: ", cmds[0]
             process = call_command( cmds[0] )
             jobs.append( process )
+            time.sleep(30)
             del cmds[0]
         # wait for slots                    
         print check_jobs(jobs)                
@@ -111,7 +114,15 @@ def jobs_running(cmds):
         print "DONE: ALL JOBS"
         print check_jobs(jobs)
         insert_line()
+        print "Retry failed jobs here!"
+        retry_failed_jobs(failed_jobs)
         return
+
+def retry_failed_jobs(failed_jobs):
+    print "Failed jobs:", len(failed_jobs)
+    for fjob in failed_jobs:
+        print fjob
+    return
 
 def reupload_env():
     # submit reupload
@@ -741,7 +752,6 @@ if __name__=="__main__":
     ### call processing scripts here
     # validation 1
     #if args.val1 == 1:
-        #test_run = good_runs
         #call_validate1(test_run, plots)
         #upload_val1(upl_val1, scripts_loc, test_run)
 
