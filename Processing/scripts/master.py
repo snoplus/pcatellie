@@ -361,6 +361,14 @@ def cleanup(runtime_loc):
     insert_line()
     return
 
+def log_cleanup(runtime_loc):
+    print "Log leanup:"
+    cmd = "rm " + runtime_loc + "rat.*.log "
+    print cmd
+    os.system( cmd ) #using os.system here due to wildcard*
+    insert_line()
+    return
+
 def wait_for_job(job, limit):
     counter = 0
     print "waiting for job to finish, limit: ", limit
@@ -626,6 +634,7 @@ def get_global_offset():
     for line in log_data:
         if "Global time offset" in line:
             global_offset = float(line.split(" ")[4])
+    print "Global time offset extracted:", global_offset
     return global_offset
 
 def call_checkPCA(pca_root, tw_table, gf_table, global_offset):
@@ -727,10 +736,12 @@ if __name__=="__main__":
     ### start processing here
     jobs = []
 
+    test_run = good_runs
+
     ### call processing scripts here
     # validation 1
-    if args.val1 == 1:
-        test_run = good_runs
+    #if args.val1 == 1:
+        #test_run = good_runs
         #call_validate1(test_run, plots)
         #upload_val1(upl_val1, scripts_loc, test_run)
 
@@ -751,6 +762,9 @@ if __name__=="__main__":
         #call_validate2(test_run)
         #upload_val2(upl_val2, scripts_loc, test_run)
 
+    # rat log cleanup
+    #log_cleanup(runtime_loc)
+
     #move_fits(fits_folder, runtime_loc)
 
     # create run folder
@@ -760,8 +774,8 @@ if __name__=="__main__":
     #move_plots(plots, runtime_loc, test_run)
 
     # make pca table
-    if args.pca_tab == 1:
-        new_table = make_pca_table(make_table, scripts_loc, tables_loc, test_run)
+    #if args.pca_tab == 1:
+        #new_table = make_pca_table(make_table, scripts_loc, tables_loc, test_run)
 
     # compare table & move plots
     #if args.pca_tab_comp == 1:
@@ -774,13 +788,14 @@ if __name__=="__main__":
 
     ### PCA Processor
     # create macro
+    new_table = "274958.ratdb"
     tw_table, gf_table, pca_root, pca_log_file, bench_root_file = set_new_names(new_table)
-    pca_proc_macro = create_pca_proc_mac()
-    call_pca_proc(pca_proc_macro)
+    #pca_proc_macro = create_pca_proc_mac()
+    #call_pca_proc(pca_proc_macro)
     global_offset = get_global_offset()
     #call_checkPCA(pca_root, tw_table, gf_table, global_offset)
     #call_compareTW(tw_table)
-    #move_pca_plots(plots, runlist)
+    move_pca_plots(plots, runlist)
 
     ### Benchmarking scripts
     # benchmarking 1: apply
