@@ -482,10 +482,10 @@ def create_bench_apply_mac(tw_table, gf_table) :
 
 def call_bench_apply(bench_apply_macro):
     print "Calling cd compare:"
-    cmd = bench_log + "myrat " + runtime_loc + bench_apply_macro
+    cmd = "rat " + runtime_loc + bench_apply_macro
     print cmd
-    job = call_command( cmd )
-    wait_for_job(job, 2222)
+    #job = call_command( cmd )
+    #wait_for_job(job, 2222)
     insert_line()
     return
 
