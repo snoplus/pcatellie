@@ -482,7 +482,7 @@ def create_bench_apply_mac(tw_table, gf_table) :
 
 def call_bench_apply(bench_apply_macro):
     print "Calling cd compare:"
-    cmd = "rat " + runtime_loc + bench_apply_macro
+    cmd = bench_log + "myrat " + runtime_loc + bench_apply_macro
     print cmd
     #job = call_command( cmd )
     #wait_for_job(job, 2222)
@@ -788,14 +788,13 @@ if __name__=="__main__":
 
     ### PCA Processor
     # create macro
-    new_table = "274958.ratdb"
-    tw_table, gf_table, pca_root, pca_log_file, bench_root_file = set_new_names(new_table)
+    #tw_table, gf_table, pca_root, pca_log_file, bench_root_file = set_new_names(new_table)
     #pca_proc_macro = create_pca_proc_mac()
     #call_pca_proc(pca_proc_macro)
-    global_offset = get_global_offset()
+    #global_offset = get_global_offset()
     #call_checkPCA(pca_root, tw_table, gf_table, global_offset)
     #call_compareTW(tw_table)
-    move_pca_plots(plots, runlist)
+    #move_pca_plots(plots, runlist)
 
     ### Benchmarking scripts
     # benchmarking 1: apply
