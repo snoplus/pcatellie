@@ -355,7 +355,7 @@ namespace RAT {
     gpmts = new TGraphErrors();
     fHitsC = new TCanvas ("fHitsC", "fHitsC", 1024, 768);
     fHitsRMSC = new TCanvas ("fHitsRMSC", "fHitsRMSC", 1024, 768);
-    fHits = new TH1D ("fHits", "", 100, 200, 220 );
+    fHits = new TH1D ("fHits", "", 100, 200, 250 );
     fHitsRMS = new TH1D ("fHitsRMS", "", 100, 0, 0.7 );
 
     // Output file for stats

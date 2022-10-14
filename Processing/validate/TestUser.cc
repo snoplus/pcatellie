@@ -198,6 +198,7 @@ protected:
   int BSpmtsFlag;
   int PINFlag;
   int PINNHitFlag;
+  int flag;
 
   // Database
   RAT::DBLinkPtr tellie_run_data;
@@ -524,6 +525,7 @@ namespace RAT {
       tellie_run_data = DB::Get()->GetLink("TELLIE_RUN");
       sub_run_info = tellie_run_data->GetJSON("sub_run_info");
       n_subruns = sub_run_info.getArraySize();
+      cout << "n_subs from couch: " << n_subruns << endl;
 
       // Access first subtun to get stuff
       run_mode_db = sub_run_info[0]["run_mode"].getString();
@@ -810,7 +812,7 @@ namespace RAT {
     // Validation checks
     fprintf(logFile, "### VALIDATION ###\n");
     logFile_Flags << "### FLAGS ###" << endl;
-    // 0: number of subruns (prevSubrun starts from zero, therefore the +1)
+    // 0: number of subruns (prevSubrun starts from -1, therefore the +1)
     if ( (n_subruns) == val_nsubs & (prevSubrun+1) == val_nsubs ){ nsubsFlag = 1; }
     logFile_Flags << "Subruns flag: " << nsubsFlag << endl;
     fprintf(logFile, "Subruns: %i\n", n_subruns);
@@ -1413,6 +1415,20 @@ namespace RAT {
       allEvs++;
 
       int subrun = ds.GetSubRunID();
+
+      // fix for old tellie runs 
+      if (allEvs == 1) {
+        if (subrun == 1) {
+          flag = 1;
+          cout << "old tellie run, applying fix for subruns..." << endl;
+        }
+        else if (subrun == 0) {
+          flag = 0;
+        }
+      }
+      if (flag == 1){ subrun = subrun - 1; }
+      //
+
       if (subrun != prevSubrun){ firstEXTAinSubrun = 1; }
       prevSubrun = subrun;
 
