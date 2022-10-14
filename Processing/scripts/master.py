@@ -746,6 +746,7 @@ if __name__=="__main__":
 
     ### start processing here
     jobs = []
+    failed_jobs = []
 
     test_run = good_runs
 
