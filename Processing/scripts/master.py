@@ -79,7 +79,6 @@ def check_status(process):
     return process.poll()
 
 def check_jobs(jobs, cmds_copy=[]):
-    print "check jobs, cmds_copy length:", cmds_copy
     running = 0
     success = 0
     fail = 0
@@ -91,12 +90,11 @@ def check_jobs(jobs, cmds_copy=[]):
         else:
             fail += 1
             if len(cmds_copy) > 0:
-                print "adding failed job"
                 failed_jobs.append( cmds_copy[i] )
     return running, success, fail
 
 def jobs_running(cmds, retry=False):
-    cmds_copy = cmds
+    cmds_copy = list(cmds)
     while len(cmds) > 0:                    # keep submitting jobs if there are any in q
         print "Jobs to submit: ", len(cmds)
         if check_jobs(jobs)[0] < cores:     # if we have empty slot(s), submit
@@ -115,17 +113,25 @@ def jobs_running(cmds, retry=False):
         insert_line()
     else: 
         print "DONE: ALL JOBS"
-        print "CMDS_COPY length:", len(cmds_copy)
-        print check_jobs(jobs, cmds_copy)
+        print check_jobs(jobs)
         insert_line()
+        update_all_jobs(jobs)
         if retry == True:
-            print "Retry failed jobs here!"
-            retry_failed_jobs(failed_jobs)
+            print check_jobs(jobs, cmds_copy)
+            retry_failed_jobs(failed_jobs, jobs)
         return
 
-def retry_failed_jobs(failed_jobs):
+def retry_failed_jobs(failed_jobs, jobs):
     print "Failed jobs:", len(failed_jobs)
+    print "Will attempt to retry..."
+    jobs *= 0
     jobs_running(failed_jobs)
+    return
+
+def update_all_jobs(jobs):
+    all_jobs[0] = check_jobs(jobs)[0]
+    all_jobs[1] = check_jobs(jobs)[1]
+    all_jobs[2] = check_jobs(jobs)[2]
     return
 
 def reupload_env():
@@ -233,8 +239,8 @@ def call_validate2(good_runs):
     jobs_running( cmds, True )
     return
 
-def get_final_job_count(jobs):
-    print "Final count: ", check_jobs(jobs)
+def get_final_job_count(all_jobs):
+    print "Final count: (" + str(all_jobs[0]) + ", " + str(all_jobs[1]) + ", " + str(all_jobs[2]) + ")"
     return
 
 def create_run_folder(plots, good_runs):
@@ -751,13 +757,14 @@ if __name__=="__main__":
     ### start processing here
     jobs = []
     failed_jobs = []
+    all_jobs = [0, 0, 0]
 
     test_run = good_runs
 
     ### call processing scripts here
     # validation 1
-    #if args.val1 == 1:
-        #call_validate1(test_run, plots)
+    if args.val1 == 1:
+        call_validate1(test_run, plots)
         #upload_val1(upl_val1, scripts_loc, test_run)
 
     ### call fits scripts
@@ -832,4 +839,4 @@ if __name__=="__main__":
     #cleanup(runtime_loc)
 
     # check final job count
-    get_final_job_count(jobs)
+    get_final_job_count(all_jobs)
