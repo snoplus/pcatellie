@@ -79,6 +79,7 @@ def check_status(process):
     return process.poll()
 
 def check_jobs(jobs, cmds_copy=[]):
+    print "check jobs, cmds_copy length:", cmds_copy
     running = 0
     success = 0
     fail = 0
@@ -90,7 +91,8 @@ def check_jobs(jobs, cmds_copy=[]):
         else:
             fail += 1
             if len(cmds_copy) > 0:
-                failed_jobs.append( cmds_copy )
+                print "adding failed job"
+                failed_jobs.append( cmds_copy[i] )
     return running, success, fail
 
 def jobs_running(cmds, retry=False):
@@ -113,6 +115,7 @@ def jobs_running(cmds, retry=False):
         insert_line()
     else: 
         print "DONE: ALL JOBS"
+        print "CMDS_COPY length:", len(cmds_copy)
         print check_jobs(jobs, cmds_copy)
         insert_line()
         if retry == True:
