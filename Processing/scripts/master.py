@@ -78,29 +78,30 @@ def call_command(cmd, use_shell=False):
 def check_status(process):
     return process.poll()
 
-def check_jobs(jobs):
+def check_jobs(jobs, cmds_copy=[]):
     running = 0
     success = 0
     fail = 0
-    for job in jobs:
-        if check_status(job) == None:
+    for i in range(0, len(jobs)):
+        if check_status(jobs[i]) == None:
             running += 1
-        elif check_status(job) == 0:
+        elif check_status(jobs[i]) == 0:
             success += 1
         else:
             fail += 1
-            failed_jobs.append( job )
+            if len(cmds_copy) > 0:
+                failed_jobs.append( cmds_copy )
     return running, success, fail
 
-def jobs_running(cmds):
-    failed_jobs = []
+def jobs_running(cmds, retry=False):
+    cmds_copy = cmds
     while len(cmds) > 0:                    # keep submitting jobs if there are any in q
         print "Jobs to submit: ", len(cmds)
         if check_jobs(jobs)[0] < cores:     # if we have empty slot(s), submit
             print "Submitting: ", cmds[0]
             process = call_command( cmds[0] )
             jobs.append( process )
-            time.sleep(30)
+            time.sleep(10)
             del cmds[0]
         # wait for slots                    
         print check_jobs(jobs)                
@@ -112,16 +113,16 @@ def jobs_running(cmds):
         insert_line()
     else: 
         print "DONE: ALL JOBS"
-        print check_jobs(jobs)
+        print check_jobs(jobs, cmds_copy)
         insert_line()
-        print "Retry failed jobs here!"
-        retry_failed_jobs(failed_jobs)
+        if retry == True:
+            print "Retry failed jobs here!"
+            retry_failed_jobs(failed_jobs)
         return
 
 def retry_failed_jobs(failed_jobs):
     print "Failed jobs:", len(failed_jobs)
-    for fjob in failed_jobs:
-        print fjob
+    jobs_running(failed_jobs)
     return
 
 def reupload_env():
@@ -174,7 +175,7 @@ def call_validate1(good_runs, plots):
         insert_line()
 
     print "Jobs in queue: ", len(cmds)
-    jobs_running( cmds )
+    jobs_running( cmds, True )
     return
 
 def call_position_fit(good_runs):
@@ -187,7 +188,7 @@ def call_position_fit(good_runs):
         insert_line()
 
     print "Jobs in queue: ", len(cmds)
-    jobs_running( cmds )
+    jobs_running( cmds, True )
     return
 
 def call_angsys_fit(good_runs):
@@ -200,7 +201,7 @@ def call_angsys_fit(good_runs):
         insert_line()
 
     print "Jobs in queue: ", len(cmds)
-    jobs_running( cmds )
+    jobs_running( cmds, True )
     return
 
 def call_offset_fit(good_runs):
@@ -213,7 +214,7 @@ def call_offset_fit(good_runs):
         insert_line()
 
     print "Jobs in queue: ", len(cmds)
-    jobs_running( cmds )
+    jobs_running( cmds, True )
     return
 
 def call_validate2(good_runs):
@@ -226,7 +227,7 @@ def call_validate2(good_runs):
         insert_line()
 
     print "Jobs in queue: ", len(cmds)
-    jobs_running( cmds )
+    jobs_running( cmds, True )
     return
 
 def get_final_job_count(jobs):
