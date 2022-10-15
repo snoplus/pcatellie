@@ -120,7 +120,6 @@ def jobs_running(cmds, retry=False):
             print check_jobs(jobs, cmds_copy)
             retry_failed_jobs(failed_jobs, jobs)
             update_all_jobs2(jobs)
-        reset_job_counter(jobs)
         return
 
 def retry_failed_jobs(failed_jobs, jobs):
@@ -199,6 +198,7 @@ def call_validate1(good_runs, plots):
 
     print "Jobs in queue: ", len(cmds)
     jobs_running( cmds, True )
+    reset_job_counter(jobs)
     return
 
 def call_position_fit(good_runs):
@@ -212,6 +212,7 @@ def call_position_fit(good_runs):
 
     print "Jobs in queue: ", len(cmds)
     jobs_running( cmds, True )
+    reset_job_counter(jobs)
     return
 
 def call_angsys_fit(good_runs):
@@ -225,6 +226,7 @@ def call_angsys_fit(good_runs):
 
     print "Jobs in queue: ", len(cmds)
     jobs_running( cmds, True )
+    reset_job_counter(jobs)
     return
 
 def call_offset_fit(good_runs):
@@ -238,6 +240,7 @@ def call_offset_fit(good_runs):
 
     print "Jobs in queue: ", len(cmds)
     jobs_running( cmds, True )
+    reset_job_counter(jobs)
     return
 
 def call_validate2(good_runs):
@@ -251,6 +254,7 @@ def call_validate2(good_runs):
 
     print "Jobs in queue: ", len(cmds)
     jobs_running( cmds, True )
+    reset_job_counter(jobs)
     return
 
 def get_final_job_count(all_jobs):
