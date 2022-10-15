@@ -138,12 +138,14 @@ def reset_job_counter(jobs):
 def update_all_jobs1(jobs):
     all_jobs[0] += check_jobs(jobs)[0]
     all_jobs[1] += check_jobs(jobs)[1]
+    print "ALL jobs current:", all_jobs
     return
 
 def update_all_jobs2(jobs):
     all_jobs[0] += check_jobs(jobs)[0]
     all_jobs[1] += check_jobs(jobs)[1]
     all_jobs[2] += check_jobs(jobs)[2]
+    print "ALL jobs current:", all_jobs
     return
 
 def reupload_env():
