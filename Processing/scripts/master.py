@@ -135,9 +135,9 @@ def reset_job_counter(jobs):
     return
 
 def update_all_jobs(jobs):
-    all_jobs[0] = check_jobs(jobs)[0]
-    all_jobs[1] = check_jobs(jobs)[1]
-    all_jobs[2] = check_jobs(jobs)[2]
+    all_jobs[0] += check_jobs(jobs)[0]
+    all_jobs[1] += check_jobs(jobs)[1]
+    all_jobs[2] += check_jobs(jobs)[2]
     return
 
 def reupload_env():
