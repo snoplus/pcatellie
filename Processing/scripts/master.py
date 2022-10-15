@@ -115,10 +115,11 @@ def jobs_running(cmds, retry=False):
         print "DONE: ALL JOBS"
         print check_jobs(jobs)
         insert_line()
-        update_all_jobs(jobs)
+        update_all_jobs1(jobs)
         if retry == True:
             print check_jobs(jobs, cmds_copy)
             retry_failed_jobs(failed_jobs, jobs)
+            update_all_jobs2(jobs)
         reset_job_counter(jobs)
         return
 
@@ -134,7 +135,12 @@ def reset_job_counter(jobs):
     jobs = []
     return
 
-def update_all_jobs(jobs):
+def update_all_jobs1(jobs):
+    all_jobs[0] += check_jobs(jobs)[0]
+    all_jobs[1] += check_jobs(jobs)[1]
+    return
+
+def update_all_jobs2(jobs):
     all_jobs[0] += check_jobs(jobs)[0]
     all_jobs[1] += check_jobs(jobs)[1]
     all_jobs[2] += check_jobs(jobs)[2]
