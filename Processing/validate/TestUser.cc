@@ -594,7 +594,7 @@ namespace RAT {
     // Init event loop graphs
     fNHitvsEvent = new TH2D ("fNHitvsEvent", "", 100, 0, 200000, 80, 0, 80);
     fNHitvsEventZOOM = new TGraph();
-    fTimevsEvent = new TH2D ("fTimevsEvent", "", 500, 0, 200000, 500, 270, 315);
+    fTimevsEvent = new TH2D ("fTimevsEvent", "", 500, 0, 200000, 500, 270, 330);
 
     // Output file for stats
     logFile_namess.str("");
@@ -981,7 +981,10 @@ namespace RAT {
       else { cout << "BAD TIME: " << tempMean << endl;
              fprintf(logFile, "BAD TIME: %i\t%f\n", i, timeMean);}
     }
-    if (timeRollFlag == fTimevsEventFit->GetN()){ timeRollFlag = 1; }
+    cout << "fit bins: " << fTimevsEventFit->GetN() << endl;
+    cout << "roll checks: " << timeRollFlag << endl;
+    if ( timeRollFlag > (fTimevsEventFit->GetN() - 10) ) { timeRollFlag = 1; }
+    else { timeRollFlag = 0; }
     logFile_Flags << "Time over event flag: " << timeRollFlag << endl;
 
     // 10: direct hits - # peaks
@@ -1428,6 +1431,7 @@ namespace RAT {
       }
       if (flag == 1){ subrun = subrun - 1; }
       //
+      if (subrun == 40){ continue; } // this should not happen, but sometimes does ?!
 
       if (subrun != prevSubrun){ firstEXTAinSubrun = 1; }
       prevSubrun = subrun;
