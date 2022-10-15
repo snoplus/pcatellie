@@ -377,6 +377,9 @@ namespace RAT {
     // Fits
     maxPeak = ResidualHits->GetMaximum();
     maxBin = ResidualHits->GetMaximumBin();
+    cout << "First fit here:" << endl;
+    cout << "maxPeak: " << maxPeak << endl;
+    cout << "maxBin: " << maxBin << endl;
     //Fit a gaussian to the peak defined as the function between both half maximum points
     for(int i=1; i<maxBin; i++){
         if(ResidualHits->GetBinContent(i) > 0.2*maxPeak){     // cut data < 20% of peak
@@ -390,12 +393,15 @@ namespace RAT {
             break;
         }
     }
+    cout << "lowmax, highmax: " <<  lowHalfMax << " " << highHalfMax << endl;
     ResidualHits->Fit("gaus","","",lowHalfMax,highHalfMax);
     peakFit = ResidualHits->GetFunction("gaus");
     pca_peak = peakFit->GetParameter(1);
     pca_peak_err = peakFit->GetParError(1);
     pca_width = peakFit->GetParameter(2);
     pca_width_err = peakFit->GetParError(2);
+
+    cout << "pca peak: " << pca_peak << endl;
 
     // One more loop for more precise peak fit
     ResidualHits2 = new TH1D ("ResidualHits2", "", 1000, pca_peak-3, pca_peak+2);
@@ -417,6 +423,9 @@ namespace RAT {
     // Fits2
     maxPeak2 = ResidualHits2->GetMaximum();
     maxBin2 = ResidualHits2->GetMaximumBin();
+    cout << "Second fit here:" << endl;
+    cout << "maxPeak2: " << maxPeak2 << endl;
+    cout << "maxBin2: " << maxBin2 << endl;
     //Fit a gaussian to the peak defined as the function between both half maximum points
     for(int i=1; i<maxBin2; i++){
         if(ResidualHits2->GetBinContent(i) > 0.01*maxPeak2){
@@ -424,12 +433,14 @@ namespace RAT {
             break;
         }
     }
+    cout << "xbins: " << ResidualHits2->GetXaxis()->GetNbins() << endl;
     for(int i=maxBin2; i<=ResidualHits2->GetXaxis()->GetNbins(); i++){
         if(ResidualHits2->GetBinContent(i) < 0.01*maxPeak2){
             highHalfMax2 = ResidualHits2->GetBinCenter(i);
             break;
         }
     }
+    cout << "lowmax2, highmax2: " <<  lowHalfMax2 << " " << highHalfMax2 << endl;
 
     ResidualHits2->Fit("gaus","","",lowHalfMax2,highHalfMax2);
     peakFit2 = ResidualHits2->GetFunction("gaus");
@@ -442,7 +453,6 @@ namespace RAT {
     cout << ResidualHits2->GetMean() << " " << ResidualHits2->GetRMS() << endl;
     cout << pca_peak << " " << pca_width << endl;
     cout << pca_peak2 << " " << pca_width2 << endl;
-    cout << maxPeak << " " << maxPeak2 << endl;
 
     // Write all objects to ROOT file
     // TODO: save this as png for each fibre
