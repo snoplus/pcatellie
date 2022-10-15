@@ -119,6 +119,7 @@ def jobs_running(cmds, retry=False):
         if retry == True:
             print check_jobs(jobs, cmds_copy)
             retry_failed_jobs(failed_jobs, jobs)
+        reset_job_counter(jobs)
         return
 
 def retry_failed_jobs(failed_jobs, jobs):
@@ -126,6 +127,11 @@ def retry_failed_jobs(failed_jobs, jobs):
     print "Will attempt to retry..."
     jobs *= 0
     jobs_running(failed_jobs)
+    return
+
+def reset_job_counter(jobs):
+    jobs *= 0
+    jobs = []
     return
 
 def update_all_jobs(jobs):
@@ -763,8 +769,8 @@ if __name__=="__main__":
 
     ### call processing scripts here
     # validation 1
-    if args.val1 == 1:
-        call_validate1(test_run, plots)
+    #if args.val1 == 1:
+        #call_validate1(test_run, plots)
         #upload_val1(upl_val1, scripts_loc, test_run)
 
     ### call fits scripts
@@ -776,7 +782,6 @@ if __name__=="__main__":
 
     #if args.fit3 == 1:
         #call_offset_fit(test_run)
-        #move_fits(fits_folder, runtime_loc)
         #upload_fits(upl_fits, scripts_loc, good_runs)
 
     # validation 2
