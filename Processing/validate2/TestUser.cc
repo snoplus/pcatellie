@@ -529,16 +529,22 @@ namespace RAT {
     for (size_t i=1; i<12; i+=2) {
       double now = fToF->Eval(i);
       double prev = fToF->Eval(i-1);
-      if (now <= prev+0.5) { tofDecreaseFlag += 1; }
+      if (i == 1){
+        if (now <= prev+1.5) { tofDecreaseFlag += 1; }
+      } else {
+        if (now <= prev+0.5) { tofDecreaseFlag += 1; }
+      }
       double now2 = fAngSys->Eval(i);
       double prev2 = fAngSys->Eval(i-1);
       if (now2 >= prev2) { asIncreaseFlag += 1; }
     }
     if ( tofDecreaseFlag == 6 ){ tofDecreaseFlag = 1; }
+    else { tofDecreaseFlag = 0; }
     logFile_Flags << "TOF progression flag: " << tofDecreaseFlag << endl;
 
     // 7: AS evaluate
     if ( asIncreaseFlag == 6 ){ asIncreaseFlag = 1; }
+    else { asIncreaseFlag = 0; }
     logFile_Flags << "Ang sys progression flag: " << asIncreaseFlag << endl;
 
     // 8: hit time residuals - peak
