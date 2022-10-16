@@ -331,9 +331,9 @@ def upload_fits(upl_fits, scripts_loc, good_runs):
     insert_line()
     return
 
-def make_pca_table(make_table, runtime_loc, tables_loc, good_runs):
+def make_pca_table(make_table, tables_scripts, tables_loc, good_runs):
     print "Creating RATDB table:"
-    cmd = "python " + runtime_loc + make_table
+    cmd = "python " + tables_scripts + make_table
     print cmd
     job = call_command( cmd )
     wait_for_job(job, 60)
@@ -820,7 +820,7 @@ if __name__=="__main__":
 
     # make pca table
     #if args.pca_tab == 1:
-        #new_table = make_pca_table(make_table, runtime_loc, tables_loc, test_run)
+        #new_table = make_pca_table(make_table, tables_scripts, tables_loc, test_run)
 
     #move_fits(fits_folder, runtime_loc)
 
