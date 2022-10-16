@@ -6,7 +6,7 @@ import os
 from datetime import datetime
 
 def load_env():
-    fits = os.getenv("FITS_FOLDER") + "/"
+    fits = os.getenv("RUNTIME_LOC")
     dir_file = os.getenv("DIR_FIT_FILE")
     ang_file = os.getenv("ANG_FIT_FILE")
     pcaoffset_file = os.getenv("OFFSET_FIT_FILE")

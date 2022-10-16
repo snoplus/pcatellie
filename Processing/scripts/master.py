@@ -101,7 +101,7 @@ def jobs_running(cmds, retry=False):
             print "Submitting: ", cmds[0]
             process = call_command( cmds[0] )
             jobs.append( process )
-            time.sleep(10)
+            time.sleep(15)
             del cmds[0]
         # wait for slots                    
         print check_jobs(jobs)                
@@ -283,9 +283,17 @@ def move_plots(plots, runtime_loc, good_runs):
 
 def move_fits(fits_folder, runtime_loc):
     print "Moving fits:"
-    cmd = 'mv ' + runtime_loc + '*fit.txt ' + fits_folder
+    sorted_runlist = sorted(runlist)
+    run_name = str(sorted_runlist[0])
+    cmd = 'mv ' + runtime_loc + dir_fit_file + " " + fits_folder + run_name + "_" + dir_fit_file
+    cmd2 = 'mv ' + runtime_loc + ang_fit_file + " " + fits_folder + run_name + "_" + ang_fit_file
+    cmd3 = 'mv ' + runtime_loc + offset_fit_file + " " + fits_folder + run_name + "_" + offset_fit_file
     print cmd
     os.system( cmd ) #using os.system here due to wildcard*
+    print cmd2
+    os.system( cmd2 )
+    print cmd3
+    os.system( cmd3 )
     insert_line()
     return
 
@@ -323,9 +331,9 @@ def upload_fits(upl_fits, scripts_loc, good_runs):
     insert_line()
     return
 
-def make_pca_table(make_table, scripts_loc, tables_loc, good_runs):
+def make_pca_table(make_table, runtime_loc, tables_loc, good_runs):
     print "Creating RATDB table:"
-    cmd = "python " + scripts_loc + make_table
+    cmd = "python " + runtime_loc + make_table
     print cmd
     job = call_command( cmd )
     wait_for_job(job, 60)
@@ -804,8 +812,6 @@ if __name__=="__main__":
     # rat log cleanup
     #log_cleanup(runtime_loc)
 
-    #move_fits(fits_folder, runtime_loc)
-
     # create run folder
     #create_run_folder(plots, test_run)
 
@@ -814,7 +820,9 @@ if __name__=="__main__":
 
     # make pca table
     #if args.pca_tab == 1:
-        #new_table = make_pca_table(make_table, scripts_loc, tables_loc, test_run)
+        #new_table = make_pca_table(make_table, runtime_loc, tables_loc, test_run)
+
+    #move_fits(fits_folder, runtime_loc)
 
     # compare table & move plots
     #if args.pca_tab_comp == 1:
