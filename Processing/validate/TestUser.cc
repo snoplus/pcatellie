@@ -594,7 +594,7 @@ namespace RAT {
     // Init event loop graphs
     fNHitvsEvent = new TH2D ("fNHitvsEvent", "", 100, 0, 200000, 80, 0, 80);
     fNHitvsEventZOOM = new TGraph();
-    fTimevsEvent = new TH2D ("fTimevsEvent", "", 500, 0, 200000, 500, 270, 330);
+    fTimevsEvent = new TH2D ("fTimevsEvent", "", 500, 0, 200000, 500, val_hitPeak-25, val_hitPeak+25);
 
     // Output file for stats
     logFile_namess.str("");

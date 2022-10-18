@@ -412,8 +412,8 @@ namespace RAT {
     fToF = new TGraph();
     fBucket = new TGraph();
     fAngSys = new TGraph();
-    fHitTimesAng = new TH2D ("fHitTimesAng", "", 100, 0, 12.5, 100, 280, 320 );
-    fResidTimesAng = new TH2D ("fResidTimesAng", "", 100, 0, 12.5, 100, 200, 240 );
+    fHitTimesAng = new TH2D ("fHitTimesAng", "", 100, 0, 12.5, 100, val_direct-25, val_direct+25 );
+    fResidTimesAng = new TH2D ("fResidTimesAng", "", 100, 0, 12.5, 100, val_resid-25, val_resid+25 );
 
     // Reset vectors
     t_ToF.clear();
@@ -460,7 +460,7 @@ namespace RAT {
     fTimes = new THStack("fTimes", "");
     fHitTimes = new TH1D ("fHitTimes", "", 100, *min_element(dir_hits.begin(), dir_hits.end())-2, *max_element(dir_hits.begin(), dir_hits.end())+2 );
     fResidTimes = new TH1D ("fResidTimes", "", 100, *min_element(resid_hits.begin(), resid_hits.end())-2, *max_element(resid_hits.begin(), resid_hits.end())+2 );
-    fHitTimesRel = new TH2D ("fHitTimesRel", "", 100, 280, 320, 100, 200, 240 );
+    fHitTimesRel = new TH2D ("fHitTimesRel", "", 100, val_direct-15, val_direct+15, 100, val_resid-15, val_resid+15 );
 
     // Prepare plots
     for (size_t i=0; i<t_ToF.size(); i++) {

@@ -108,6 +108,8 @@ protected:
   TVector3 *fitDir;
   TVector3 *maxima;
   float nearmax;
+  double val_hitPeak;
+  double val_residPeak;
 
   // RAT stuff
   RAT::DU::GroupVelocity gv;
@@ -205,6 +207,8 @@ namespace RAT {
     MORE_OUTPUT = true;
     NCOL = 20;
     nearmax = -1;
+    val_hitPeak = atof(getenv("HIT_PEAK"));
+    val_residPeak = atof(getenv("RESID_PEAK"));
     out = fopen("angular_fit.txt","a");
 
     // Load direction fit results
@@ -355,7 +359,7 @@ namespace RAT {
     gpmts = new TGraphErrors();
     fHitsC = new TCanvas ("fHitsC", "fHitsC", 1024, 768);
     fHitsRMSC = new TCanvas ("fHitsRMSC", "fHitsRMSC", 1024, 768);
-    fHits = new TH1D ("fHits", "", 100, 200, 250 );
+    fHits = new TH1D ("fHits", "", 100, val_residPeak-40, val_residPeak+40 );
     fHitsRMS = new TH1D ("fHitsRMS", "", 100, 0, 0.7 );
 
     // Output file for stats
@@ -1060,7 +1064,7 @@ namespace RAT {
         plotted_hist[thisbin]->GetYaxis()->SetTitle("Number of events");
         float tmpmean = plotted_hist[thisbin]->GetMean();
         float tmprms  = plotted_hist[thisbin]->GetRMS();
-        plotted_hist[thisbin]->GetXaxis()->SetRangeUser(200,300);
+        plotted_hist[thisbin]->GetXaxis()->SetRangeUser(val_residPeak-50,val_residPeak+50);
         plotted_hist[thisbin]->GetYaxis()->SetRangeUser(0,1.5*plotted_hist[thisbin]->GetMaximum());
         plotted_hist[thisbin]->GetXaxis()->SetTitleOffset(1.3);
         plotted_hist[thisbin]->GetYaxis()->SetTitleOffset(1.6);
