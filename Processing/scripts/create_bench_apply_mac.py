@@ -17,7 +17,7 @@ def get_args():
 
 def create_content():
     macro = '/rat/physics_list/OmitAll true\n'
-    macro += '/rat/db/set DETECTOR geo_file "geo/snoplusnative.geo"\n\n'
+    macro += '/rat/db/set DETECTOR geo_file "geo/snoplus_water.geo"\n\n'
     macro += '/rat/db/load ./' + pca_tw +'\n'
     macro += '/rat/db/load ./' + pca_gf +'\n\n'
     macro += '/rat/inzdab/load ' + pca_cons_loc + 'LB/lb3_0.zdab\n'
