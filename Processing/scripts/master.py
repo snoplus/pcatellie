@@ -307,7 +307,7 @@ def upload_val1(upl_val1, scripts_loc, good_runs):
         runn = str(extrac_run_number(run))
         cmd = "python " + scripts_loc + upl_val1 + " " + runn + "_val1.log"
         print cmd
-        call_command( cmd )
+        #call_command( cmd )
     insert_line()
     return
 
@@ -317,7 +317,7 @@ def upload_val2(upl_val2, scripts_loc, good_runs):
         runn = str(extrac_run_number(run))
         cmd = "python " + scripts_loc + upl_val2 + " " + runn + "_val2.log"
         print cmd
-        call_command( cmd )
+        #call_command( cmd )
     insert_line()
     return
 
@@ -327,7 +327,7 @@ def upload_fits(upl_fits, scripts_loc, good_runs):
         runn = str(extrac_run_number(run))
         cmd = "python " + scripts_loc + upl_fits + " " + runn + "_pos.log " + runn + "_as.log " + runn + "_pca.log "
         print cmd
-        call_command( cmd )
+        #call_command( cmd )
     insert_line()
     return
 
@@ -528,11 +528,11 @@ def create_bench_apply_mac(tw_table, gf_table) :
     return bench_apply_macro
 
 def call_bench_apply(bench_apply_macro):
-    print "Calling cd compare:"
+    print "Calling bench apply:"
     cmd = bench_log + "myrat " + runtime_loc + bench_apply_macro
     print cmd
     #job = call_command( cmd )
-    #wait_for_job(job, 2222)
+    #wait_for_job(job, 10000)
     insert_line()
     return
 
@@ -789,9 +789,9 @@ if __name__=="__main__":
 
     ### call processing scripts here
     # validation 1
-    #if args.val1 == 1:
+    if args.val1 == 1:
         #call_validate1(test_run, plots)
-        #upload_val1(upl_val1, scripts_loc, test_run)
+        upload_val1(upl_val1, scripts_loc, test_run)
 
     ### call fits scripts
     #if args.fit1 == 1:
@@ -800,14 +800,14 @@ if __name__=="__main__":
     #if args.fit2 == 1:
         #call_angsys_fit(test_run)
 
-    #if args.fit3 == 1:
+    if args.fit3 == 1:
         #call_offset_fit(test_run)
-        #upload_fits(upl_fits, scripts_loc, good_runs)
+        upload_fits(upl_fits, scripts_loc, good_runs)
 
     # validation 2
-    #if args.val2 == 1:
+    if args.val2 == 1:
         #call_validate2(test_run)
-        #upload_val2(upl_val2, scripts_loc, test_run)
+        upload_val2(upl_val2, scripts_loc, test_run)
 
     # rat log cleanup
     #log_cleanup(runtime_loc)
@@ -833,6 +833,7 @@ if __name__=="__main__":
     #if args.pca_tab_upl == 1:
         #upload_table(new_table, scripts_loc, upl_ratdb)
 
+    #new_table = "114670.ratdb"
     ### PCA Processor
     # create macro
     #tw_table, gf_table, pca_root, pca_log_file, bench_root_file = set_new_names(new_table)
