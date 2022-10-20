@@ -366,7 +366,6 @@ namespace RAT {
     logFile_namess.str("");
     logFile_namess << run_id << "_as.log";
     logFile_name = logFile_namess.str();
-    logFile = fopen(logFile_name.c_str(), "w");
 
   }
 
@@ -417,6 +416,7 @@ namespace RAT {
     double meanhittime = gpmts->GetMean(2);
     double rmshittime = gpmts->GetRMS(2);
     cout << "Mean hit time = " << meanhittime << " ns, RMS = " << rmshittime << " ns." << endl;
+    logFile = fopen(logFile_name.c_str(), "w");
     fprintf(logFile, "Mean hit time and RMS: %f\t%f\n", meanhittime, rmshittime);
 
     // Investigate PMTs with unusual offsets w.r.t. mean hit time
@@ -846,10 +846,15 @@ namespace RAT {
     // Store to file for next steps
     stringstream temp_output;
     temp_output << fibre_db << "\t" << fitResult->GetParameter(0) << "\t" << fitResult->GetParError(0) << "\t" << fitResult->GetParameter(1) << "\t" << fitResult->GetParError(1) << "\n";
+    out = fopen("angular_fit.txt","a");
     fprintf(out, temp_output.str().c_str());
+    fclose(out);
 
     fprintf(logFile, "Ang a: %f\t%f\n", fitResult->GetParameter(0), fitResult->GetParError(0));
     fprintf(logFile, "Ang b: %f\t%f\n", fitResult->GetParameter(1), fitResult->GetParError(1));
+    fclose(logFile);
+
+    return;
 
   }
 
@@ -987,7 +992,7 @@ namespace RAT {
 
     cout << "Fitting PMT prompt peaks..." << endl;
     for (int iPMT=0; iPMT<NPMTS; iPMT++) {
-      printProgress(iPMT, NPMTS);
+      //printProgress(iPMT, NPMTS);
 
       // Reject PMTs outside ROI
       if (occupancy[iPMT]<0.01) continue; // only consider PMTs with >=1% occupancy
@@ -1087,6 +1092,7 @@ namespace RAT {
     // Return 2D graph with fit results (by reconstructing object at given address)
     result = TGraph2DErrors(NPMTS,&x[0],&y[0],&z[0],&ex[0],&ey[0],&ez[0]);
 
+    return;
   }
 
   // -----------------------------------------------------------------------------
@@ -1107,4 +1113,5 @@ namespace RAT {
     int perc = (int)round(100.*prog);
     if (it < n-1) cout << "] " << perc << "%\r" << flush;
     else          cout << "] " << perc << "%\r" << endl;
+    return;
   }

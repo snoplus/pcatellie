@@ -601,7 +601,6 @@ namespace RAT {
     logFile_Flags.str("");
     logFile_namess << run_id << "_val1.log";
     logFile_name = logFile_namess.str();
-    logFile = fopen(logFile_name.c_str(), "w");
 
   }
 
@@ -653,6 +652,7 @@ namespace RAT {
     cout << "Weird path (not through AV): " << CDAV << " " << double(CDAV)/double(pmt_hits)*100 << endl;
     // Print to log File
     // Run stats
+    logFile = fopen(logFile_name.c_str(), "w");
     fprintf(logFile, "Run: %i\n", run_id);
     fprintf(logFile, "Channel: %i\n", channel);
     fprintf(logFile, "Fibre: %s\n", fibre_db.c_str());
@@ -1081,6 +1081,7 @@ namespace RAT {
 
     // Add flags to log file
     fprintf(logFile, logFile_Flags.str().c_str());
+    fclose(logFile);
 
 
     // Store plots

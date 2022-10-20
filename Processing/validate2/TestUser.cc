@@ -427,7 +427,6 @@ namespace RAT {
     logFile_Flags.str("");
     logFile_namess << run_id << "_val2.log";
     logFile_name = logFile_namess.str();
-    logFile = fopen(logFile_name.c_str(), "w");
 
   }
 
@@ -473,6 +472,7 @@ namespace RAT {
     }
 
     // Validation checks
+    logFile = fopen(logFile_name.c_str(), "w");
     fprintf(logFile, "### VALIDATION ###\n");
     logFile_Flags << "### FLAGS ###" << endl;
     // 0: ToF mean and rms
@@ -594,7 +594,7 @@ namespace RAT {
     // Add flags to log file
     fprintf(logFile, "\n");
     fprintf(logFile, logFile_Flags.str().c_str());
-
+    fclose(logFile);
 
     // Plot
     //RootFile->cd();

@@ -226,7 +226,6 @@ namespace RAT {
     NDOTS = 360;
     fLEDWavelength = 506.0*1e-6;
     energy = util::WavelengthToEnergy(fLEDWavelength);
-    out = fopen("direction_fit.txt","a");
 
     // TODO: make sure this does not load bad PCA,ECA,CSS tables...
     ratdb = RAT::DB::Get();
@@ -337,7 +336,6 @@ namespace RAT {
     logFile_namess.str("");
     logFile_namess << run_id << "_pos.log";
     logFile_name = logFile_namess.str();
-    logFile = fopen(logFile_name.c_str(), "w");
 
   }
 
@@ -612,7 +610,9 @@ namespace RAT {
     stringstream temp_output;
     temp_output << fibre_db << "\t" << fittedDir.X() << "\t" << fittedDir.Y() << "\t" << fittedDir.Z();
     temp_output << "\t" << dirfit->X() << "\t" << dirfit->Y() << "\t" << dirfit->Z() << "\n";
+    out = fopen("direction_fit.txt","a");
     fprintf(out, temp_output.str().c_str());
+    fclose(out);
 
     // ********************************************************************
     // Create histograms and graphs for output
@@ -1069,6 +1069,7 @@ namespace RAT {
     */
 
     // Print to log File
+    logFile = fopen(logFile_name.c_str(), "w");
     fprintf(logFile, "Run: %i\n", run_id);
     fprintf(logFile, "Fibre: %s\n", fibre_db.c_str());
     fprintf(logFile, "Is affected by belly plate?: %i\n", IS_BELLY_FIBRE);
@@ -1081,6 +1082,7 @@ namespace RAT {
     fprintf(logFile, "REF fit angular deviation from expected: %f\n", REFANG/pi*180);
     fprintf(logFile, "New fitted fibre direction: %f\t%f\t%f\n", fittedDir.X(), fittedDir.Y(), fittedDir.Z());
     fprintf(logFile, "Angular difference: %f\n", dirDiff);
+    fclose(logFile);
 
   }
 

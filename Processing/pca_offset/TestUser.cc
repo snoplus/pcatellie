@@ -192,7 +192,6 @@ namespace RAT {
     LOCALITY = atoi(getenv("LOCALITY"));
     fLEDWavelength = 506.0*1e-6;
     energy = util::WavelengthToEnergy(fLEDWavelength);
-    out = fopen("pcaoffset_fit.txt","a");
 
     // Load angular fit results
     cout << "Opening ang fit file: " << ang_fit_file.str() << endl;
@@ -345,7 +344,6 @@ namespace RAT {
     logFile_namess.str("");
     logFile_namess << run_id << "_pca.log";
     logFile_name = logFile_namess.str();
-    logFile = fopen(logFile_name.c_str(), "w");
 
   }
 
@@ -492,9 +490,13 @@ namespace RAT {
     // Store to file for next steps
     stringstream temp_output;
     temp_output << fibre_db << "\t" << run_id << "\t" << ResidualHits2->GetMean() << "\t" << ResidualHits2->GetRMS() << "\n";
+    out = fopen("pcaoffset_fit.txt","a");
     fprintf(out, temp_output.str().c_str());
+    fclose(out);
 
+    logFile = fopen(logFile_name.c_str(), "w");
     fprintf(logFile, "Injection time: %f\t%f\n", ResidualHits2->GetMean(), ResidualHits2->GetRMS());
+    fclose(logFile);
 
     // Delete plots for next iter
     delete ResidualHits; delete ResidualHits2;
