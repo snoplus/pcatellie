@@ -93,7 +93,7 @@ int main(int argc, char* argv[]) {
   std::cout<<" Loading first constants "<<std::endl;
 
   DS::Run run1;
-  run1.SetRunID(runid1);
+  run1.SetRunID(runid1+1);
   try{
     ratdb->Load(TWFilename1,true);
     ratdb->BeginOfRun(run1);
@@ -120,7 +120,7 @@ int main(int argc, char* argv[]) {
   std::cout<<" Loading second constants "<<std::endl;
 
   DS::Run run2;
-  run2.SetRunID(runid2);
+  run2.SetRunID(runid2+1);
   try{
     ratdb->Load(TWFilename2);
     ratdb->BeginOfRun(run2);
@@ -139,7 +139,7 @@ int main(int argc, char* argv[]) {
 
   // Make a few comparison plots
   TImage *img = TImage::Create();
-  TCanvas *c1 = new TCanvas("c1","c1",800,600);
+  TCanvas *c1 = new TCanvas("c1","c1",1024,768);
   char imagename[30];
 
   // First unpack the ocnstants

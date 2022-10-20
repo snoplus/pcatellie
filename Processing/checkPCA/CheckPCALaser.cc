@@ -58,19 +58,18 @@ using namespace RAT::DS;
 
 int main(int argc, char* argv[]) {
 
-  //Load Rootlogon
-  gROOT->ProcessLine("./try1.C");
-
-  string GFFilename, TWFilename;
+  string GFFilename, TWFilename, GFFilename_old, TWFilename_old;
   double mintime, maxtime;
   int runidthis = 0;
+  int runidold = 0;
   double offset = 0.0;
   // Get the arguments
-  if (!(argc == 8)) {   // We print argv[0] assuming it is the program name
+  if (!(argc == 11)) {   // We print argv[0] assuming it is the program name
     cout << "usage: " << argv[0]
-	 << " <.root filename>" << " <.ratdb TW name>" << " <.ratdb GF name>"
+	 << " <.root filename>" << " <.ratdb TW name>" << " <.ratdb GF name> "
 	 << "Min time [ns] " << "Max time [ns] " << "run number "
-	 << "time global offset\n";
+	 << "time global offset" << " <.old ratdb TW name>" << " <.old ratdb GF name>" 
+   << " old run number" <<"\n";
     return -1;
   } else {
     TWFilename = argv[2];
@@ -79,15 +78,25 @@ int main(int argc, char* argv[]) {
     maxtime = atoi(argv[5]);
     runidthis = atoi(argv[6]);
     offset = atof(argv[7]);
+    TWFilename_old = argv[8];
+    GFFilename_old = argv[9];
+    runidold = atoi(argv[10]);
+  }
+
+  DB *ratdb = RAT::DB::Get();
+  ratdb->LoadDefaults();
+  
+  try{
+    ratdb->Load(TWFilename_old,true);
+    ratdb->Load(GFFilename_old,true);
+    cout << "Loaded local tables!" << endl;
+  }
+  catch(...){
+    std::cout<< " PROBLEM LOADING RATDB! COMPARISON WITH PREVIOUS RUN WON'T BE CORRECT!" << std::endl;
   }
 
   DS::Run run;
-  run.SetRunID(runidthis - 1); // old constants
-  DB *ratdb = RAT::DB::Get();
-  ratdb->LoadDefaults();
-  ratdb->Load(TWFilename,true);
-  ratdb->Load(GFFilename,true);
-  cout << "Loaded local tables!" << endl;
+  run.SetRunID(runidold + 1);
 
   try{
     ratdb->BeginOfRun(run);
@@ -103,7 +112,7 @@ int main(int argc, char* argv[]) {
   DBLinkPtr TWbank = DB::Get()->GetLink("PCA_TW");
 
   std::cout << " Comparing to PCA GF calibration: run" << fPmtCalib->GetIArray("run_range")[0] << std::endl;
-  std::cout << " Comparing PCA TW calibration: run" << TWbank->GetIArray("run_range")[0] << std::endl;
+  std::cout << " Comparing to PCA TW calibration: run" << TWbank->GetIArray("run_range")[0] << std::endl;
 
   std::vector<int> TWpoints_old = TWbank->GetIArray("twinter");
   std::vector<float> fQhshhp = fPmtCalib->GetFArrayFromD("QHS_hhp");
@@ -195,7 +204,7 @@ int main(int argc, char* argv[]) {
   TH1F *intersec = new TH1F("intersec", "", 1000, -100, 600);
   char imagename[30];
   TView3D *view = new TView3D();
-  TCanvas *c1 = new TCanvas("c1", "c1", 800, 600);
+  TCanvas *c1 = new TCanvas("c1", "c1", 1024, 768);
 
   std::cout << " Getting PMT Coverage plot " << std::endl;
 
@@ -479,7 +488,7 @@ int main(int argc, char* argv[]) {
 
 
   std::cout << " Getting Diff plots. " << std::endl;
-  TCanvas *c2 = new TCanvas("c2", "c2", 600);
+  TCanvas *c2 = new TCanvas("c2", "c2", 1024, 768);
 
   //Now get the general plots
   img->Clear();
