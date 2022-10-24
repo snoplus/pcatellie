@@ -628,11 +628,6 @@ def move_bench_plots(plots, runlist):
 
 def move_pca_files():
     print "Moving PCA files:"
-    # move PCA consts
-    cmd = "mv *.ratdb " + pca_cons
-    print cmd
-    os.system( cmd )
-    insert_line()
     # move bench ROOT
     cmd = "mv *.root " + bench_root
     print cmd
