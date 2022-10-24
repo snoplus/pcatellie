@@ -29,7 +29,7 @@ def create_content():
     macro += '/rat/procset pca 1\n\n' # Apply PCA
     macro += '/rat/proc count\n'
     macro += '/rat/procset update 10000\n\n'
-    macro += '/rat/proc outroot\n'
+    macro += '/rat/proc user\n'
     macro += '/rat/procset file "' + run_n + '.root"\n\n'
     macro += '/rat/inzdab/read\n\n'
     macro += 'exit'
