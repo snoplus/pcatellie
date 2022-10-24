@@ -1473,7 +1473,8 @@ namespace RAT {
         }
 
         // Get light travel time
-        lpc.CalcByPosition(fibrepos, pmtPos, energy, LOCALITY);
+        //lpc.CalcByPosition(fibrepos, pmtPos, energy, LOCALITY);
+        lpc.CalcByPositionPartial( fibrepos, pmtPos, energy, LOCALITY ); // partial
 
         // LPC checks
         if (lpc.GetTIR() == 1) { CTIR++; continue; }           // total internal reflection
@@ -1486,12 +1487,6 @@ namespace RAT {
 
         if (lpc.GetTotalDist() <= 12000){ CDIST++; continue;}        // this rejects near reflections
         if (lpc.GetDistInInnerAV() <= 7000){ CDAV++; continue;}      // this rejects other weird paths
-
-        // ToF
-        double distInInnerAV = lpc.GetDistInInnerAV();
-        double distInAV = lpc.GetDistInAV();
-        double distInWater = lpc.GetDistInWater();
-        double lightTravelTime = gv.CalcByDistance(distInInnerAV, distInAV, distInWater, energy);
 
         TVector3 endDir = lpc.GetIncidentVecOnPMT();        // end direction at PMT
         double thetaAtPMT = endDir.Angle(pmtDir)*180./pi;   // incident angle with bucket face

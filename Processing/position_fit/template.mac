@@ -3,7 +3,7 @@
 /rat/inzdab/load_default
 
 # Make sure to set the medium correct. This is needed to the TOF correction
-/rat/db/set DETECTOR geo_file "geo/snoplus_water.geo"
+/rat/db/set DETECTOR geo_file "geo/snoplus_partial.geo"
 
 /rat/db/load ../fits/belly_fibres.ratdb
 
