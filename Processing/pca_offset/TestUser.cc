@@ -563,8 +563,8 @@ namespace RAT {
         //if (lpc.GetTotalDist() <= 12000){continue;}         // this rejects near reflections
         //if (lpc.GetDistInInnerAV() <= 7000){continue;}      // this rejects other weird paths
         if (lpc.GetTotalDistPartial() <= 6000){nearL++;} else {farL++;}  //partial
-        if (lpc.GetTotalDistPartial() <= 6000){ CDIST++; continue;}  //partial
-        if (lpc.GetTotalDistPartial() == lpc.GetDistInWater()){ CDIST++; continue;} //partial
+        if (lpc.GetTotalDistPartial() <= 6000){ continue; }  //partial
+        if (lpc.GetTotalDistPartial() == lpc.GetDistInWater()){ continue; } //partial
 
         // ToF
         //double distInInnerAV = lpc.GetDistInInnerAV();

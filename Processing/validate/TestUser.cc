@@ -1494,7 +1494,7 @@ namespace RAT {
         //if (lpc.GetTotalDist() <= 12000){ CDIST++; continue;}        // this rejects near reflections
         //if (lpc.GetDistInInnerAV() <= 7000){ CDAV++; continue;}      // this rejects other weird paths
         if (lpc.GetTotalDistPartial() <= 6000){ CDIST++; continue;}  //partial
-        if (lpc.GetTotalDistPartial() == lpc.GetDistInWater()){ CDIST++; continue;} //partial
+        if (lpc.GetTotalDistPartial() == lpc.GetDistInWater()){ CDAV++; continue;} //partial
 
         TVector3 endDir = lpc.GetIncidentVecOnPMT();        // end direction at PMT
         double thetaAtPMT = endDir.Angle(pmtDir)*180./pi;   // incident angle with bucket face
