@@ -907,8 +907,10 @@ namespace RAT {
         if (lpc.GetResvHit() == 1) { continue; }        // whether end point was within locality
 
         // additional path checks
-        if (lpc.GetTotalDist() <= 12000){ continue;}        // this rejects near reflections
-        if (lpc.GetDistInInnerAV() <= 7000){ continue;}      // this rejects other weird paths
+        //if (lpc.GetTotalDist() <= 12000){ continue;}        // this rejects near reflections
+        //if (lpc.GetDistInInnerAV() <= 7000){ continue;}      // this rejects other weird paths
+        if (lpc.GetTotalDistPartial() <= 6000){ CDIST++; continue;}  //partial
+        if (lpc.GetTotalDistPartial() == lpc.GetDistInWater()){ CDIST++; continue;} //partial
 
         //double distInInnerAV = lpc.GetDistInInnerAV();
         double distInInnerAV = lpc.GetDistInUpperTarget(); // partial

@@ -1418,6 +1418,8 @@ namespace RAT {
 
       allEvs++;
 
+      cout << "0" << endl;
+
       int subrun = ds.GetSubRunID();
 
       // fix for old tellie runs 
@@ -1439,8 +1441,12 @@ namespace RAT {
 
       avgNHit[subrun][0][0]++;
 
+      cout << "1" << endl;
+
       pmt_hits_passed = 0;
       const RAT::DS::CalPMTs& pmts = ev.GetCalPMTs();   // calib PMTs
+
+      cout << "2" << endl;
       for(int iPMT=0; iPMT<pmts.GetNormalCount(); iPMT++) {
         pmt_hits++;
         RAT::DS::PMTCal pmt = pmts.GetNormalPMT(iPMT);
@@ -1485,8 +1491,10 @@ namespace RAT {
         TVector3 startDir = lpc.GetInitialLightVec();         // start direction at fibre
         double theta = startDir.Angle(fibredir)*180./pi;      // emission angle at fibre
 
-        if (lpc.GetTotalDist() <= 12000){ CDIST++; continue;}        // this rejects near reflections
-        if (lpc.GetDistInInnerAV() <= 7000){ CDAV++; continue;}      // this rejects other weird paths
+        //if (lpc.GetTotalDist() <= 12000){ CDIST++; continue;}        // this rejects near reflections
+        //if (lpc.GetDistInInnerAV() <= 7000){ CDAV++; continue;}      // this rejects other weird paths
+        if (lpc.GetTotalDistPartial() <= 6000){ CDIST++; continue;}  //partial
+        if (lpc.GetTotalDistPartial() == lpc.GetDistInWater()){ CDIST++; continue;} //partial
 
         TVector3 endDir = lpc.GetIncidentVecOnPMT();        // end direction at PMT
         double thetaAtPMT = endDir.Angle(pmtDir)*180./pi;   // incident angle with bucket face
@@ -1512,6 +1520,8 @@ namespace RAT {
         pmt_hits_passed++;
         pmt_hits_passed_total++;
       } // pmt loop
+
+      cout << "3" << endl;
 
       if (pmt_hits_passed > 0){
         // Set first EXTA event time here
