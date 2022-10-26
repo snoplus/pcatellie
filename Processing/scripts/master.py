@@ -682,18 +682,38 @@ def get_global_offset():
 def call_checkPCA(pca_root, tw_table, gf_table, global_offset):
     print "Calling checkPCA script:"
     run_n = pca_root.split("_")[1]
-    cmd = checkpca_loc + "CheckPCALaser " + pca_root + " " + tw_table + " " + gf_table + " 200 400 " + run_n + " " + str(global_offset)
+    run = str(int(run_n)+1)
+    old_run_n = str(get_previous_set(run_n))
+    old_run = str(int(old_run_n)+1)
+    cmd = checkpca_loc + "CheckPCALaser " + pca_root + " " + tw_table + " " + gf_table + " 200 400 " + run + " " + str(global_offset) + " PCATW_" + old_run_n + "_0.ratdb PCAGF_" + old_run_n + "_0.ratdb " + old_run
     print cmd
     #job = call_command( cmd )
     #wait_for_job(job, 360)
     insert_line()
     return
 
+def get_previous_set(run_n):
+    onlyfiles = [f for f in listdir(tables_loc) if isfile(join(tables_loc, f))]
+    tabs = []
+    for tab in onlyfiles:
+        tabs.append( int(re.search(r'\d+', tab).group()))
+    sets = set(tabs)
+    sets_list = list(sets)
+    sets_list.sort()
+    for i in range(0, len(sets_list)):
+        if int(sets_list[i]) == int(run_n):
+            index = i
+    old_run = sets_list[index-1]
+    return old_run
+
 def call_compareTW(tw_table):
     print "Calling compareTW script:"
-    old_table = get_previous_tw(pca_cons)
-    new_run_n, old_run_n = extract_run_numbers(tw_table, old_table)
-    cmd = checkpca_loc + "CompareTW " + tw_table + " " + old_table + " 200 400 " + new_run_n + " " + old_run_n
+    run_n = tw_table.split("_")[1]
+    old_run = get_previous_set(run_n)
+    old_table = "PCATW_" + str(old_run) + "_0.ratdb"
+    run = str(int(run_n)+1)
+    old_run = str(int(old_run)+1)
+    cmd = checkpca_loc + "CompareTW " + tw_table + " " + old_table + " 200 400 " + run + " " + old_run
     print cmd
     #job = call_command( cmd )
     #wait_for_job(job, 180)
@@ -784,9 +804,9 @@ if __name__=="__main__":
 
     ### call processing scripts here
     # validation 1
-    if args.val1 == 1:
+    #if args.val1 == 1:
         #call_validate1(test_run, plots)
-        upload_val1(upl_val1, scripts_loc, test_run)
+        #upload_val1(upl_val1, scripts_loc, test_run)
 
     ### call fits scripts
     #if args.fit1 == 1:
@@ -795,14 +815,14 @@ if __name__=="__main__":
     #if args.fit2 == 1:
         #call_angsys_fit(test_run)
 
-    if args.fit3 == 1:
+    #if args.fit3 == 1:
         #call_offset_fit(test_run)
-        upload_fits(upl_fits, scripts_loc, good_runs)
+        #upload_fits(upl_fits, scripts_loc, good_runs)
 
     # validation 2
-    if args.val2 == 1:
+    #if args.val2 == 1:
         #call_validate2(test_run)
-        upload_val2(upl_val2, scripts_loc, test_run)
+        #upload_val2(upl_val2, scripts_loc, test_run)
 
     # rat log cleanup
     #log_cleanup(runtime_loc)
@@ -828,7 +848,7 @@ if __name__=="__main__":
     #if args.pca_tab_upl == 1:
         #upload_table(new_table, scripts_loc, upl_ratdb)
 
-    #new_table = "114670.ratdb"
+    #new_table = "201388.ratdb"
     ### PCA Processor
     # create macro
     #tw_table, gf_table, pca_root, pca_log_file, bench_root_file = set_new_names(new_table)
@@ -860,4 +880,5 @@ if __name__=="__main__":
     #cleanup(runtime_loc)
 
     # check final job count
-    get_final_job_count(all_jobs)
+    #get_final_job_count(all_jobs)
+    
