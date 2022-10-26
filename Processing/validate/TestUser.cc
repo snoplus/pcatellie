@@ -633,7 +633,7 @@ namespace RAT {
     cout << "Total NHits: " << pmt_hits << endl;
     cout << "Total passed NHits: " << pmt_hits_passed_total << " " << hits_passed << "%" << endl << endl;
     // Stats summary
-    cout << "Not EXTA: " << CNEXTA << " " << double(CNEXTA)/double(count)*100 << endl;
+    cout << "Not EXTA: " << CNEXTA << " " << double(CNEXTA)/double(total_events_db)*100 << endl;
     cout << "Bad channel status: " << CCHS << " " << double(CCHS)/double(pmt_hits)*100 << endl;
     cout << "Bad ECA: " << CECA << " " << double(CECA)/double(pmt_hits)*100 << endl;
     cout << "Bad PCA: " << CPCA << " " << double(CPCA)/double(pmt_hits)*100 << endl;
@@ -831,7 +831,7 @@ namespace RAT {
     fprintf(logFile, "Passed hits: %i\t%f\n", pmt_hits_passed_total, hits_passed);
 
     // 3: cuts and thresholds
-    if ( double(CNEXTA)/double(count)*100 < val_exta ) {extaFlag = 1;}
+    if ( double(CNEXTA)/double(total_events_db)*100 < val_exta ) {extaFlag = 1;}
     if ( double(CCHS)/double(pmt_hits)*100 < val_badChan ) {badChanFlag = 1;}
     if ( double(CECA)/double(pmt_hits)*100 < val_badECA ) {badECAFlag = 1;}
     if ( double(CPCA)/double(pmt_hits)*100 < val_badPCA ) {badPCAFlag = 1;}
@@ -1418,8 +1418,6 @@ namespace RAT {
 
       allEvs++;
 
-      cout << "0" << endl;
-
       int subrun = ds.GetSubRunID();
 
       // fix for old tellie runs 
@@ -1441,12 +1439,9 @@ namespace RAT {
 
       avgNHit[subrun][0][0]++;
 
-      cout << "1" << endl;
-
       pmt_hits_passed = 0;
       const RAT::DS::CalPMTs& pmts = ev.GetCalPMTs();   // calib PMTs
 
-      cout << "2" << endl;
       for(int iPMT=0; iPMT<pmts.GetNormalCount(); iPMT++) {
         pmt_hits++;
         RAT::DS::PMTCal pmt = pmts.GetNormalPMT(iPMT);
@@ -1520,8 +1515,6 @@ namespace RAT {
         pmt_hits_passed++;
         pmt_hits_passed_total++;
       } // pmt loop
-
-      cout << "3" << endl;
 
       if (pmt_hits_passed > 0){
         // Set first EXTA event time here
