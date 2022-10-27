@@ -209,7 +209,6 @@ namespace RAT {
     nearmax = -1;
     val_hitPeak = atof(getenv("HIT_PEAK"));
     val_residPeak = atof(getenv("RESID_PEAK"));
-    out = fopen("angular_fit.txt","a");
 
     // Load direction fit results
     cout << "Opening fit file: " << dir_fit_file.str() << endl;
