@@ -720,6 +720,23 @@ def call_compareTW(tw_table):
     insert_line()
     return
 
+def move_pca_const():
+    print "Moving PCA constants:"
+    # move constants
+    cmd = "mv *.root " + pca_cons
+    print cmd
+    os.system( cmd )
+    insert_line()
+    cmd = "mv *.ratdb " + pca_cons
+    print cmd
+    os.system( cmd )
+    insert_line()
+    # move log
+    cmd = "mv *.log " + pca_cons
+    print cmd
+    os.system( cmd )
+    insert_line()
+
 def move_pca_plots(plots, runlist):
     print "Moving PCA plots:"
     # make dataset folder
@@ -748,20 +765,6 @@ def move_pca_plots(plots, runlist):
     insert_line()
     # move other plots
     cmd = "mv *.png " + plots + str(run_name)
-    print cmd
-    #os.system( cmd )
-    insert_line()
-    # move constants
-    cmd = "mv *.root " + pca_cons
-    print cmd
-    #os.system( cmd )
-    insert_line()
-    cmd = "mv *.ratdb " + pca_cons
-    print cmd
-    #os.system( cmd )
-    insert_line()
-    # move log
-    cmd = "mv *.log " + pca_cons
     print cmd
     #os.system( cmd )
     insert_line()
@@ -855,6 +858,7 @@ if __name__=="__main__":
     #pca_proc_macro = create_pca_proc_mac()
     #call_pca_proc(pca_proc_macro)
     #global_offset = get_global_offset()
+    #move_pca_const()
     #call_checkPCA(pca_root, tw_table, gf_table, global_offset)
     #call_compareTW(tw_table)
     #move_pca_plots(plots, runlist)
