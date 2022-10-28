@@ -732,7 +732,7 @@ def move_pca_const():
     os.system( cmd )
     insert_line()
     # move log
-    cmd = "mv *.log " + pca_cons
+    cmd = "mv rat*.log " + pca_cons
     print cmd
     os.system( cmd )
     insert_line()
