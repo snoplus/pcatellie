@@ -685,7 +685,7 @@ def call_checkPCA(pca_root, tw_table, gf_table, global_offset):
     run = str(int(run_n)+1)
     old_run_n = str(get_previous_set(run_n))
     old_run = str(int(old_run_n)+1)
-    cmd = checkpca_loc + "CheckPCALaser " + pca_root + " " + tw_table + " " + gf_table + " 200 400 " + run + " " + str(global_offset) + " " + pca_cons + "PCATW_" + old_run_n + "_0.ratdb " + pca_cons + "PCAGF_" + old_run_n + "_0.ratdb " + old_run
+    cmd = checkpca_loc + "CheckPCALaser " + pca_cons + pca_root + " " + pca_cons + tw_table + " " + pca_cons + gf_table + " 200 400 " + run + " " + str(global_offset) + " " + pca_cons + "PCATW_" + old_run_n + "_0.ratdb " + pca_cons + "PCAGF_" + old_run_n + "_0.ratdb " + old_run
     print cmd
     #job = call_command( cmd )
     #wait_for_job(job, 360)
@@ -713,7 +713,7 @@ def call_compareTW(tw_table):
     old_table = "PCATW_" + str(old_run) + "_0.ratdb"
     run = str(int(run_n)+1)
     old_run = str(int(old_run)+1)
-    cmd = checkpca_loc + "CompareTW " + tw_table + " " + old_table + " 200 400 " + run + " " + old_run
+    cmd = checkpca_loc + "CompareTW " + pca_cons + tw_table + " " + pca_cons + old_table + " 200 400 " + run + " " + old_run
     print cmd
     #job = call_command( cmd )
     #wait_for_job(job, 180)
