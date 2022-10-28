@@ -685,7 +685,7 @@ def call_checkPCA(pca_root, tw_table, gf_table, global_offset):
     run = str(int(run_n)+1)
     old_run_n = str(get_previous_set(run_n))
     old_run = str(int(old_run_n)+1)
-    cmd = checkpca_loc + "CheckPCALaser " + pca_root + " " + tw_table + " " + gf_table + " 200 400 " + run + " " + str(global_offset) + " PCATW_" + old_run_n + "_0.ratdb PCAGF_" + old_run_n + "_0.ratdb " + old_run
+    cmd = checkpca_loc + "CheckPCALaser " + pca_root + " " + tw_table + " " + gf_table + " 200 400 " + run + " " + str(global_offset) + " " + pca_cons + "PCATW_" + old_run_n + "_0.ratdb " + pca_cons + "PCAGF_" + old_run_n + "_0.ratdb " + old_run
     print cmd
     #job = call_command( cmd )
     #wait_for_job(job, 360)
@@ -693,7 +693,7 @@ def call_checkPCA(pca_root, tw_table, gf_table, global_offset):
     return
 
 def get_previous_set(run_n):
-    onlyfiles = [f for f in listdir(tables_loc) if isfile(join(tables_loc, f))]
+    onlyfiles = [f for f in listdir(pca_cons) if isfile(join(pca_cons, f))]
     tabs = []
     for tab in onlyfiles:
         tabs.append( int(re.search(r'\d+', tab).group()))
