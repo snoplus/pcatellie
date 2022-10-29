@@ -417,12 +417,11 @@ int main(int argc, char* argv[]) {
     }
     if (isZO == 1){ wZO++; }
     if (isLO == 1){ wLO++; }
-    if ( (isOff != 1) && (isZO != 1) && (isLO != 1) ){ goodCal++; statNow = 1;}
+    if ( (isOff != 1) && (isZO != 1) && (isLO != 1) && (thisi != -9999) ){ goodCal++; statNow = 1;}
 
-    cout << "pmt: " << i << ", bits: " << isOff << " " << isZO << " " << isLO << " " << statNow << endl;
+    //cout << "pmt: " << i << ", bits: " << isOff << " " << isZO << " " << isLO << " " << statNow << endl;
 
     if(statNow == 1){
-      cout << "filling: " << thisi << endl;
       cable->Fill(i, thisi);
       cableCard->Fill(card, thisi);
       if (thisi > max_cable) max_cable = thisi;
@@ -439,7 +438,7 @@ int main(int argc, char* argv[]) {
     int isZO_old = atoi(&binary_old[29]);
     int isLO_old = atoi(&binary_old[28]);
     int statOld = 0;
-    if ( (isOff_old != 1) && (isZO_old != 1) && (isLO_old != 1) ){ statOld = 1;}
+    if ( (isOff_old != 1) && (isZO_old != 1) && (isLO_old != 1) && (thisi_old != -9999)  ){ statOld = 1;}
     if (isOff_old == 1){
       if (pmtinfo.GetType(i) != 1){
         cableFlat2->SetPoint(i, Xpos, Ypos, -17);
@@ -455,7 +454,7 @@ int main(int argc, char* argv[]) {
     };
 
     if ( (statNow == 1) && (statOld == 1) ) {
-      //cout << i << " " << thisi << " " << thisi_old << endl;
+      cout << i << " " << thisi << " " << thisi_old << endl;
       if (thisi-thisi_old > max_diff) max_diff = thisi-thisi_old;
       if (thisi-thisi_old < min_diff) min_diff = thisi-thisi_old;
       cableDiff->Fill(i, thisi-thisi_old);
