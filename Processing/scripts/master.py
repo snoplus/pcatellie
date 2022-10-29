@@ -411,6 +411,9 @@ def cleanup(runtime_loc):
     cmd = "rm " + runtime_loc + "*.mac "
     print cmd
     os.system( cmd )
+    cmd2 = "rm " + runtime_loc + "*.ratdb "
+    print cmd2
+    os.system( cmd2 )
     insert_line()
     return
 
@@ -901,10 +904,10 @@ if __name__=="__main__":
     #if args.pca_tab_upl == 1:
         #upload_table(new_table, scripts_loc, upl_ratdb)
 
-    #new_table = "201388.ratdb"
+    new_table = "114670.ratdb"
     ### PCA Processor
     # create macro
-    #tw_table, gf_table, pca_root, pca_log_file, bench_root_file = set_new_names(new_table)
+    tw_table, gf_table, pca_root, pca_log_file, bench_root_file = set_new_names(new_table)
     #pca_proc_macro = create_pca_proc_mac()
     #call_pca_proc(pca_proc_macro)
     #global_offset = get_global_offset()
