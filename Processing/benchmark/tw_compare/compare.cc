@@ -165,20 +165,36 @@ int main(int argc, char* argv[]) {
       thist = 0.0;
       loc_word_points = i * 11 + j;  // the location of the first inter point
       packresult = PCABitPack.PCAPacker(PCABitPack.UNPACK, PCABitPack.QTINTERPOLATION, TWpoints1[loc_word_points], thisq, thist);
-      if (thisq != 0) {
-        Time1[i].push_back(thist);
-        Charge1[i].push_back(thisq);
-      } else {
-        Time1[i].push_back(-9999);
-        Charge1[i].push_back(0);
+      std::string binary = std::bitset<32>(TWstatus1[i]).to_string();
+      int isOff = atoi(&binary[30]);
+      int isZO = atoi(&binary[29]);
+      int isLO = atoi(&binary[28]);
+      int statNow = 0;
+      if ( (isOff != 1) && (isZO != 1) && (isLO != 1) && (thisq != -9999) ){ statNow = 1;}
+      if (statNow == 1){
+        if (thisq != 0) {
+            Time1[i].push_back(thist);
+            Charge1[i].push_back(thisq);
+        } else {
+            Time1[i].push_back(-9999);
+            Charge1[i].push_back(0);
+        }
       }
       packresult = PCABitPack.PCAPacker(PCABitPack.UNPACK, PCABitPack.QTINTERPOLATION, TWpoints2[loc_word_points], thisq_old, thist_old);
-      if (thisq != 0) {
-        Time2[i].push_back(thist_old);
-        Charge2[i].push_back(thisq_old);
-      } else {
-        Time2[i].push_back(-9999);
-        Charge2[i].push_back(0);
+      std::string binary2 = std::bitset<32>(TWstatus2[i]).to_string();
+      int isOff_old = atoi(&binary2[30]);
+      int isZO_old = atoi(&binary[29]);
+      int isLO_old = atoi(&binary[28]);
+      int statNow_old = 0;
+      if ( (isOff_old != 1) && (isZO_old != 1) && (isLO_old != 1) && (thisq_old != -9999) ){ statNow_old = 1;}
+      if (statNow_old == 1){
+        if (thisq != 0) {
+            Time2[i].push_back(thist_old);
+            Charge2[i].push_back(thisq_old);
+        } else {
+            Time2[i].push_back(-9999);
+            Charge2[i].push_back(0);
+        }
       }
     }
 
@@ -186,19 +202,29 @@ int main(int argc, char* argv[]) {
     packresult = PCABitPack.PCAPacker(PCABitPack.UNPACK, PCABitPack.GRADIENT_INTERCEPT, TWpoints1[loc_word_fit], thisi, thisr);
     std::string binary = std::bitset<32>(TWstatus1[i]).to_string();
     int isOff = atoi(&binary[30]);
-    if (isOff != 1){
+    int isZO = atoi(&binary[29]);
+    int isLO = atoi(&binary[28]);
+    int statNow = 0;
+    if ( (isOff != 1) && (isZO != 1) && (isLO != 1) && (thisi != -9999) ){ statNow = 1;}
+    if (isOff == 1){ off1++; }
+    if (statNow == 1){
       IDs1.push_back( i );
       Intercept1.push_back( thisi );
       Gradient1.push_back( thisr );
-    } else { off1++; }
+    }
     packresult = PCABitPack.PCAPacker(PCABitPack.UNPACK, PCABitPack.GRADIENT_INTERCEPT, TWpoints2[loc_word_fit], thisi_old, thisr_old);
     std::string binary2 = std::bitset<32>(TWstatus2[i]).to_string();
     int isOff_old = atoi(&binary2[30]);
-    if (isOff_old != 1){
+    int isZO_old = atoi(&binary[29]);
+    int isLO_old = atoi(&binary[28]);
+    int statNow_old = 0;
+    if ( (isOff_old != 1) && (isZO_old != 1) && (isLO_old != 1) && (thisi_old != -9999) ){ statNow_old = 1;}
+    if (isOff_old == 1){ off2++; }
+    if (statNow_old == 1){
       IDs2.push_back( i );
       Intercept2.push_back( thisi_old );
       Gradient2.push_back( thisr_old );
-    } else { off2++; }
+    }
   }
 
   for (int i = 0; i < 9728; i++) {
