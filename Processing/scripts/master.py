@@ -6,6 +6,7 @@ import os
 import sys
 import re
 import couchdb
+import json
 import datetime as dt
 from os import listdir
 from os.path import isfile, join
@@ -34,6 +35,7 @@ def load_env():
     pca_log = os.getenv("PCA_LOG")
     bench_log = os.getenv("BENCH_LOG")
     data_loc = os.getenv("DATA_LOC")
+    logs_loc = os.getenv("LOGS")
     plots = os.getenv("PLOTS")
     runtime_loc = os.getenv("RUNTIME_LOC")
     compare_table = os.getenv("COMPARE_TABLE")
@@ -51,7 +53,7 @@ def load_env():
     upl_bench = os.getenv("UPL_BENCH")
     create_pca_proc = os.getenv("CREATE_PCA_PROC")
     checkpca_loc = os.getenv("CHECKPCA_LOC")
-    return scripts_loc, upl_env, upl_val1, upl_val2, upl_fits, upl_ratdb, make_table, fits_folder, dir_fit_file, ang_fit_file, offset_fit_file, default_dir, tables_loc, tables_scripts, val1_log, val2_log, dir_log, as_log, pca_log, bench_log, data_loc, plots, runtime_loc, compare_table, compare_all, cdb_add, cdb_db, cdb_user, cdb_pw, create_bench_apply, create_pca_proc, bench_cd, bench_tw, bench_peak, pca_cons, bench_root, upl_bench, checkpca_loc
+    return scripts_loc, upl_env, upl_val1, upl_val2, upl_fits, upl_ratdb, make_table, fits_folder, dir_fit_file, ang_fit_file, offset_fit_file, default_dir, tables_loc, tables_scripts, val1_log, val2_log, dir_log, as_log, pca_log, bench_log, data_loc, logs_loc, plots, runtime_loc, compare_table, compare_all, cdb_add, cdb_db, cdb_user, cdb_pw, create_bench_apply, create_pca_proc, bench_cd, bench_tw, bench_peak, pca_cons, bench_root, upl_bench, checkpca_loc
 
 def parse_arguments():
     ### Parse arguments
@@ -383,7 +385,7 @@ def move_table_plots(tables_loc, plots):
     print "Moving table plots:"
     cmd = "mv " + tables_loc + "*.png " + plots + "tables/"
     print cmd
-    #os.system( cmd ) #using os.system here due to wildcard*
+    os.system( cmd ) #using os.system here due to wildcard*
     insert_line()
     return
 
@@ -398,9 +400,13 @@ def upload_table(new_table, scripts_loc, upl_ratdb):
 
 def cleanup(runtime_loc):
     print "Cleanup:"
-    cmd = "rm " + runtime_loc + "*.log "
+    new_run_n = str(new_table.split(".")[0])
+    cmd = "mkdir " + logs_loc + new_run_n
+    cmd2 = "mv " + new_run_n[0] + "*.log " + logs_loc + new_run_n
     print cmd
+    print cmd2
     os.system( cmd ) #using os.system here due to wildcard*
+    os.system( cmd2 )
     insert_line()
     cmd = "rm " + runtime_loc + "*.mac "
     print cmd
@@ -566,37 +572,48 @@ def get_previous_peak(tables_loc):
 
 def call_cd_compare(bench_cd, new_table):
     print "Running bench cd compare macro:"
-    prew_tw = get_previous_tw(pca_cons)
-    new_run_n, old_run_n = extract_run_numbers(new_table, prew_tw)
-    cmd = bench_cd + "Compare " + runtime_loc + new_table + " " + pca_cons + prew_tw + " " + new_run_n + " " + old_run_n
+    new_run_n = str(new_table.split(".")[0])
+    old_run_n = str(get_previous_set(new_run_n))
+    new_tw = "PCATW_" + new_run_n + "_0.ratdb"
+    old_tw = "PCATW_" + old_run_n + "_0.ratdb"
+    new_run = str(int(new_run_n)+1)
+    old_run = str(int(old_run_n)+1)
+    cmd = bench_cd + "Compare " + pca_cons + new_tw + " " + pca_cons + old_tw + " " + new_run + " " + old_run
     print cmd
-    job = call_command( cmd )
-    wait_for_job(job, 20)
+    #job = call_command( cmd )
+    #wait_for_job(job, 20)
     insert_line()
-    log_name = new_run_n + "-" + old_run_n + "_cd_compare.log"
+    log_name = new_run + "-" + old_run + "_cd_compare.log"
     return log_name
 
 def call_tw_compare(bench_tw, new_table):
     print "Running bench tw compare macro:"
-    prew_tw = get_previous_tw(pca_cons)
-    new_run_n, old_run_n = extract_run_numbers(new_table, prew_tw)
-    cmd = bench_tw + "Compare " + runtime_loc + new_table + " " + pca_cons + prew_tw + " " + new_run_n + " " + old_run_n
+    new_run_n = str(new_table.split(".")[0])
+    old_run_n = str(get_previous_set(new_run_n))
+    new_tw = "PCATW_" + new_run_n + "_0.ratdb"
+    old_tw = "PCATW_" + old_run_n + "_0.ratdb"
+    new_run = str(int(new_run_n)+1)
+    old_run = str(int(old_run_n)+1)
+    cmd = bench_tw + "Compare " + pca_cons + new_tw + " " + pca_cons + old_tw + " " + new_run + " " + old_run
     print cmd
-    job = call_command( cmd )
-    wait_for_job(job, 8)
+    #job = call_command( cmd )
+    #wait_for_job(job, 8)
     insert_line()
-    log_name = new_run_n + "-" + old_run_n + "_tw_compare.log"
+    log_name = new_run + "-" + old_run + "_tw_compare.log"
     return log_name
 
 def call_peak_compare(bench_peak, new_table):
     print "Running bench peak compare macro:"
-    prew_root = get_previous_peak(bench_root)
-    print prew_root
-    new_run_n, old_run_n = extract_run_numbers2(new_table, prew_root)
-    cmd = bench_peak + "Compare " + runtime_loc + new_table + " " + bench_root + prew_root + " " + new_run_n + " " + old_run_n
+    new_run_n = str(new_table.split(".")[0])
+    old_run_n = str(get_previous_set(new_run_n))
+    new_root = new_run_n + ".root"
+    old_root = old_run_n + ".root"
+    new_run = str(int(new_run_n)+1)
+    old_run = str(int(old_run_n)+1)
+    cmd = bench_peak + "Compare " + runtime_loc + new_root + " " + bench_root + old_root + " " + new_run + " " + old_run
     print cmd
-    job = call_command( cmd )
-    wait_for_job(job, 3)
+    #job = call_command( cmd )
+    #wait_for_job(job, 3)
     insert_line()
     log_name = new_run_n + "-" + old_run_n + "_peak_compare.log"
     return log_name
@@ -626,8 +643,8 @@ def move_bench_plots(plots, runlist):
     insert_line()
     return
 
-def move_pca_files():
-    print "Moving PCA files:"
+def move_bench_root():
+    print "Moving bench root file:"
     # move bench ROOT
     cmd = "mv *.root " + bench_root
     print cmd
@@ -720,6 +737,39 @@ def call_compareTW(tw_table):
     insert_line()
     return
 
+def setup_tw_tables():
+    run_n = tw_table.split("_")[1]
+    tw_file = "PCATW_" + run_n + "_0.ratdb"
+    gf_file = "PCAGF_" + run_n + "_0.ratdb"
+    cmd = "cp " + pca_cons + tw_file + " ."
+    os.system( cmd )
+    cmd2 = "cp " + pca_cons + gf_file + " ."
+    os.system( cmd2 )
+    mod_local_tables(tw_file, gf_file)
+    return
+
+def mod_local_tables(tw_file, gf_file):
+    print "Modding local tables:"
+    # TW table
+    filename = tw_file
+    with open(filename, 'r') as f:
+        data = json.load(f)
+        data['run_range'] = [117566, 117568]
+
+    os.remove(filename)
+    with open(filename, 'w') as f:
+        json.dump(data, f)
+    # GF table
+    filename = gf_file
+    with open(filename, 'r') as f:
+        data = json.load(f)
+        data['run_range'] = [117566, 117568]
+
+    os.remove(filename)
+    with open(filename, 'w') as f:
+        json.dump(data, f)
+    return    
+
 def move_pca_const():
     print "Moving PCA constants:"
     # move constants
@@ -744,35 +794,35 @@ def move_pca_plots(plots, runlist):
     run_name = "SET_" + str(sorted_runlist[0])
     cmd = "mkdir " + plots + str(run_name)
     print cmd
-    #os.system( cmd )
+    os.system( cmd )
     insert_line()
     # move PMT plots
     cmd = "mkdir PMTs"
     print cmd
-    #os.system( cmd )
+    os.system( cmd )
     insert_line()
     cmd2 = "mv PMT-* PMTs"
     print cmd2
-    #os.system( cmd2 )
+    os.system( cmd2 )
     insert_line()
     cmd3 = "mv TW_PMT-* PMTs"
     print cmd3
-    #os.system( cmd3 )
+    os.system( cmd3 )
     insert_line()
     cmd4 = "mv PMTs " + plots + str(run_name)
     print cmd4
-    #os.system( cmd4 )
+    os.system( cmd4 )
     insert_line()
     # move other plots
     cmd = "mv *.png " + plots + str(run_name)
     print cmd
-    #os.system( cmd )
+    os.system( cmd )
     insert_line()
 
 if __name__=="__main__":
 
     ### load environment
-    scripts_loc, upl_env, upl_val1, upl_val2, upl_fits, upl_ratdb, make_table, fits_folder, dir_fit_file, ang_fit_file, offset_fit_file, default_dir, tables_loc, tables_scripts, val1_log, val2_log, dir_log, as_log, pca_log, bench_log, data_loc, plots, runtime_loc, compare_table, compare_all, cdb_add, cdb_db, cdb_user, cdb_pw, create_bench_apply, create_pca_proc, bench_cd, bench_tw, bench_peak, pca_cons, bench_root, upl_bench, checkpca_loc = load_env()
+    scripts_loc, upl_env, upl_val1, upl_val2, upl_fits, upl_ratdb, make_table, fits_folder, dir_fit_file, ang_fit_file, offset_fit_file, default_dir, tables_loc, tables_scripts, val1_log, val2_log, dir_log, as_log, pca_log, bench_log, data_loc, logs_loc, plots, runtime_loc, compare_table, compare_all, cdb_add, cdb_db, cdb_user, cdb_pw, create_bench_apply, create_pca_proc, bench_cd, bench_tw, bench_peak, pca_cons, bench_root, upl_bench, checkpca_loc = load_env()
 
     ### parse arguments
     args = parse_arguments()
@@ -871,17 +921,19 @@ if __name__=="__main__":
     #call_bench_apply(bench_apply_macro)
 
     # benchmarking 3: compare scripts
-    #cd_log = call_cd_compare(bench_cd, tw_table)
-    #tw_log = call_tw_compare(bench_tw, tw_table)
+    #setup_tw_tables()
+    #cd_log = call_cd_compare(bench_cd, new_table)
+    #tw_log = call_tw_compare(bench_tw, new_table)
     #peak_log = call_peak_compare(bench_peak, bench_root_file)
     #upload_bench(cd_log, tw_log, peak_log, scripts_loc, upl_bench)
     #move_bench_plots(plots, runlist)
 
     # move pca files
-    #move_pca_files()
+    #move_bench_root()
 
     # cleanup
     #cleanup(runtime_loc)
+    #log_cleanup(runtime_loc)
 
     # check final job count
     #get_final_job_count(all_jobs)
