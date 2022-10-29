@@ -419,7 +419,10 @@ int main(int argc, char* argv[]) {
     if (isLO == 1){ wLO++; }
     if ( (isOff != 1) && (isZO != 1) && (isLO != 1) ){ goodCal++; statNow = 1;}
 
+    cout << "pmt: " << i << ", bits: " << isOff << " " << isZO << " " << isLO << " " << statNow << endl;
+
     if(statNow == 1){
+      cout << "filling: " << thisi << endl;
       cable->Fill(i, thisi);
       cableCard->Fill(card, thisi);
       if (thisi > max_cable) max_cable = thisi;
@@ -452,7 +455,7 @@ int main(int argc, char* argv[]) {
     };
 
     if ( (statNow == 1) && (statOld == 1) ) {
-      cout << i << " " << thisi << " " << thisi_old << endl;
+      //cout << i << " " << thisi << " " << thisi_old << endl;
       if (thisi-thisi_old > max_diff) max_diff = thisi-thisi_old;
       if (thisi-thisi_old < min_diff) min_diff = thisi-thisi_old;
       cableDiff->Fill(i, thisi-thisi_old);
