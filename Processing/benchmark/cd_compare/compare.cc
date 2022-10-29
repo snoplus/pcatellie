@@ -484,7 +484,7 @@ int main(int argc, char* argv[]) {
 
     if ( (statNow == 1) & (statOld == 0) ){
       nowGood.push_back( i );
-    } else if ( (statNow == 0) & (statNow == 1) ) {
+    } else if ( (statNow == 0) & (statOld == 1) ) {
       nowBad.push_back( i );
     }
 
