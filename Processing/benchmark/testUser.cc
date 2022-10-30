@@ -407,19 +407,19 @@ namespace RAT {
           if (pmtpos.Mag()==0) { continue; }
           int face;
           flat = dq->IcosProject(pmtpos, face);
-          lpc.CalcByPosition( lbpos, pmtpos, energy, LOCALITY);	// water
-          //lpc.CalcByPositionPartial( lbpos, pmtpos, energy, LOCALITY ); // partial
+          //lpc.CalcByPosition( lbpos, pmtpos, energy, LOCALITY);	// water
+          lpc.CalcByPositionPartial( lbpos, pmtpos, energy, LOCALITY ); // partial
 
           if (lpc.GetTIR() == 1) { continue; }            // total internal reflection
           if (lpc.GetPathValid() == 0) { continue; }      // check whether path parameters are valid
           if (lpc.GetResvHit() == 1) { continue; }        // whether end point was within locality
 
           
-          double distInScint = lpc.GetDistInInnerAV();	  // water
-          //double distInScint = lpc.GetDistInUpperTarget();	// partial
+          //double distInScint = lpc.GetDistInInnerAV();	  // water
+          double distInScint = lpc.GetDistInUpperTarget();	// partial
           double distInAV = lpc.GetDistInAV();
-          double distInWater = lpc.GetDistInWater();  //water
-          //double distInWater = lpc.GetDistInWater() + lpc.GetDistInLowerTarget();  //partial
+          //double distInWater = lpc.GetDistInWater();  //water
+          double distInWater = lpc.GetDistInWater() + lpc.GetDistInLowerTarget();  //partial
           double tof = gv.CalcByDistance( distInScint, distInAV, distInWater, energy );
 
           double hitTime = calPMT.GetTime();
