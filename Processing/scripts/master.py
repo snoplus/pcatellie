@@ -904,7 +904,7 @@ if __name__=="__main__":
     #if args.pca_tab_upl == 1:
         #upload_table(new_table, scripts_loc, upl_ratdb)
 
-    new_table = "114670.ratdb"
+    new_table = "253803.ratdb"
     ### PCA Processor
     # create macro
     tw_table, gf_table, pca_root, pca_log_file, bench_root_file = set_new_names(new_table)
@@ -921,10 +921,10 @@ if __name__=="__main__":
     #bench_apply_macro = create_bench_apply_mac(tw_table, gf_table)
 
     # benchmarking 2: process
+    setup_tw_tables() 
     #call_bench_apply(bench_apply_macro)
 
     # benchmarking 3: compare scripts
-    #setup_tw_tables()
     #cd_log = call_cd_compare(bench_cd, new_table)
     #tw_log = call_tw_compare(bench_tw, new_table)
     #peak_log = call_peak_compare(bench_peak, bench_root_file)
