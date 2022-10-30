@@ -856,7 +856,7 @@ if __name__=="__main__":
     failed_jobs = []
     all_jobs = [0, 0, 0]
 
-    test_run = good_runs
+    test_run = good_runs.sort()
 
     ### call processing scripts here
     # validation 1
