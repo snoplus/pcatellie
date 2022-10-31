@@ -1474,8 +1474,8 @@ namespace RAT {
         }
 
         // Get light travel time
-        //lpc.CalcByPosition(fibrepos, pmtPos, energy, LOCALITY);
-        lpc.CalcByPositionPartial( fibrepos, pmtPos, energy, LOCALITY ); // partial
+        lpc.CalcByPosition(fibrepos, pmtPos, energy, LOCALITY);
+        //lpc.CalcByPositionPartial( fibrepos, pmtPos, energy, LOCALITY ); // partial
 
         // LPC checks
         if (lpc.GetTIR() == 1) { CTIR++; continue; }           // total internal reflection
@@ -1486,10 +1486,10 @@ namespace RAT {
         TVector3 startDir = lpc.GetInitialLightVec();         // start direction at fibre
         double theta = startDir.Angle(fibredir)*180./pi;      // emission angle at fibre
 
-        //if (lpc.GetTotalDist() <= 12000){ CDIST++; continue;}        // this rejects near reflections
-        //if (lpc.GetDistInInnerAV() <= 7000){ CDAV++; continue;}      // this rejects other weird paths
-        if (lpc.GetTotalDistPartial() <= 6000){ CDIST++; continue;}  //partial
-        if (lpc.GetTotalDistPartial() == lpc.GetDistInWater()){ CDAV++; continue;} //partial
+        if (lpc.GetTotalDist() <= 12000){ CDIST++; continue;}        // this rejects near reflections
+        if (lpc.GetDistInInnerAV() <= 7000){ CDAV++; continue;}      // this rejects other weird paths
+        //if (lpc.GetTotalDistPartial() <= 6000){ CDIST++; continue;}  //partial
+        //if (lpc.GetTotalDistPartial() == lpc.GetDistInWater()){ CDAV++; continue;} //partial
 
         TVector3 endDir = lpc.GetIncidentVecOnPMT();        // end direction at PMT
         double thetaAtPMT = endDir.Angle(pmtDir)*180./pi;   // incident angle with bucket face

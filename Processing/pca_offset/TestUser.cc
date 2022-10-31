@@ -544,8 +544,8 @@ namespace RAT {
         double pmtTime = pmt.GetTime();                     // hit time [ns]
 
         // Get light travel time
-        //lpc.CalcByPosition(fibrepos, pmtPos, energy, LOCALITY);
-        lpc.CalcByPositionPartial( fibrepos, pmtPos, energy, LOCALITY ); // partial
+        lpc.CalcByPosition(fibrepos, pmtPos, energy, LOCALITY);
+        //lpc.CalcByPositionPartial( fibrepos, pmtPos, energy, LOCALITY ); // partial
 
         // LPC checks
         if (lpc.GetTIR() == 1) { continue; }            // total internal reflection
@@ -559,19 +559,19 @@ namespace RAT {
         // Angular cut here
         if ( (theta > 12) || (theta < 0) ) { continue; }
 
-        //if (lpc.GetTotalDist() <= 12000){nearL++;} else {farL++;}
-        //if (lpc.GetTotalDist() <= 12000){continue;}         // this rejects near reflections
-        //if (lpc.GetDistInInnerAV() <= 7000){continue;}      // this rejects other weird paths
-        if (lpc.GetTotalDistPartial() <= 6000){nearL++;} else {farL++;}  //partial
-        if (lpc.GetTotalDistPartial() <= 6000){ continue; }  //partial
-        if (lpc.GetTotalDistPartial() == lpc.GetDistInWater()){ continue; } //partial
+        if (lpc.GetTotalDist() <= 12000){nearL++;} else {farL++;}
+        if (lpc.GetTotalDist() <= 12000){continue;}         // this rejects near reflections
+        if (lpc.GetDistInInnerAV() <= 7000){continue;}      // this rejects other weird paths
+        //if (lpc.GetTotalDistPartial() <= 6000){nearL++;} else {farL++;}  //partial
+        //if (lpc.GetTotalDistPartial() <= 6000){ continue; }  //partial
+        //if (lpc.GetTotalDistPartial() == lpc.GetDistInWater()){ continue; } //partial
 
         // ToF
-        //double distInInnerAV = lpc.GetDistInInnerAV();
-        double distInInnerAV = lpc.GetDistInUpperTarget(); // partial
+        double distInInnerAV = lpc.GetDistInInnerAV();
+        //double distInInnerAV = lpc.GetDistInUpperTarget(); // partial
         double distInAV = lpc.GetDistInAV();
-        //double distInWater = lpc.GetDistInWater();
-        double distInWater = lpc.GetDistInWater() + lpc.GetDistInLowerTarget();  //partial
+        double distInWater = lpc.GetDistInWater();
+        //double distInWater = lpc.GetDistInWater() + lpc.GetDistInLowerTarget();  //partial
         double lightTravelTime = gv.CalcByDistance(distInInnerAV, distInAV, distInWater, energy);
 
         // Get light bucket time

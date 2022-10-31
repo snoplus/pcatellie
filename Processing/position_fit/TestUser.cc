@@ -598,8 +598,8 @@ namespace RAT {
     // Getting the new fibre directions here
     // ********************************************************************
 
-    //lpc.CalcByPosition(fibrepos, *dirfit, energy, LOCALITY);
-    lpc.CalcByPositionPartial( fibrepos, *dirfit, energy, LOCALITY ); // partial
+    lpc.CalcByPosition(fibrepos, *dirfit, energy, LOCALITY);
+    //lpc.CalcByPositionPartial( fibrepos, *dirfit, energy, LOCALITY ); // partial
     fittedDir = lpc.GetInitialLightVec();
     dirDiff = fibredir.Angle(fittedDir)*180./M_PIl;
 

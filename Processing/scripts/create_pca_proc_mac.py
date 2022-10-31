@@ -23,7 +23,7 @@ def get_run_n(runs):
 
 def create_content(runs, data_loc):
     macro = '/rat/physics_list/OmitAll true\n\n'
-    macro += '/rat/db/set DETECTOR geo_file "geo/snoplus_partial.geo"\n\n'
+    macro += '/rat/db/set DETECTOR geo_file "geo/snoplus_full.geo"\n\n'
     macro += '/rat/db/set PCA_GENERATION pca_source 1\n'
     macro += '/rat/db/set PCA_GENERATION low_occ_lim 300\n'
     macro += '/rat/db/set PCA_GENERATION pca_verbosity 2\n'

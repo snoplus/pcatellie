@@ -898,24 +898,24 @@ namespace RAT {
         double pmtTime = pmt.GetTime();                     // hit time [ns]
 
         // Get light travel time
-        //lpc.CalcByPosition(fibrepos, pmtPos, energy, LOCALITY);
-        lpc.CalcByPositionPartial( fibrepos, pmtPos, energy, LOCALITY ); // partial
+        lpc.CalcByPosition(fibrepos, pmtPos, energy, LOCALITY);
+        //lpc.CalcByPositionPartial( fibrepos, pmtPos, energy, LOCALITY ); // partial
 
         if (lpc.GetTIR() == 1) { continue; }           // total internal reflection
         if (lpc.GetPathValid() == 0) { continue; }      // check whether path parameters are valid
         if (lpc.GetResvHit() == 1) { continue; }        // whether end point was within locality
 
         // additional path checks
-        //if (lpc.GetTotalDist() <= 12000){ continue;}        // this rejects near reflections
-        //if (lpc.GetDistInInnerAV() <= 7000){ continue;}      // this rejects other weird paths
-        if (lpc.GetTotalDistPartial() <= 6000){ continue; }  //partial
-        if (lpc.GetTotalDistPartial() == lpc.GetDistInWater()){ continue; } //partial
+        if (lpc.GetTotalDist() <= 12000){ continue;}        // this rejects near reflections
+        if (lpc.GetDistInInnerAV() <= 7000){ continue;}      // this rejects other weird paths
+        //if (lpc.GetTotalDistPartial() <= 6000){ continue; }  //partial
+        //if (lpc.GetTotalDistPartial() == lpc.GetDistInWater()){ continue; } //partial
 
-        //double distInInnerAV = lpc.GetDistInInnerAV();
-        double distInInnerAV = lpc.GetDistInUpperTarget(); // partial
+        double distInInnerAV = lpc.GetDistInInnerAV();
+        //double distInInnerAV = lpc.GetDistInUpperTarget(); // partial
         double distInAV = lpc.GetDistInAV();
-        //double distInWater = lpc.GetDistInWater();
-        double distInWater = lpc.GetDistInWater() + lpc.GetDistInLowerTarget();  //partial
+        double distInWater = lpc.GetDistInWater();
+        //double distInWater = lpc.GetDistInWater() + lpc.GetDistInLowerTarget();  //partial
         double lightTravelTime = gv.CalcByDistance(distInInnerAV, distInAV, distInWater, energy);
 
         // Get light bucket time
