@@ -179,7 +179,7 @@ def calc_dir_diffs():
     		    ang2 = angle(dir,dirDB)
     		    ang3 = angle(dir2,dirDB)
     		    if ((math.degrees(ang) > 10) or (math.degrees(ang2) > 10) or (math.degrees(ang3) > 10)):
-    			    print "KEKW!"
+    			    print "???!"
     		    twoMINUSone.append( math.degrees(ang) )
     		    oneMINUSdb.append( math.degrees(ang2) )
     		    twoMINUSdb.append( math.degrees(ang3) )
