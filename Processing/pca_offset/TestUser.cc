@@ -100,6 +100,8 @@ protected:
   std::vector<double> fibre_dir_Y;
   std::vector<double> fibre_dir_Z;
   double AngB;
+  std::ifstream fit_file;
+  std::ifstream fit_file2;
 
   // Database
   RAT::DBLinkPtr tellie_run_data;
@@ -195,7 +197,14 @@ namespace RAT {
 
     // Load angular fit results
     cout << "Opening ang fit file: " << ang_fit_file.str() << endl;
-    std::ifstream fit_file( ang_fit_file.str().c_str() );
+    try{
+      fit_file.open( ang_fit_file.str().c_str() );
+      if (fit_file.fail()) throw ang_fit_file.str();
+    }
+    catch ( string e ) {
+      cout << "Exception opening/reading file: " << e << endl;
+      exit(EXIT_FAILURE);
+    }
     for ( string line; getline(fit_file, line); ){
       char *token = strtok( (char *)line.c_str(), (char *)delim.c_str());
       temp_count = 0;
@@ -215,10 +224,18 @@ namespace RAT {
         temp_count += 1;
       }
     }
+    fit_file.close();
 
     // Load direction fit results
     cout << "Opening dir fit file: " << dir_fit_file.str() << endl;
-    std::ifstream fit_file2( dir_fit_file.str().c_str() );
+    try{
+      fit_file2.open( dir_fit_file.str().c_str() );
+      if (fit_file2.fail()) throw dir_fit_file.str();
+    }
+    catch ( string e ) {
+      cout << "Exception opening/reading file: " << e << endl;
+      exit(EXIT_FAILURE);
+    }
     for ( string line; getline(fit_file2, line); ){
       char *token = strtok( (char *)line.c_str(), (char *)delim.c_str());
       temp_count = 0;
@@ -241,6 +258,7 @@ namespace RAT {
         temp_count += 1;
       }
     }
+    fit_file2.close();
 
     /*
     cout << fibre_ang_name.size() << endl;

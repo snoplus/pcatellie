@@ -110,6 +110,7 @@ protected:
   float nearmax;
   double val_hitPeak;
   double val_residPeak;
+  std::ifstream fit_file;
 
   // RAT stuff
   RAT::DU::GroupVelocity gv;
@@ -212,7 +213,14 @@ namespace RAT {
 
     // Load direction fit results
     cout << "Opening fit file: " << dir_fit_file.str() << endl;
-    std::ifstream fit_file( dir_fit_file.str().c_str() );
+    try{
+      fit_file.open( dir_fit_file.str().c_str() );
+      if (fit_file.fail()) throw dir_fit_file.str();
+    }
+    catch ( string e ) {
+      cout << "Exception opening/reading file: " << e << endl;
+      exit(EXIT_FAILURE);
+    }
     for ( string line; getline(fit_file, line); ){
       char *token = strtok( (char *)line.c_str(), (char *)delim.c_str());
       temp_count = 0;
@@ -235,6 +243,7 @@ namespace RAT {
         temp_count += 1;
       }
     }
+    fit_file.close();
 
     // Retrieve rotated detector view from fibre validation document
     /// this is obsolete now

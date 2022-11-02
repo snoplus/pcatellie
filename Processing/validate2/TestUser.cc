@@ -109,6 +109,9 @@ protected:
   std::vector<string> fibre_pcaoffset_name;
   std::vector<double> fibre_pcaoffset;
   std::vector<double> fibre_fibre_pcaoffset_er;
+  std::ifstream fit_file;
+  std::ifstream fit_file2;
+  std::ifstream fit_file3;
 
   // LPC
   double energy;
@@ -263,7 +266,14 @@ namespace RAT {
 
     // Load angular fit results
     cout << "Opening ang fit file: " << ang_fit_file.str() << endl;
-    std::ifstream fit_file( ang_fit_file.str().c_str() );
+    try{
+      fit_file.open( ang_fit_file.str().c_str() );
+      if (fit_file.fail()) throw ang_fit_file.str();
+    }
+    catch ( string e ) {
+      cout << "Exception opening/reading file: " << e << endl;
+      exit(EXIT_FAILURE);
+    }
     for ( string line; getline(fit_file, line); ){
       char *token = strtok( (char *)line.c_str(), (char *)delim.c_str());
       temp_count = 0;
@@ -283,10 +293,18 @@ namespace RAT {
         temp_count += 1;
       }
     }
+    fit_file.close();
 
     // Load direction fit results
     cout << "Opening dir fit file: " << dir_fit_file.str() << endl;
-    std::ifstream fit_file2( dir_fit_file.str().c_str() );
+    try{
+      fit_file2.open( dir_fit_file.str().c_str() );
+      if (fit_file2.fail()) throw dir_fit_file.str();
+    }
+    catch ( string e ) {
+      cout << "Exception opening/reading file: " << e << endl;
+      exit(EXIT_FAILURE);
+    }
     for ( string line; getline(fit_file2, line); ){
       char *token = strtok( (char *)line.c_str(), (char *)delim.c_str());
       temp_count = 0;
@@ -309,10 +327,18 @@ namespace RAT {
         temp_count += 1;
       }
     }
+    fit_file2.close();
 
     // Load pca offset fit results
     cout << "Opening pcaoffset fit file: " << offset_fit_file.str() << endl;
-    std::ifstream fit_file3( offset_fit_file.str().c_str() );
+    try{
+      fit_file3.open( offset_fit_file.str().c_str() );
+      if (fit_file3.fail()) throw offset_fit_file.str();
+    }
+    catch ( string e ) {
+      cout << "Exception opening/reading file: " << e << endl;
+      exit(EXIT_FAILURE);
+    }
     for ( string line; getline(fit_file3, line); ){
       char *token = strtok( (char *)line.c_str(), (char *)delim.c_str());
       temp_count = 0;
@@ -332,6 +358,7 @@ namespace RAT {
         temp_count += 1;
       }
     }
+    fit_file3.close();
 
   }
 
