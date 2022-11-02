@@ -740,6 +740,12 @@ def call_compareTW(tw_table):
     insert_line()
     return
 
+def move_pca_to_minard():
+    cmd = "cp " + pca_cons + "*.ratdb " + plots + "pca_constants/"
+    print cmd 
+    insert_line()
+    return
+
 def setup_tw_tables():
     run_n = tw_table.split("_")[1]
     tw_file = "PCATW_" + run_n + "_0.ratdb"
@@ -904,10 +910,10 @@ if __name__=="__main__":
     #if args.pca_tab_upl == 1:
         #upload_table(new_table, scripts_loc, upl_ratdb)
 
-    new_table = "253803.ratdb"
+    #new_table = "253803.ratdb"
     ### PCA Processor
     # create macro
-    tw_table, gf_table, pca_root, pca_log_file, bench_root_file = set_new_names(new_table)
+    #tw_table, gf_table, pca_root, pca_log_file, bench_root_file = set_new_names(new_table)
     #pca_proc_macro = create_pca_proc_mac()
     #call_pca_proc(pca_proc_macro)
     #global_offset = get_global_offset()
@@ -921,7 +927,7 @@ if __name__=="__main__":
     #bench_apply_macro = create_bench_apply_mac(tw_table, gf_table)
 
     # benchmarking 2: process
-    setup_tw_tables() 
+    #setup_tw_tables() 
     #call_bench_apply(bench_apply_macro)
 
     # benchmarking 3: compare scripts
@@ -933,6 +939,9 @@ if __name__=="__main__":
 
     # move pca files
     #move_bench_root()
+
+    # copy pca files to minard
+    move_pca_to_minard()
 
     # cleanup
     #cleanup(runtime_loc)
