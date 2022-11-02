@@ -7,6 +7,7 @@ import sys
 import re
 import couchdb
 import json
+import signal
 import datetime as dt
 from os import listdir
 from os.path import isfile, join
@@ -105,15 +106,15 @@ def jobs_running(cmds, retry=False):
             jobs.append( process )
             time.sleep(15)
             del cmds[0]
-        # wait for slots                    
-        print check_jobs(jobs)                
+        # wait for slots
+        print check_jobs(jobs)
         time.sleep(10)
     print "All submitted, now waiting..."
     while check_jobs(jobs)[0] != 0:
         print check_jobs(jobs)
         time.sleep(10)
         insert_line()
-    else: 
+    else:
         print "DONE: ALL JOBS"
         print check_jobs(jobs)
         insert_line()
@@ -147,6 +148,17 @@ def update_all_jobs2(jobs):
     all_jobs[1] += check_jobs(jobs)[1]
     all_jobs[2] += check_jobs(jobs)[2]
     print "ALL jobs current:", all_jobs
+    return
+
+def handler(signum, frame):
+    print "Exiting!"
+    kill_running_jobs()
+    exit(1)
+
+def kill_running_jobs():
+    for i in range(0, len(jobs)):
+        if check_status(jobs[i]) == None:
+            jobs[i].kill()
     return
 
 def reupload_env():
@@ -742,8 +754,9 @@ def call_compareTW(tw_table):
 
 def move_pca_to_minard():
     cmd = "cp " + pca_cons + "*.ratdb " + plots + "pca_constants/"
-    print cmd 
-    insert_line()
+    print cmd
+    os.system( cmd )
+    #insert_line()
     return
 
 def setup_tw_tables():
@@ -777,7 +790,7 @@ def mod_local_tables(tw_file, gf_file):
     os.remove(filename)
     with open(filename, 'w') as f:
         json.dump(data, f)
-    return    
+    return
 
 def move_pca_const():
     print "Moving PCA constants:"
@@ -830,6 +843,9 @@ def move_pca_plots(plots, runlist):
 
 if __name__=="__main__":
 
+    ### catch signal interupts
+    signal.signal(signal.SIGINT, handler)
+
     ### load environment
     scripts_loc, upl_env, upl_val1, upl_val2, upl_fits, upl_ratdb, make_table, fits_folder, dir_fit_file, ang_fit_file, offset_fit_file, default_dir, tables_loc, tables_scripts, val1_log, val2_log, dir_log, as_log, pca_log, bench_log, data_loc, logs_loc, plots, runtime_loc, compare_table, compare_all, cdb_add, cdb_db, cdb_user, cdb_pw, create_bench_apply, create_pca_proc, bench_cd, bench_tw, bench_peak, pca_cons, bench_root, upl_bench, checkpca_loc = load_env()
 
@@ -862,12 +878,15 @@ if __name__=="__main__":
     failed_jobs = []
     all_jobs = [0, 0, 0]
 
-    test_run = good_runs.sort()
+    ### sort runs
+    good_runs.sort()
+    #print good_runs
+    test_run = good_runs
 
     ### call processing scripts here
     # validation 1
-    #if args.val1 == 1:
-        #call_validate1(test_run, plots)
+    if args.val1 == 1:
+        call_validate1(test_run, plots)
         #upload_val1(upl_val1, scripts_loc, test_run)
 
     ### call fits scripts
@@ -927,7 +946,7 @@ if __name__=="__main__":
     #bench_apply_macro = create_bench_apply_mac(tw_table, gf_table)
 
     # benchmarking 2: process
-    #setup_tw_tables() 
+    #setup_tw_tables()
     #call_bench_apply(bench_apply_macro)
 
     # benchmarking 3: compare scripts
@@ -941,7 +960,7 @@ if __name__=="__main__":
     #move_bench_root()
 
     # copy pca files to minard
-    move_pca_to_minard()
+    #move_pca_to_minard()
 
     # cleanup
     #cleanup(runtime_loc)
@@ -949,4 +968,7 @@ if __name__=="__main__":
 
     # check final job count
     #get_final_job_count(all_jobs)
-    
+
+
+    for job in jobs:
+        job.kill()
