@@ -13,13 +13,48 @@ mymain = False # Do you have a main function defined in your source files?
 
 ########### Hopefully you won't need to edit below this line ##########
 
-from buildhelp import RATENVFILE, ROOTARCH, build_list
+import os
+from buildhelp import RATENVFILE, ROOTARCH, build_list, rat_path
+from SCons.Errors import BuildError
 
 env = SConscript(RATENVFILE)
 env['mymain'] = mymain
 
+if not os.path.exists(env['RATLIB']):
+    error = BuildError()
+    error.errstr = ("Cannot find static library for RAT "
+                    "(expected at path {}). "
+                    "Ensure that the standard RAT is fully compiled before "
+                    "attempting to compile user-customized RAT application."
+                    "".format(env["RATLIB"]))
+    error.filename = "SConstruct"
+    error.status = 2
+    error.exitstatus = 2
+    raise error
+
 if append_platform_name:
     appname += "_" + ROOTARCH
+
+if env['USE_ROOT6']:
+    # Need to co-locate .pcm file for program.
+    # Not sure why it needs to be in the same directory as executable,
+    # but it does...
+    build_dir = env['BUILDDIR']
+
+    # Strip build directory of the SCons specific '#' character,
+    # Indicates relative to top level SConstruct file,
+    # which is not correct.
+    build_dir = build_dir.replace("#/", "")
+    build_dir = build_dir.replace("#", "")
+
+    # Construct path relative to top level, unless already absolute.
+    if not os.path.isabs(build_dir):
+        build_dir = rat_path(build_dir)
+
+    # Install the .pcm file here.
+    dict_file_pcm = os.path.join(build_dir, 'RAT_Dict_rdict.pcm')
+    pcm_install = Install(target='#/', source=dict_file_pcm)
+    env.Default(pcm_install)
 
 myobj = env.Object(build_list('*.cc', env['BUILDDIR']))
 myapp = env.RATApp(appname, myobj)
