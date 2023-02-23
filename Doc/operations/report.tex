@@ -738,7 +738,7 @@ The list of datasets (Figure~\ref{fig:min2}) is the starting point. Again, most 
 \paragraph{}
 This section will describe some of the features of the overall processing.
 
-\subsection{Simple}
+\subsection{Simple}\label{subsec:simple}
 \paragraph{}
 The system is based on being very simple and with minimum human input. As it stands, it only needs to be started, providing a single text file with runs corresponding to a dataset.\\
 Example runlist text file:
@@ -957,11 +957,45 @@ This subsection lists some of the more important cuts and checks that are applie
 
 \clearpage
 
-\section{Deploying} %(mention requirements here: rat, python, dbs...)
+\section{Deploying}\label{sec:dep}
+%(mention requirements here: rat, python, dbs...)
 
 \section{Running}\label{sec:run}
 \paragraph{}
 In general, the running is supposed to be autonomous - after being started. However, I suggest monitoring the application thoroughly the first few times it is run (as the development was done with different setup). It should also be monitored occasionally when tuned, as there will be indications if things go wrong - such as high number of jobs failing. 
+
+\paragraph{}
+For actual start-up, I recommend running this in screen. Firstly, the environment needs to be sourced. The \texttt{env.sh} file contains: CouchDB address and credentials, threshold parameters for checks, names and locations of script files, and ratDB credentials. This file is not included with the repository, but is placed in the deployed location manually.
+
+\paragraph{}
+Several folders and default files need to be in place for the application to run succesfully. These are mentioned in Section~\ref{sec:dep}.
+
+\paragraph{}
+The only input required is the text file holding the run numbers for TELLIE PCA runs (one for each fibre). An example of this is shown in Subsection~\ref{subsec:simple}.
+
+\paragraph{}
+Finally, one just calls the master script. There are few command line arguments that can be provided, as shown in Figure~\ref{fig:args}. The only required argument is `-f`, providing the path to the runlist tex file. Other options of interest are `-c`, selecting the number of cores: this corresponds to the number of simultaneous jobs that can be spawned; and '-e', which is an option to reupload the environment. All other arguments allow to select which steps to run from the full suite. In normal conditions - running processing on full TELLIE PCA dataset - it is always recommended to run all steps.
+
+\paragraph{}
+An example run procedure:
+\begin{lstlisting}
+screen -S tellie_pca
+cd <Automation repository>
+source env.sh
+cd runtime
+python ../scripts/master.py -f <path/to/runlist.txt> -c <cores>
+\end{lstlisting}
+Then one can detach from the screen, and attach occassionaly to monitor.
+
+\begin{figure}
+\centering
+\noindent\makebox[1\textwidth]{
+  \includegraphics[width=1.25\textwidth]{./plots/args.png}}
+  \caption{\centering \texttt{Master script}: The available command line arguments.}
+  \label{fig:args}
+\end{figure}
+
+\clearpage
 
 \section{ToDos}
 \paragraph{}

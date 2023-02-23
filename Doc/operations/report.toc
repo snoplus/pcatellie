@@ -87,7 +87,12 @@
 \contentsline {section}{\numberline {7}Deploying}{76}{section.7}%
 \contentsline {section}{\numberline {8}Running}{76}{section.8}%
 \contentsline {paragraph}{}{76}{section*.59}%
-\contentsline {section}{\numberline {9}ToDos}{76}{section.9}%
 \contentsline {paragraph}{}{76}{section*.60}%
-\contentsline {section}{\numberline {10}Other documentation}{76}{section.10}%
 \contentsline {paragraph}{}{76}{section*.61}%
+\contentsline {paragraph}{}{76}{section*.62}%
+\contentsline {paragraph}{}{76}{section*.63}%
+\contentsline {paragraph}{}{76}{section*.64}%
+\contentsline {section}{\numberline {9}ToDos}{78}{section.9}%
+\contentsline {paragraph}{}{78}{section*.65}%
+\contentsline {section}{\numberline {10}Other documentation}{78}{section.10}%
+\contentsline {paragraph}{}{78}{section*.66}%
