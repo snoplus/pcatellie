@@ -77,15 +77,17 @@
 \contentsline {section}{\numberline {6}Code}{68}{section.6}%
 \contentsline {paragraph}{}{68}{section*.53}%
 \contentsline {subsection}{\numberline {6.1}Structure}{68}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}Master scripts}{70}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.2}Master script}{70}{subsection.6.2}%
 \contentsline {paragraph}{}{70}{section*.54}%
 \contentsline {paragraph}{}{70}{section*.55}%
 \contentsline {paragraph}{}{70}{section*.56}%
-\contentsline {subsection}{\numberline {6.3}Cuts and checks}{71}{subsection.6.3}%
-\contentsline {paragraph}{}{71}{section*.57}%
-\contentsline {section}{\numberline {7}Deploying}{73}{section.7}%
-\contentsline {section}{\numberline {8}Running}{73}{section.8}%
-\contentsline {section}{\numberline {9}ToDos}{73}{section.9}%
-\contentsline {paragraph}{}{73}{section*.58}%
-\contentsline {section}{\numberline {10}Other documentation}{73}{section.10}%
-\contentsline {paragraph}{}{73}{section*.59}%
+\contentsline {paragraph}{}{73}{section*.57}%
+\contentsline {subsection}{\numberline {6.3}Cuts and checks}{74}{subsection.6.3}%
+\contentsline {paragraph}{}{74}{section*.58}%
+\contentsline {section}{\numberline {7}Deploying}{76}{section.7}%
+\contentsline {section}{\numberline {8}Running}{76}{section.8}%
+\contentsline {paragraph}{}{76}{section*.59}%
+\contentsline {section}{\numberline {9}ToDos}{76}{section.9}%
+\contentsline {paragraph}{}{76}{section*.60}%
+\contentsline {section}{\numberline {10}Other documentation}{76}{section.10}%
+\contentsline {paragraph}{}{76}{section*.61}%

@@ -24,7 +24,7 @@
 
 \vspace{7cm}
 \paragraph{}
-This document describes what the TELLIE PCA automation does, why, and how.
+This document describes what the TELLIE PCA automation does; why, and how.
 \clearpage
 
 \tableofcontents
@@ -779,13 +779,13 @@ The checks in validation steps are often based on threshold values. There are lo
 
 \subsection{Linked}
 \paragraph{}
-The processing system is linked to multiple databases. The CouchDB holds data on: belly plates, benchmarking, environment constants, list of fibres, runlists, and document for each run/fit combination. An overview of views in the couhdb is shown in Figure~\ref{fig:couch}, while an example environment CouchDB document is shown in Figure~\ref{fig:couchdoc}.
+The processing system is linked to multiple databases. The CouchDB holds data on: belly plates, benchmarking, environment constants, list of fibres, runlists, and document for each run/fit combination. An overview of views in the CouchDB is shown in Figure~\ref{fig:couch}, while an example environment CouchDB document is shown in Figure~\ref{fig:couchdoc}.
 
 \begin{figure}
 \centering
 \noindent\makebox[1\textwidth]{
   \includegraphics[width=0.5\textwidth]{./plots/couch.png}}
-  \caption{\centering \texttt{Validation \#2}: }
+  \caption{\centering \texttt{CouchDB}: An overview of views in CouchDB database.}
   \label{fig:couch}
 \end{figure}
 
@@ -793,7 +793,7 @@ The processing system is linked to multiple databases. The CouchDB holds data on
 \centering
 \noindent\makebox[1\textwidth]{
   \includegraphics[width=0.32\textwidth]{./plots/couchdoc.png}}
-  \caption{\centering \texttt{Validation \#2}:  }
+  \caption{\centering \texttt{CouchDB}: An example CouchDB document (in this case holding the thresholds for checks.}
   \label{fig:couchdoc}
 \end{figure}
 
@@ -835,16 +835,16 @@ This section will provide some comments on the code (TELLIE Automation repositor
 			\item create\_bench\_apply\_mac.py: Creates RAT macro to run benchmarking - loads the new constants and applies on laserball run.
 			\item create\_pca\_proc\_mac.py: Creates RAT macro to run PCA processor for given dataset.
 			\item delete\_old\_couchdb.py: Helper script to delete CouchDB documents by type.
-			\item get\_belly\_fibres.py: Helper script to create ratDB file containing the list of fibres affected by belly plates (loaded from couchDB document).
+			\item get\_belly\_fibres.py: Helper script to create ratDB file containing the list of fibres affected by belly plates (loaded from CouchDB document).
 			\item load\_db.py: Helper script to load default fibre directions from ratDB.
 			\item make\_ratdb\_table.py: Creates ratDB table from PCA table. This is loaded by the PCA processor to apply corrections to hit times.
 			\item master.py: The brain of operations. See Subsection~\ref{sub:master}.
-			\item upload\_bench.py: Parses data from benchmark comparison scripts and uploads a couchDB document.
-			\item upload\_env.py: Parses the environment variables and uploads a couchDB document.
-			\item upload\_fits.py: Parses the data from fits and uploads a couchDB document.
+			\item upload\_bench.py: Parses data from benchmark comparison scripts and uploads a CouchDB document.
+			\item upload\_env.py: Parses the environment variables and uploads a CouchDB document.
+			\item upload\_fits.py: Parses the data from fits and uploads a CouchDB document.
 			\item upload\_radtb.py: Uploads ratDB table to postgres. 
-			\item upload\_val1.py: Parses the data from \texttt{Validation \#1} step and uploads a couchDB document.
-			\item upload\_val2.py: Parses the data from \texttt{Validation \#2} step and uploads a couchDB document.
+			\item upload\_val1.py: Parses the data from \texttt{Validation \#1} step and uploads a CouchDB document.
+			\item upload\_val2.py: Parses the data from \texttt{Validation \#2} step and uploads a CouchDB document.
 		\end{itemize}
 		\item \textit{validate}: Processor to perform the \texttt{Validation \#1} step of the processing suite.
 		\item \textit{validate2}: Processor to perform the \texttt{Validation \#2} step of the processing suite.
@@ -853,7 +853,7 @@ This section will provide some comments on the code (TELLIE Automation repositor
 
 \clearpage
 
-\subsection{Master scripts}\label{sub:master}
+\subsection{Master script}\label{sub:master}
 \paragraph{}
 This is the main script of the whole suite. This is the one called by the user to start the processing. It handles almost every portion of the suite.
 
@@ -865,26 +865,59 @@ Here are the steps, in order:
 \begin{itemize}
 	\item \textit{loads environment}: The environment holds script names and locations.
 	\item \textit{parse arguments}: Parses the supplied command line arguments (see Section~\ref{sec:run}).
-	\item \textit{upload environment (opt)}: Uploads the environment variables to couchDB.  
+	\item \textit{upload environment (opt)}: Uploads the environment variables to CouchDB.  
 	\item \textit{parse runlist}: Parses the provided runlist (from text file). 
 	\item \textit{create dataset}: Uploads a document holding dataset information. 
 	\item \textit{check data exists}: Checks that physical files exist for the provided runlist. 
 	\item \textit{set job limit}: Sets a limit on how many processes can be run at each time. 
 	\item \textit{sort runs}: Order runlist. 
 	\item \textit{call Validation \#1}: Runs the \texttt{Validation \#1} step over all runs, using the submission platform. 
-	\item \textit{upload Validation \#1}: Uploads the results of \texttt{Validation \#1} to couchDB.
+	\item \textit{upload Validation \#1}: Uploads the results of \texttt{Validation \#1} to CouchDB.
 	\item \textit{call position fit}: Runs the position and direction fit step over all runs, using the submission platform. 
 	\item \textit{call ang sys fit}: Runs the angular systematic fit step over all runs, using the submission platform. 
 	\item \textit{call pca offset fit}: Runs the pca offset fit step over all runs, using the submission platform. 
-	\item \textit{upload fits}: Uploads the results of fit steps (together) to couchDB.
+	\item \textit{upload fits}: Uploads the results of fit steps (together) to CouchDB.
 	\item \textit{call Validation \#2}: Runs the \texttt{Validation \#2} step over all runs, using the submission platform. 
-	\item \textit{upload Validation \#2}: Uploads the results of \texttt{Validation \#2} to couchDB.
-	\item \textit{•}: 
-	\item \textit{•}: 
-	\item \textit{•}: 
-	\item \textit{•}: 
-	\item \textit{•}: 
+	\item \textit{upload Validation \#2}: Uploads the results of \texttt{Validation \#2} to CouchDB.
+	\item \textit{log cleanup}: Removes (now obsolete) logs.
+	\item \textit{create run folders}: Create folders for each run in the designated minard location. 
+	\item \textit{move plots}: Move plots (created by previous stages) to the minard location.
+	\item \textit{make pca table}: Create PCA table from the fit logs.
+	\item \textit{move fits}: Move the fit (text) files to their location. 
+	\item \textit{compare tables two}: Call script to compare new PCA table to previous one.
+	\item \textit{compare tables all}: Call script to recreate plots comparing all PCA tables.
+	\item \textit{upload ratdb table}: Call script to upload ratdb table to postgres.
+	\item \textit{set new names}: Pre-set names for files (to expect) from PCA processor.
+	\item \textit{create pca proc mac}: Call script to create PCA processor RAT macro.
+	\item \textit{call pca proc}: Spawn RAT process to run the PCA processor.
+	\item \textit{get global offset}: Retrieve the global offset from the PCA log file.
+	\item \textit{move pca const}: Move the output files from the PCA processor.
+	\item \textit{call checkPCA}: Call scripts to compare the PCA results to previous set.
+	\item \textit{call compareTW}: Call scripts to compare TW results to previous set.
+	\item \textit{move pca plots}: Move plots created by scripts above to minard location.
+	\item \textit{create bench apply mac}: Call script to create benchmarking RAT macro.
+	\item \textit{setup tw tables}: This function prepares the TW and GF ratdb tables. These need to be temporarily modified to overwrite the defauls from the ratDB.
+	\item \textit{call bench apply}: Spawn RAT process to run the benchmarking.
+	\item \textit{call cd compare}: Call script to compare cable delays from benchmarking.
+	\item \textit{call tw compare}: Call script to compare time-walk data from benchmarking.
+	\item \textit{call peak compare}: Call script to compare residual times peaks from benchmarking.
+	\item \textit{upload bench}: Uploads the results of benchmarking steps (together) to CouchDB.
+	\item \textit{move bench plots}: Move plots created by scripts above to minard location.
+	\item \textit{move bench root}: Move the benchmarking root files to their defined location.
+	\item \textit{move pca to minard}: Move PCA ratDBs to minard location (these are needed for online monitoring).
+	\item \textit{cleanup}: Move logs (from fits, PCA processor, and benchmarking), and remove (now obsolete) mac, and ratdb files.
+	\item \textit{log cleanup}: Remove unwanted logs (from RAT).
+	\item \textit{get final job count}: Print out the final job statistics (running, succesful, failed).
 \end{itemize}
+
+\paragraph{}
+There are several other helper functions that are not called directly, but rather called from within other functions. This includes the submission platform and monitorin. For these, please look at the master script.\\
+The script is here:
+\begin{lstlisting}
+Automation/Processing/scripts/master.py
+\end{lstlisting}
+
+\clearpage
 
 \subsection{Cuts and checks}
 \paragraph{}
@@ -927,6 +960,8 @@ This subsection lists some of the more important cuts and checks that are applie
 \section{Deploying} %(mention requirements here: rat, python, dbs...)
 
 \section{Running}\label{sec:run}
+\paragraph{}
+In general, the running is supposed to be autonomous - after being started. However, I suggest monitoring the application thoroughly the first few times it is run (as the development was done with different setup). It should also be monitored occasionally when tuned, as there will be indications if things go wrong - such as high number of jobs failing. 
 
 \section{ToDos}
 \paragraph{}
