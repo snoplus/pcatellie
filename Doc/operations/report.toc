@@ -1,63 +1,91 @@
 \contentsline {paragraph}{}{1}{section*.1}%
-\contentsline {section}{\numberline {1}Content}{4}{section.1}%
+\contentsline {section}{\numberline {1}Why automation}{4}{section.1}%
 \contentsline {paragraph}{}{4}{section*.3}%
-\contentsline {section}{\numberline {2}Why automation}{5}{section.2}%
-\contentsline {paragraph}{}{5}{section*.4}%
-\contentsline {section}{\numberline {3}Overview}{5}{section.3}%
-\contentsline {paragraph}{}{5}{section*.5}%
-\contentsline {paragraph}{}{5}{section*.6}%
-\contentsline {paragraph}{}{5}{section*.7}%
-\contentsline {section}{\numberline {4}Data-taking}{5}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Validation \#1}{5}{subsection.4.1}%
-\contentsline {paragraph}{}{5}{section*.8}%
-\contentsline {paragraph}{}{7}{section*.9}%
-\contentsline {paragraph}{}{7}{section*.10}%
-\contentsline {paragraph}{}{7}{section*.11}%
-\contentsline {section}{\numberline {5}Data-processing}{18}{section.5}%
-\contentsline {subsection}{\numberline {5.1}PCA table generation}{18}{subsection.5.1}%
-\contentsline {paragraph}{}{18}{section*.12}%
-\contentsline {subsubsection}{\numberline {5.1.1}Fit: beamspot}{18}{subsubsection.5.1.1}%
-\contentsline {subsubsection}{\numberline {5.1.2}Fit: direction}{18}{subsubsection.5.1.2}%
-\contentsline {subsubsection}{\numberline {5.1.3}Fit: angular systematic}{18}{subsubsection.5.1.3}%
-\contentsline {subsubsection}{\numberline {5.1.4}Fit: Injection time}{18}{subsubsection.5.1.4}%
-\contentsline {subsection}{\numberline {5.2}Validation \#2}{18}{subsection.5.2}%
-\contentsline {paragraph}{}{18}{section*.13}%
-\contentsline {paragraph}{}{18}{section*.14}%
-\contentsline {paragraph}{}{18}{section*.15}%
-\contentsline {paragraph}{}{18}{section*.16}%
-\contentsline {subsection}{\numberline {5.3}Comparing PCA tables}{25}{subsection.5.3}%
-\contentsline {subsection}{\numberline {5.4}PCA constants}{25}{subsection.5.4}%
-\contentsline {subsection}{\numberline {5.5}Benchmarking}{25}{subsection.5.5}%
-\contentsline {paragraph}{}{25}{section*.17}%
-\contentsline {subsection}{\numberline {5.6}Monitoring}{25}{subsection.5.6}%
-\contentsline {paragraph}{}{25}{section*.18}%
-\contentsline {paragraph}{}{25}{section*.19}%
-\contentsline {subsubsection}{\numberline {5.6.1}Where}{25}{subsubsection.5.6.1}%
-\contentsline {paragraph}{}{25}{section*.20}%
-\contentsline {paragraph}{}{26}{section*.21}%
-\contentsline {paragraph}{}{26}{section*.22}%
-\contentsline {section}{\numberline {6}System}{58}{section.6}%
-\contentsline {paragraph}{}{58}{section*.23}%
-\contentsline {subsection}{\numberline {6.1}Simple}{58}{subsection.6.1}%
-\contentsline {paragraph}{}{58}{section*.24}%
-\contentsline {subsection}{\numberline {6.2}Modular}{58}{subsection.6.2}%
-\contentsline {paragraph}{}{58}{section*.25}%
-\contentsline {subsection}{\numberline {6.3}Submission platform}{58}{subsection.6.3}%
-\contentsline {paragraph}{}{58}{section*.26}%
-\contentsline {paragraph}{}{58}{section*.27}%
-\contentsline {paragraph}{}{59}{section*.28}%
-\contentsline {subsection}{\numberline {6.4}Customizable}{59}{subsection.6.4}%
-\contentsline {paragraph}{}{59}{section*.29}%
-\contentsline {subsection}{\numberline {6.5}Linked}{59}{subsection.6.5}%
-\contentsline {paragraph}{}{59}{section*.30}%
-\contentsline {paragraph}{}{59}{section*.31}%
-\contentsline {subsection}{\numberline {6.6}Regulation}{59}{subsection.6.6}%
-\contentsline {paragraph}{}{59}{section*.32}%
-\contentsline {subsection}{\numberline {6.7}Evaluative}{59}{subsection.6.7}%
-\contentsline {paragraph}{}{59}{section*.33}%
-\contentsline {section}{\numberline {7}Code}{63}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Master scripts}{63}{subsection.7.1}%
-\contentsline {section}{\numberline {8}Deploying}{63}{section.8}%
-\contentsline {section}{\numberline {9}Running}{63}{section.9}%
-\contentsline {section}{\numberline {10}ToDos}{63}{section.10}%
-\contentsline {section}{\numberline {11}Other documentation}{63}{section.11}%
+\contentsline {section}{\numberline {2}Overview}{4}{section.2}%
+\contentsline {paragraph}{}{4}{section*.4}%
+\contentsline {paragraph}{}{4}{section*.5}%
+\contentsline {paragraph}{}{4}{section*.6}%
+\contentsline {section}{\numberline {3}Data-taking}{4}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Validation \#1}{4}{subsection.3.1}%
+\contentsline {paragraph}{}{4}{section*.7}%
+\contentsline {paragraph}{}{6}{section*.8}%
+\contentsline {paragraph}{}{6}{section*.9}%
+\contentsline {paragraph}{}{6}{section*.10}%
+\contentsline {section}{\numberline {4}Data-processing}{17}{section.4}%
+\contentsline {subsection}{\numberline {4.1}PCA table generation}{17}{subsection.4.1}%
+\contentsline {paragraph}{}{17}{section*.11}%
+\contentsline {paragraph}{}{17}{section*.12}%
+\contentsline {subsubsection}{\numberline {4.1.1}Fit: beamspot}{17}{subsubsection.4.1.1}%
+\contentsline {paragraph}{}{17}{section*.13}%
+\contentsline {paragraph}{}{17}{section*.14}%
+\contentsline {paragraph}{}{17}{section*.15}%
+\contentsline {subsubsection}{\numberline {4.1.2}Fit: direction}{17}{subsubsection.4.1.2}%
+\contentsline {paragraph}{}{17}{section*.16}%
+\contentsline {paragraph}{}{19}{section*.17}%
+\contentsline {paragraph}{}{19}{section*.18}%
+\contentsline {paragraph}{}{19}{section*.19}%
+\contentsline {subsubsection}{\numberline {4.1.3}Fit: angular systematic}{19}{subsubsection.4.1.3}%
+\contentsline {paragraph}{}{19}{section*.20}%
+\contentsline {paragraph}{}{19}{section*.21}%
+\contentsline {paragraph}{}{19}{section*.22}%
+\contentsline {paragraph}{}{19}{section*.23}%
+\contentsline {subsubsection}{\numberline {4.1.4}Fit: Injection time}{22}{subsubsection.4.1.4}%
+\contentsline {paragraph}{}{22}{section*.24}%
+\contentsline {paragraph}{}{22}{section*.25}%
+\contentsline {paragraph}{}{22}{section*.26}%
+\contentsline {subsection}{\numberline {4.2}Comparing PCA tables}{22}{subsection.4.2}%
+\contentsline {paragraph}{}{23}{section*.27}%
+\contentsline {paragraph}{}{23}{section*.28}%
+\contentsline {subsection}{\numberline {4.3}Validation \#2}{23}{subsection.4.3}%
+\contentsline {paragraph}{}{23}{section*.29}%
+\contentsline {paragraph}{}{23}{section*.30}%
+\contentsline {paragraph}{}{23}{section*.31}%
+\contentsline {paragraph}{}{25}{section*.32}%
+\contentsline {subsection}{\numberline {4.4}PCA constants}{29}{subsection.4.4}%
+\contentsline {paragraph}{}{29}{section*.33}%
+\contentsline {paragraph}{}{29}{section*.34}%
+\contentsline {subsection}{\numberline {4.5}Benchmarking}{29}{subsection.4.5}%
+\contentsline {paragraph}{}{29}{section*.35}%
+\contentsline {paragraph}{}{29}{section*.36}%
+\contentsline {subsection}{\numberline {4.6}Monitoring}{29}{subsection.4.6}%
+\contentsline {paragraph}{}{29}{section*.37}%
+\contentsline {paragraph}{}{30}{section*.38}%
+\contentsline {subsubsection}{\numberline {4.6.1}Where}{30}{subsubsection.4.6.1}%
+\contentsline {paragraph}{}{30}{section*.39}%
+\contentsline {subsubsection}{\numberline {4.6.2}What}{30}{subsubsection.4.6.2}%
+\contentsline {paragraph}{}{30}{section*.40}%
+\contentsline {paragraph}{}{30}{section*.41}%
+\contentsline {section}{\numberline {5}System}{63}{section.5}%
+\contentsline {paragraph}{}{63}{section*.42}%
+\contentsline {subsection}{\numberline {5.1}Simple}{63}{subsection.5.1}%
+\contentsline {paragraph}{}{63}{section*.43}%
+\contentsline {subsection}{\numberline {5.2}Modular}{63}{subsection.5.2}%
+\contentsline {paragraph}{}{63}{section*.44}%
+\contentsline {subsection}{\numberline {5.3}Submission platform}{63}{subsection.5.3}%
+\contentsline {paragraph}{}{63}{section*.45}%
+\contentsline {paragraph}{}{63}{section*.46}%
+\contentsline {paragraph}{}{64}{section*.47}%
+\contentsline {subsection}{\numberline {5.4}Customizable}{64}{subsection.5.4}%
+\contentsline {paragraph}{}{64}{section*.48}%
+\contentsline {subsection}{\numberline {5.5}Linked}{64}{subsection.5.5}%
+\contentsline {paragraph}{}{64}{section*.49}%
+\contentsline {paragraph}{}{64}{section*.50}%
+\contentsline {subsection}{\numberline {5.6}Regulation}{64}{subsection.5.6}%
+\contentsline {paragraph}{}{64}{section*.51}%
+\contentsline {subsection}{\numberline {5.7}Evaluative}{64}{subsection.5.7}%
+\contentsline {paragraph}{}{64}{section*.52}%
+\contentsline {section}{\numberline {6}Code}{68}{section.6}%
+\contentsline {paragraph}{}{68}{section*.53}%
+\contentsline {subsection}{\numberline {6.1}Structure}{68}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Master scripts}{70}{subsection.6.2}%
+\contentsline {paragraph}{}{70}{section*.54}%
+\contentsline {paragraph}{}{70}{section*.55}%
+\contentsline {paragraph}{}{70}{section*.56}%
+\contentsline {subsection}{\numberline {6.3}Cuts and checks}{71}{subsection.6.3}%
+\contentsline {paragraph}{}{71}{section*.57}%
+\contentsline {section}{\numberline {7}Deploying}{73}{section.7}%
+\contentsline {section}{\numberline {8}Running}{73}{section.8}%
+\contentsline {section}{\numberline {9}ToDos}{73}{section.9}%
+\contentsline {paragraph}{}{73}{section*.58}%
+\contentsline {section}{\numberline {10}Other documentation}{73}{section.10}%
+\contentsline {paragraph}{}{73}{section*.59}%

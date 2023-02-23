@@ -1,31 +1,33 @@
-\BOOKMARK [1][-]{section.1}{Content}{}% 1
-\BOOKMARK [1][-]{section.2}{Why automation}{}% 2
-\BOOKMARK [1][-]{section.3}{Overview}{}% 3
-\BOOKMARK [1][-]{section.4}{Data-taking}{}% 4
-\BOOKMARK [2][-]{subsection.4.1}{Validation \0431}{section.4}% 5
-\BOOKMARK [1][-]{section.5}{Data-processing}{}% 6
-\BOOKMARK [2][-]{subsection.5.1}{PCA table generation}{section.5}% 7
-\BOOKMARK [3][-]{subsubsection.5.1.1}{Fit: beamspot}{subsection.5.1}% 8
-\BOOKMARK [3][-]{subsubsection.5.1.2}{Fit: direction}{subsection.5.1}% 9
-\BOOKMARK [3][-]{subsubsection.5.1.3}{Fit: angular systematic}{subsection.5.1}% 10
-\BOOKMARK [3][-]{subsubsection.5.1.4}{Fit: Injection time}{subsection.5.1}% 11
-\BOOKMARK [2][-]{subsection.5.2}{Validation \0432}{section.5}% 12
-\BOOKMARK [2][-]{subsection.5.3}{Comparing PCA tables}{section.5}% 13
-\BOOKMARK [2][-]{subsection.5.4}{PCA constants}{section.5}% 14
-\BOOKMARK [2][-]{subsection.5.5}{Benchmarking}{section.5}% 15
-\BOOKMARK [2][-]{subsection.5.6}{Monitoring}{section.5}% 16
-\BOOKMARK [3][-]{subsubsection.5.6.1}{Where}{subsection.5.6}% 17
-\BOOKMARK [1][-]{section.6}{System}{}% 18
-\BOOKMARK [2][-]{subsection.6.1}{Simple}{section.6}% 19
-\BOOKMARK [2][-]{subsection.6.2}{Modular}{section.6}% 20
-\BOOKMARK [2][-]{subsection.6.3}{Submission platform}{section.6}% 21
-\BOOKMARK [2][-]{subsection.6.4}{Customizable}{section.6}% 22
-\BOOKMARK [2][-]{subsection.6.5}{Linked}{section.6}% 23
-\BOOKMARK [2][-]{subsection.6.6}{Regulation}{section.6}% 24
-\BOOKMARK [2][-]{subsection.6.7}{Evaluative}{section.6}% 25
-\BOOKMARK [1][-]{section.7}{Code}{}% 26
-\BOOKMARK [2][-]{subsection.7.1}{Master scripts}{section.7}% 27
-\BOOKMARK [1][-]{section.8}{Deploying}{}% 28
-\BOOKMARK [1][-]{section.9}{Running}{}% 29
-\BOOKMARK [1][-]{section.10}{ToDos}{}% 30
-\BOOKMARK [1][-]{section.11}{Other documentation}{}% 31
+\BOOKMARK [1][-]{section.1}{Why automation}{}% 1
+\BOOKMARK [1][-]{section.2}{Overview}{}% 2
+\BOOKMARK [1][-]{section.3}{Data-taking}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{Validation \0431}{section.3}% 4
+\BOOKMARK [1][-]{section.4}{Data-processing}{}% 5
+\BOOKMARK [2][-]{subsection.4.1}{PCA table generation}{section.4}% 6
+\BOOKMARK [3][-]{subsubsection.4.1.1}{Fit: beamspot}{subsection.4.1}% 7
+\BOOKMARK [3][-]{subsubsection.4.1.2}{Fit: direction}{subsection.4.1}% 8
+\BOOKMARK [3][-]{subsubsection.4.1.3}{Fit: angular systematic}{subsection.4.1}% 9
+\BOOKMARK [3][-]{subsubsection.4.1.4}{Fit: Injection time}{subsection.4.1}% 10
+\BOOKMARK [2][-]{subsection.4.2}{Comparing PCA tables}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.3}{Validation \0432}{section.4}% 12
+\BOOKMARK [2][-]{subsection.4.4}{PCA constants}{section.4}% 13
+\BOOKMARK [2][-]{subsection.4.5}{Benchmarking}{section.4}% 14
+\BOOKMARK [2][-]{subsection.4.6}{Monitoring}{section.4}% 15
+\BOOKMARK [3][-]{subsubsection.4.6.1}{Where}{subsection.4.6}% 16
+\BOOKMARK [3][-]{subsubsection.4.6.2}{What}{subsection.4.6}% 17
+\BOOKMARK [1][-]{section.5}{System}{}% 18
+\BOOKMARK [2][-]{subsection.5.1}{Simple}{section.5}% 19
+\BOOKMARK [2][-]{subsection.5.2}{Modular}{section.5}% 20
+\BOOKMARK [2][-]{subsection.5.3}{Submission platform}{section.5}% 21
+\BOOKMARK [2][-]{subsection.5.4}{Customizable}{section.5}% 22
+\BOOKMARK [2][-]{subsection.5.5}{Linked}{section.5}% 23
+\BOOKMARK [2][-]{subsection.5.6}{Regulation}{section.5}% 24
+\BOOKMARK [2][-]{subsection.5.7}{Evaluative}{section.5}% 25
+\BOOKMARK [1][-]{section.6}{Code}{}% 26
+\BOOKMARK [2][-]{subsection.6.1}{Structure}{section.6}% 27
+\BOOKMARK [2][-]{subsection.6.2}{Master scripts}{section.6}% 28
+\BOOKMARK [2][-]{subsection.6.3}{Cuts and checks}{section.6}% 29
+\BOOKMARK [1][-]{section.7}{Deploying}{}% 30
+\BOOKMARK [1][-]{section.8}{Running}{}% 31
+\BOOKMARK [1][-]{section.9}{ToDos}{}% 32
+\BOOKMARK [1][-]{section.10}{Other documentation}{}% 33
