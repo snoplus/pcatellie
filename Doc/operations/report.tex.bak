@@ -24,42 +24,12 @@
 
 \vspace{7cm}
 \paragraph{}
-This document describes what the TELLIE PCA automation does, why, and how.
+This document describes what the TELLIE PCA automation does; why, and how.
 \clearpage
 
 \tableofcontents
 
 \clearpage
-
-\section{Content}
-\paragraph{}
-\begin{itemize}
-	\item Why automation
-	\item Overview
-	\item Data-taking
-	\begin{itemize}
-		\item Validation \#1
-	\end{itemize}
-	\item Data-processing
-	\begin{itemize}
-		\item PCA table generation
-		\begin{itemize}
-			\item Beamspot fit
-			\item Direction fit
-			\item Angular systematic
-			\item Injection time fit
-		\end{itemize}
-		\item Validation \#2
-		\item PCA constants
-		\item Benchmarking
-		\item Monitoring
-	\end{itemize}
-	\item Code %mention checks, structure
-	\item Deploying %(mention requirements here: rat, python, dbs...)
-	\item Running
-	\item ToDos
-	\item Other documentation %tellie guides (2), PCA guide, my thesis
-\end{itemize}
 
 \section{Why automation}
 \paragraph{}
@@ -238,14 +208,122 @@ This includes the logic for the checks, and generates the bitword. Plots are als
 \paragraph{}
 There are several corrections that need to be fitted for, which are later used for the extraction of PCA constants. The fits need to happen in succession, as the output of one feeds into the next. Between steps, these are stored as text files. After all fits are made, a local table is produced, combining the corrections. This table is loaded by the PCA Processor.\\
 \textbf{Goal:} Make fits, obtain corrections required for the extraction of PCA constants. Produce final PCA table.
+\paragraph{}
+These fits are: beamspot fir, fibre direction, angular systematic, injection time. These are discussed below.
 
-\subsubsection{Fit: beamspot}
+\subsubsection{Fit: beamspot}\label{subsub:bs}
+\paragraph{}
+First fit to data is the beamspot fit. The idea is to fit PMTs depending on the NHit. PMTs directly opposite the fibre will have the highest NHit, which will drop as the angle (PMT wrt fibre) increases. The method splits PMTs into faces (triangles). It should be mentioned that this could be improved by a dynamic NHit (correcting for offline PMTs and shadows from objects in the way).
 
-\subsubsection{Fit: direction}
+\paragraph{}
+Please look at Figure~\ref{fig:beamspot} for an example fit. For real data please look at the monitoring section, Section~\ref{sec:monitor}.
 
-\subsubsection{Fit: angular systematic}
+\paragraph{}
+Code-wise, this is located at :
+\begin{lstlisting}
+Automation/Processing/postition_fit/TestUser.cc
+\end{lstlisting}
 
-\subsubsection{Fit: Injection time}
+\begin{figure}
+\centering
+\noindent\makebox[1\textwidth]{
+  \includegraphics[width=0.9\textwidth]{./plots/beamspot.png}}
+  \caption{\centering \texttt{Fit}: beamspot.\hspace{\textwidth}}
+  \label{fig:beamspot}
+\end{figure}
+
+\subsubsection{Fit: direction}\label{subsub:dir}
+\paragraph{}
+Once the beamspot position/center is known, the fibre direction can be extracted. The fibre position as in ratDB is assumed correct (we don't expect this to change), however, the direction (or at least the effective direction) can change, depending on the status of the PMTs (offline, low rate) and objects in the way (belly plates, ropes, filling tubes, etc). Recalculating this direction allows for a better definition of the beamspot, and this leads to better use of the PMTs during the calibration - there are angular cuts on the PMTs later on (as we only want to calibrate the PMTs mostly directly across the fibre - in straight line, without reflections, refractions, and scattering).
+
+\paragraph{}
+Please look at Figure~\ref{fig:dir} for an example fit. For real data please look at the monitoring section, Section~\ref{sec:monitor}. 
+
+\paragraph{}
+Code-wise, this is located at the same as the beamspot fit (these two fits are done in single instance):
+\begin{lstlisting}
+Automation/Processing/postition_fit/TestUser.cc
+\end{lstlisting}
+
+\begin{figure}
+\centering
+\noindent\makebox[1\textwidth]{
+  \includegraphics[width=0.9\textwidth]{./plots/dir.png}}
+  \caption{\centering \texttt{Fit}: fibre direction.\hspace{\textwidth}}
+  \label{fig:dir}
+\end{figure}
+
+\paragraph{}
+For more on the beamspot and fibre direction fit please look at \href{http://users.sussex.ac.uk/~mr514/TELLIE_fibre_validation.pdf}{TELLIE fibre validation}.
+
+\subsubsection{Fit: angular systematic}\label{subsub:as}
+\paragraph{}
+The angular systematic is (in this case) a name encapsulating the correction of the effect of modal dispersion for an optical fibre. The light at an angle is injected into the detector at later times, increasing with the angle. This is shown in Figure~\ref{fig:as1}.\\
+For this purpose, the PMT residual hit times are fitted for, and the peak hit times for PMTs are plotted as a function of the angle for a fibre. Then, a fit is performed for the data. The fit function is based on a simplified geometric model of a fibre, Figure~\ref{fig:as2}. There are two parameters describing the fit function, ang a and ang b. The ang b parameter is used for time correction in the PCA processor.
+
+\paragraph{}
+Small note: because angular systematic fit requires residual hit times, previous PCA calibration data is required.
+
+\begin{figure}
+\centering
+\noindent\makebox[1\textwidth]{
+  \includegraphics[width=0.9\textwidth]{./plots/as1.png}}
+  \caption{\centering \texttt{Fit}: angular systematic.\hspace{\textwidth}The modal effects within the fibre. Light at an angle is injected later into the detector.}
+  \label{fig:as1}
+\end{figure}
+
+\begin{figure}
+\centering
+\noindent\makebox[1\textwidth]{
+  \includegraphics[width=0.9\textwidth]{./plots/as2.png}}
+  \caption{\centering \texttt{Fit}: fibre direction.\hspace{\textwidth}The simplified geometric model for light modal effects in an optical fibre.}
+  \label{fig:as2}
+\end{figure}
+
+\paragraph{}
+Code-wise, this is located at:
+\begin{lstlisting}
+Automation/Processing/angular_systematic/TestUser.cc
+\end{lstlisting}
+
+\paragraph{}
+For more on the angular systematic effect and the fit please look at \href{http://users.sussex.ac.uk/~mr514/TELLIE_angular_systematic.pdf}{TELLIE fibre validation}.
+
+\subsubsection{Fit: Injection time}\label{subsub:inj}
+\paragraph{}
+The injection time is the time light leaves the fibre (and enters the detector). This is defined as:
+$$ Injection\:time = Hit\:time - Bucket\:time - Angular\:correction $$
+This is sometimes called pca offest, and is needed for PCA extraction in the PCA processor. Theme method is to obtain the raw hit times, apply the corrections above, and fit the peak of that distribution, as shown in Figure~\ref{fig:inj}.
+
+\paragraph{}
+Code-wise, this is located at:
+\begin{lstlisting}
+Automation/Processing/pca_offset/TestUser.cc
+\end{lstlisting}
+
+\paragraph{}
+For more details on bucket time, please look at \href{https://www.snolab.ca/snoplus/private/DocDB/cgi/ShowDocument?docid=3138&version=5}{PMT bucket time}.
+
+\begin{figure}
+\centering
+\noindent\makebox[1\textwidth]{
+  \includegraphics[width=1.1\textwidth]{./plots/inj.png}}
+  \caption{\centering \texttt{Fit}: injetion time.\hspace{\textwidth}The residual hit times are fitted to obtain the injection time (pca offset). Right plot is a zoom over the peak.}
+  \label{fig:inj}
+\end{figure}
+
+\subsection{Comparing PCA tables}\label{sub:comp_tab}
+\textbf{Goal:} Compare the PCA tables (including corrections) for neighbouring datasets. This is useful to monitor stability of the system and to highlight outliers. Also a sense check that the values are in-line with previous sets (nothing went horribly wrong).
+
+\paragraph{}
+The code is located at:
+\begin{lstlisting}
+Automation/Processing/pca_tables/compare_two.py
+Automation/Processing/pca_tables/compare_all.py
+\end{lstlisting}
+
+\paragraph{}
+This creates PCA table plots shown in the monitoring section, Section~\ref{sec:monitor}.
 
 \subsection{Validation \#2}\label{sec:val2}
 \paragraph{}
@@ -324,18 +402,25 @@ This includes the logic for the checks, and generates the bitword. Plots are als
 
 \clearpage
 
-\subsection{Comparing PCA tables}
-\textbf{Goal:} Compare the PCA tables (including corrections) for neighbouring datasets. This is useful to monitor stability of the system and to highlight outliers.
+\subsection{PCA constants}\label{sub:pca_cons}
+\textbf{Goal:} Run the PCA Processor that extract the PCA constants (both timing and charge).
 
-\subsection{PCA constants}
-\textbf{Goal:} Run the PCA Processor that extract the pca constants (both timing and charge).
+\paragraph{}
+This is the main step of the loop. The RAT PCA processor is run over the dataset. It loads the PCA table that cointains the corrections that was created in previous steps. The PCA constants are extracted here and stored as ratdb tables. PCA log files are also created here. 
 
-\subsection{Benchmarking}
+\paragraph{}
+For details on PCA calibration, please read \href{https://www.snolab.ca/snoplus/private/DocDB/cgi/ShowDocument?docid=1987}{PCA calibration with SNO+ RAT}.
+
+\subsection{Benchmarking}\label{sub:bench}
 \paragraph{}
 This process is used to actually load, use, and compare the PCA constants - cable delays, time-walk fit, and charge fits: threshold, peak, hhp for QHS and QHL.\\
+There are two ways to achieve this comparison. One is to purely look at the values of the constants (time and charge) and compare them directly. The other one is to apply the new constants to a run: ie calibrate PMTs with these new constants, and analyse hit times in a well understood run. Usually the latest well understood laserball run is used (117567). Then, a residual hit times distribution is obtained from data.\\
 \textbf{Goal:} Compare the set of constants against the closest (previous) set. Useful to see overall stability and for highlighting outliers.
 
-\subsection{Monitoring}
+\paragraph{}
+As usual, look at the corresponding subsection of the Monitoring section, Section~\ref{sec:monitor}.
+
+\subsection{Monitoring}\label{sec:monitor}
 \paragraph{}
 This is the most important part for the user. Every step of the system creates logs and plots that are available online on Minard. There are many pages, and everything important (and more) is presented. 
 \textbf{Goal:} Provide monitoring of each step of the chain. Also compares fibres and PMTs between datasets.
@@ -355,6 +440,7 @@ The minard page for TELLIE PCA Processing can be accessed using the main header 
   \label{fig:min1}
 \end{figure}
 
+\subsubsection{What}
 \paragraph{}
 This leads to the \textbf{TELLIE PCA datasets page}. This is the main/overview page for the TELLIE PCA Processing. It shows the list of datasets (Figure~\ref{fig:min2}), the PMT search box (Figure~\ref{fig:min3}), and the list of thresholds (Figure~\ref{fig:min4}).
 \paragraph{}
@@ -522,7 +608,7 @@ The list of datasets (Figure~\ref{fig:min2}) is the starting point. Again, most 
 \centering
 \noindent\makebox[1\textwidth]{
   \includegraphics[width=1.1\textwidth]{./plots/bench5.png}}
-  \caption{\centering \texttt{Benchmarking}: Flat map plots.\hspace{\textwidth}Flat maps showing the cable delays for this (left) and previous (right) set. Top is }
+  \caption{\centering \texttt{Benchmarking}: Flat map plots.\hspace{\textwidth}Top: flat maps showing the cable delays for this (left) and previous (right) set. Bottom: the difference of the cable delays between this and previous set (left); zoomed view of left plot (right).}
   \label{fig:bench5}
 \end{figure}
 
@@ -530,7 +616,7 @@ The list of datasets (Figure~\ref{fig:min2}) is the starting point. Again, most 
 \centering
 \noindent\makebox[1\textwidth]{
   \includegraphics[width=1.1\textwidth]{./plots/bench6.png}}
-  \caption{\centering \texttt{Benchmarking}: \hspace{\textwidth}}
+  \caption{\centering \texttt{Benchmarking}: Time-walk plots.\hspace{\textwidth}The difference between this and previous set: TW gradient (left) and TW intercept (right).}
   \label{fig:bench6}
 \end{figure}
 
@@ -538,7 +624,7 @@ The list of datasets (Figure~\ref{fig:min2}) is the starting point. Again, most 
 \centering
 \noindent\makebox[1\textwidth]{
   \includegraphics[width=1.1\textwidth]{./plots/bench7.png}}
-  \caption{\centering \texttt{Benchmarking}: \hspace{\textwidth}}
+  \caption{\centering \texttt{Benchmarking}: Peak fit plots.\hspace{\textwidth}These plots shown the residual hit times from a test laserball run, with the newly obtained, and old (previous set) cable delays applied to the PMT timings, respectively. Due to the difference of the actual number of PMTs that were calibrated, there will be difference. What is important is to look at the peak of this distribution (right plot).}
   \label{fig:bench7}
 \end{figure}
 
@@ -546,7 +632,7 @@ The list of datasets (Figure~\ref{fig:min2}) is the starting point. Again, most 
 \centering
 \noindent\makebox[1\textwidth]{
   \includegraphics[width=1.1\textwidth]{./plots/log0.png}}
-  \caption{\centering \texttt{Validation \#2}: \hspace{\textwidth}}
+  \caption{\centering \texttt{PCA logs}: Status.\hspace{\textwidth}This is data parsed from the PCA processor main log file. It lists bits that failed.}
   \label{fig:log0}
 \end{figure}
 
@@ -554,7 +640,7 @@ The list of datasets (Figure~\ref{fig:min2}) is the starting point. Again, most 
 \centering
 \noindent\makebox[1\textwidth]{
   \includegraphics[width=1.1\textwidth]{./plots/log_gf.png}}
-  \caption{\centering \texttt{Validation \#2}: \hspace{\textwidth}}
+  \caption{\centering \texttt{PCA logs}: Gain fit.\hspace{\textwidth}This is data parsed from the PCA processor GF log file. It lists PMTs that failed particular checks, by group. The groups can be expanded, showing crate maps highlighting the PMTs in question.}
   \label{fig:log_gf}
 \end{figure}
 
@@ -562,7 +648,7 @@ The list of datasets (Figure~\ref{fig:min2}) is the starting point. Again, most 
 \centering
 \noindent\makebox[1\textwidth]{
   \includegraphics[width=1.1\textwidth]{./plots/log_tw.png}}
-  \caption{\centering \texttt{Validation \#2}: \hspace{\textwidth}}
+  \caption{\centering \texttt{PCA logs}: Time-walk fit.\hspace{\textwidth}This is data parsed from the PCA processor TW log file. It lists PMTs that failed particular checks, by group. The groups can be expanded, showing crate maps highlighting the PMTs in question.}
   \label{fig:log_tw}
 \end{figure}
 
@@ -570,7 +656,7 @@ The list of datasets (Figure~\ref{fig:min2}) is the starting point. Again, most 
 \centering
 \noindent\makebox[1\textwidth]{
   \includegraphics[width=1.1\textwidth]{./plots/log1.png}}
-  \caption{\centering \texttt{Validation \#2}: \hspace{\textwidth}}
+  \caption{\centering \texttt{PCA logs}: Example crate map.\hspace{\textwidth}This is an example crate map highlighting PMTs that failed the low occupancy check. Same map is available for each check where PMTs that failed exist. The maps are shown by clicking the 'Show/Hide' button.}
   \label{fig:log1}
 \end{figure}
 
@@ -578,7 +664,7 @@ The list of datasets (Figure~\ref{fig:min2}) is the starting point. Again, most 
 \centering
 \noindent\makebox[1\textwidth]{
   \includegraphics[width=1.1\textwidth]{./plots/log2.png}}
-  \caption{\centering \texttt{Validation \#2}: \hspace{\textwidth}}
+  \caption{\centering \texttt{PCA logs}: Example check detailed page.\hspace{\textwidth}After clicking any of the checks on the log pages, a detailed page for the check is shown. This shows the crate map and lists the offending PMTs. Each PMT can be clicked again for more detailed page for that PMT.}
   \label{fig:log2}
 \end{figure}
 
@@ -586,7 +672,7 @@ The list of datasets (Figure~\ref{fig:min2}) is the starting point. Again, most 
 \centering
 \noindent\makebox[1\textwidth]{
   \includegraphics[width=0.9\textwidth]{./plots/log3.png}}
-  \caption{\centering \texttt{Validation \#2}: \hspace{\textwidth}}
+  \caption{\centering \texttt{PCA logs}: PMT page.\hspace{\textwidth}After a PMT is selected on one of the check pages, its status for that particular calibration is shown. Plots for time and charge fits are displayed alongside the status words for this PMT.}
   \label{fig:log3}
 \end{figure}
 
@@ -594,7 +680,7 @@ The list of datasets (Figure~\ref{fig:min2}) is the starting point. Again, most 
 \centering
 \noindent\makebox[1\textwidth]{
   \includegraphics[width=1.1\textwidth]{./plots/min5.png}}
-  \caption{\centering \texttt{Validation \#2}: \hspace{\textwidth}}
+  \caption{\centering \texttt{PCA tables}: Comparing the PCA tables across all available datasets.\hspace{\textwidth}IPW (internal pulse width) parameter shown.}
   \label{fig:min5}
 \end{figure}
 
@@ -602,7 +688,7 @@ The list of datasets (Figure~\ref{fig:min2}) is the starting point. Again, most 
 \centering
 \noindent\makebox[1\textwidth]{
   \includegraphics[width=1.1\textwidth]{./plots/min6.png}}
-  \caption{\centering \texttt{Validation \#2}: \hspace{\textwidth}}
+  \caption{\centering \texttt{PCA tables}: Comparing the PCA tables across all available datasets.\hspace{\textwidth}PCA offset (injection time) shown. Relative version on the bottom.}
   \label{fig:min6}
 \end{figure}
 
@@ -610,23 +696,23 @@ The list of datasets (Figure~\ref{fig:min2}) is the starting point. Again, most 
 \centering
 \noindent\makebox[1\textwidth]{
   \includegraphics[width=1.1\textwidth]{./plots/min7.png}}
-  \caption{\centering \texttt{Validation \#2}: \hspace{\textwidth}}
+  \caption{\centering \texttt{PCA tables}: Comparing the PCA tables across all available datasets.\hspace{\textwidth}The angular b parameter from angular systematic study.}
   \label{fig:min7}
 \end{figure}
 
 \begin{figure}
 \centering
 \noindent\makebox[1\textwidth]{
-  \includegraphics[width=0.9\textwidth]{./plots/min9.png}}
-  \caption{\centering \texttt{Validation \#2}: \hspace{\textwidth}}
+  \includegraphics[width=0.85\textwidth]{./plots/min9.png}}
+  \caption{\centering \texttt{Fibre data across datasets}: Angular systematic fit.\hspace{\textwidth}Clicking a fibre name in the table for a dataset brings a page displaying data for this fibre across all available datasets. Example for ang b parameter shown.}
   \label{fig:min9}
 \end{figure}
 
 \begin{figure}
 \centering
 \noindent\makebox[1\textwidth]{
-  \includegraphics[width=0.9\textwidth]{./plots/min10.png}}
-  \caption{\centering \texttt{Validation \#2}: \hspace{\textwidth}}
+  \includegraphics[width=0.85\textwidth]{./plots/min10.png}}
+  \caption{\centering \texttt{Fibre data across datasets}: Residual hit times.\hspace{\textwidth}licking a fibre name in the table for a dataset brings a page displaying data for this fibre across all available datasets. Example for residual hit times shown.}
   \label{fig:min10}
 \end{figure}
 
@@ -634,7 +720,7 @@ The list of datasets (Figure~\ref{fig:min2}) is the starting point. Again, most 
 \centering
 \noindent\makebox[1\textwidth]{
   \includegraphics[width=1.1\textwidth]{./plots/pmt1.png}}
-  \caption{\centering \texttt{Validation \#2}: \hspace{\textwidth}}
+  \caption{\centering \texttt{PMT plots}: teca, TW, charges.\hspace{\textwidth}Selecting a PMT from the PCA log section or benchmarking will show its current calibration data compared to previous dataset. This includes Teca, TW, QHS, and QHL.}
   \label{fig:pmt1}
 \end{figure}
 
@@ -642,7 +728,7 @@ The list of datasets (Figure~\ref{fig:min2}) is the starting point. Again, most 
 \centering
 \noindent\makebox[1\textwidth]{
   \includegraphics[width=1.1\textwidth]{./plots/pmt2.png}}
-  \caption{\centering \texttt{Validation \#2}: \hspace{\textwidth}}
+  \caption{\centering \texttt{PMT plots}: cable delay.\hspace{\textwidth}electing a PMT from the PCA log section or benchmarking will show its current calibration data compared to previous dataset. This includes cable delays.}
   \label{fig:pmt2}
 \end{figure}
 
@@ -652,7 +738,7 @@ The list of datasets (Figure~\ref{fig:min2}) is the starting point. Again, most 
 \paragraph{}
 This section will describe some of the features of the overall processing.
 
-\subsection{Simple}
+\subsection{Simple}\label{subsec:simple}
 \paragraph{}
 The system is based on being very simple and with minimum human input. As it stands, it only needs to be started, providing a single text file with runs corresponding to a dataset.\\
 Example runlist text file:
@@ -693,13 +779,13 @@ The checks in validation steps are often based on threshold values. There are lo
 
 \subsection{Linked}
 \paragraph{}
-The processing system is linked to multiple databases. The CouchDB holds data on: belly plates, benchmarking, environment constants, list of fibres, runlists, and document for each run/fit combination. An overview of views in the couhdb is shown in Figure~\ref{fig:couch}, while an example environment CouchDB document is shown in Figure~\ref{fig:couchdoc}.
+The processing system is linked to multiple databases. The CouchDB holds data on: belly plates, benchmarking, environment constants, list of fibres, runlists, and document for each run/fit combination. An overview of views in the CouchDB is shown in Figure~\ref{fig:couch}, while an example environment CouchDB document is shown in Figure~\ref{fig:couchdoc}.
 
 \begin{figure}
 \centering
 \noindent\makebox[1\textwidth]{
   \includegraphics[width=0.5\textwidth]{./plots/couch.png}}
-  \caption{\centering \texttt{Validation \#2}: }
+  \caption{\centering \texttt{CouchDB}: An overview of views in CouchDB database.}
   \label{fig:couch}
 \end{figure}
 
@@ -707,7 +793,7 @@ The processing system is linked to multiple databases. The CouchDB holds data on
 \centering
 \noindent\makebox[1\textwidth]{
   \includegraphics[width=0.32\textwidth]{./plots/couchdoc.png}}
-  \caption{\centering \texttt{Validation \#2}:  }
+  \caption{\centering \texttt{CouchDB}: An example CouchDB document (in this case holding the thresholds for checks.}
   \label{fig:couchdoc}
 \end{figure}
 
@@ -725,15 +811,227 @@ There are bitwords used in \texttt{Validation \#1} and \texttt{Validation \#2}. 
 \clearpage
 
 \section{Code}
-\subsection{Master scripts}
+\paragraph{}
+This section will provide some comments on the code (TELLIE Automation repository).
 
-\section{Deploying}
+\subsection{Structure}
+\begin{itemize}
+	\item \textbf{Data-taking}: This folder holds documents, notes, and early attempts on the data-taking automation (no actual repository for automated TELLIE PCA data-taking!).
+	\item \textbf{Doc}: This folder holds documentation (including this doc), reports, and notes on the automated TELLIE PCA processing. Please have a look at this.
+	\item \textbf{Processing}: This contains the actual code performing the automated TELLIE PCA processing.
+	\begin{itemize}
+		\item \textit{angular\_systematic}: Processor for the angular systematic fit, see Subsection~\ref{subsub:as}.
+		\item \textit{benchmark}: Scripts to extract comparison plots after benchmarking, see Subsection~\ref{sub:bench}.
+		\item \textit{checkPCA}: Scripts to extract plots from the output of PCA processor, see Subsection~\ref{sub:pca_cons}.
+		\item \textit{fits}: This holds text files with the results of the fit processors: direction, ang sys, and pca offset.
+		\item \textit{minard}: Plots for minard monitoring are stored here. See Subsection~\ref{sec:monitor}.
+		\item \textit{pca\_constants}: Holds output ratDB and log files from the PCA processor, Subsection~\ref{sub:pca_cons}.
+		\item \textit{pca\_offset}: Processor for the pca offset (injection time) fit, see Subsection~\ref{subsub:inj}.
+		\item \textit{pca\_tables}: Scripts to compare PCA tables. Also holds copies of PCA tables. See Subsection~\ref{sub:comp_tab}.
+		\item \textit{postition\_fit}: Processor for the position (beamspot) and direction fit, see Subsection~\ref{subsub:bs} and Subsection~\ref{subsub:dir}.
+		\item \textit{runtime}: A folder to hold temporary files while processing a dataset.
+		\item \textit{scripts}: Other useful scripts, usually called by the master script.
+		\begin{itemize}
+			\item create\_bench\_apply\_mac.py: Creates RAT macro to run benchmarking - loads the new constants and applies on laserball run.
+			\item create\_pca\_proc\_mac.py: Creates RAT macro to run PCA processor for given dataset.
+			\item delete\_old\_couchdb.py: Helper script to delete CouchDB documents by type.
+			\item get\_belly\_fibres.py: Helper script to create ratDB file containing the list of fibres affected by belly plates (loaded from CouchDB document).
+			\item load\_db.py: Helper script to load default fibre directions from ratDB.
+			\item make\_ratdb\_table.py: Creates ratDB table from PCA table. This is loaded by the PCA processor to apply corrections to hit times.
+			\item master.py: The brain of operations. See Subsection~\ref{sub:master}.
+			\item upload\_bench.py: Parses data from benchmark comparison scripts and uploads a CouchDB document.
+			\item upload\_env.py: Parses the environment variables and uploads a CouchDB document.
+			\item upload\_fits.py: Parses the data from fits and uploads a CouchDB document.
+			\item upload\_radtb.py: Uploads ratDB table to postgres. 
+			\item upload\_val1.py: Parses the data from \texttt{Validation \#1} step and uploads a CouchDB document.
+			\item upload\_val2.py: Parses the data from \texttt{Validation \#2} step and uploads a CouchDB document.
+		\end{itemize}
+		\item \textit{validate}: Processor to perform the \texttt{Validation \#1} step of the processing suite.
+		\item \textit{validate2}: Processor to perform the \texttt{Validation \#2} step of the processing suite.
+	\end{itemize}
+\end{itemize}
 
-\section{Running}
+\clearpage
+
+\subsection{Master script}\label{sub:master}
+\paragraph{}
+This is the main script of the whole suite. This is the one called by the user to start the processing. It handles almost every portion of the suite.
+
+\paragraph{}
+The master script requires the run list, in the form of a text file, holding the run numbers for the TELLIE runs forming the dataset. It has inbuilt submission platform, and it will spawn processes to automatically run the TELLIE processing. This is done in specific order, as often consecutive steps require the output of previous step(s). The platform also monitors the output of the processes, and retries them (up to a limit).
+
+\paragraph{}
+Here are the steps, in order:
+\begin{itemize}
+	\item \textit{loads environment}: The environment holds script names and locations.
+	\item \textit{parse arguments}: Parses the supplied command line arguments (see Section~\ref{sec:run}).
+	\item \textit{upload environment (opt)}: Uploads the environment variables to CouchDB.  
+	\item \textit{parse runlist}: Parses the provided runlist (from text file). 
+	\item \textit{create dataset}: Uploads a document holding dataset information. 
+	\item \textit{check data exists}: Checks that physical files exist for the provided runlist. 
+	\item \textit{set job limit}: Sets a limit on how many processes can be run at each time. 
+	\item \textit{sort runs}: Order runlist. 
+	\item \textit{call Validation \#1}: Runs the \texttt{Validation \#1} step over all runs, using the submission platform. 
+	\item \textit{upload Validation \#1}: Uploads the results of \texttt{Validation \#1} to CouchDB.
+	\item \textit{call position fit}: Runs the position and direction fit step over all runs, using the submission platform. 
+	\item \textit{call ang sys fit}: Runs the angular systematic fit step over all runs, using the submission platform. 
+	\item \textit{call pca offset fit}: Runs the pca offset fit step over all runs, using the submission platform. 
+	\item \textit{upload fits}: Uploads the results of fit steps (together) to CouchDB.
+	\item \textit{call Validation \#2}: Runs the \texttt{Validation \#2} step over all runs, using the submission platform. 
+	\item \textit{upload Validation \#2}: Uploads the results of \texttt{Validation \#2} to CouchDB.
+	\item \textit{log cleanup}: Removes (now obsolete) logs.
+	\item \textit{create run folders}: Create folders for each run in the designated minard location. 
+	\item \textit{move plots}: Move plots (created by previous stages) to the minard location.
+	\item \textit{make pca table}: Create PCA table from the fit logs.
+	\item \textit{move fits}: Move the fit (text) files to their location. 
+	\item \textit{compare tables two}: Call script to compare new PCA table to previous one.
+	\item \textit{compare tables all}: Call script to recreate plots comparing all PCA tables.
+	\item \textit{upload ratdb table}: Call script to upload ratdb table to postgres.
+	\item \textit{set new names}: Pre-set names for files (to expect) from PCA processor.
+	\item \textit{create pca proc mac}: Call script to create PCA processor RAT macro.
+	\item \textit{call pca proc}: Spawn RAT process to run the PCA processor.
+	\item \textit{get global offset}: Retrieve the global offset from the PCA log file.
+	\item \textit{move pca const}: Move the output files from the PCA processor.
+	\item \textit{call checkPCA}: Call scripts to compare the PCA results to previous set.
+	\item \textit{call compareTW}: Call scripts to compare TW results to previous set.
+	\item \textit{move pca plots}: Move plots created by scripts above to minard location.
+	\item \textit{create bench apply mac}: Call script to create benchmarking RAT macro.
+	\item \textit{setup tw tables}: This function prepares the TW and GF ratdb tables. These need to be temporarily modified to overwrite the defauls from the ratDB.
+	\item \textit{call bench apply}: Spawn RAT process to run the benchmarking.
+	\item \textit{call cd compare}: Call script to compare cable delays from benchmarking.
+	\item \textit{call tw compare}: Call script to compare time-walk data from benchmarking.
+	\item \textit{call peak compare}: Call script to compare residual times peaks from benchmarking.
+	\item \textit{upload bench}: Uploads the results of benchmarking steps (together) to CouchDB.
+	\item \textit{move bench plots}: Move plots created by scripts above to minard location.
+	\item \textit{move bench root}: Move the benchmarking root files to their defined location.
+	\item \textit{move pca to minard}: Move PCA ratDBs to minard location (these are needed for online monitoring).
+	\item \textit{cleanup}: Move logs (from fits, PCA processor, and benchmarking), and remove (now obsolete) mac, and ratdb files.
+	\item \textit{log cleanup}: Remove unwanted logs (from RAT).
+	\item \textit{get final job count}: Print out the final job statistics (running, succesful, failed).
+\end{itemize}
+
+\paragraph{}
+There are several other helper functions that are not called directly, but rather called from within other functions. This includes the submission platform and monitorin. For these, please look at the master script.\\
+The script is here:
+\begin{lstlisting}
+Automation/Processing/scripts/master.py
+\end{lstlisting}
+
+\clearpage
+
+\subsection{Cuts and checks}
+\paragraph{}
+This subsection lists some of the more important cuts and checks that are applied throught the many steps of the processing automation. Please see Figures~\ref{fig:ch1}, \ref{fig:ch2}, \ref{fig:ch4}, and~\ref{fig:ch1}.
+
+\begin{figure}
+\centering
+\noindent\makebox[1\textwidth]{
+  \includegraphics[width=0.85\textwidth]{./plots/ch1.png}}
+  \caption{\centering \texttt{Checks}: trigger type.\hspace{\textwidth}The trigger type check to only use events with EXT bit.}
+  \label{fig:ch1}
+\end{figure}
+
+\begin{figure}
+\centering
+\noindent\makebox[1\textwidth]{
+  \includegraphics[width=1\textwidth]{./plots/ch2.png}}
+  \caption{\centering \texttt{Checks}: PMT checks.\hspace{\textwidth}This highlights the checks on the PMT status, type, PCA \& ECA bitwords, X-talk, PMT position, and more.}
+  \label{fig:ch2}
+\end{figure}
+
+\begin{figure}
+\centering
+\noindent\makebox[1\textwidth]{
+  \includegraphics[width=1\textwidth]{./plots/ch4.png}}
+  \caption{\centering \texttt{Checks}: LPC features.\hspace{\textwidth}Checks on LPC related features such as the total internal reflection, validity of the path, and the locality.}
+  \label{fig:ch4}
+\end{figure}
+
+\begin{figure}
+\centering
+\noindent\makebox[1\textwidth]{
+  \includegraphics[width=1\textwidth]{./plots/ch5.png}}
+  \caption{\centering \texttt{Checks}: LPC values.\hspace{\textwidth}Additional checks on the actual LPC values to ensure only direct, unreflected, physical paths are used.}
+  \label{fig:ch5}
+\end{figure}
+
+\clearpage
+
+\section{Deploying}\label{sec:dep}
+
+\subsection{Requirements}
+%rat, python+modules,
+
+\subsection{External}
+%couchdb (+views +default docs +users/access), ratdb, minard mount
+
+\subsection{Setting up}
+%repo + empty folders, env + scons processors, make script folders
+
+\section{Running}\label{sec:run}
+\paragraph{}
+In general, the running is supposed to be autonomous - after being started. However, I suggest monitoring the application thoroughly the first few times it is run (as the development was done with different setup). It should also be monitored occasionally when tuned, as there will be indications if things go wrong - such as high number of jobs failing. 
+
+\paragraph{}
+For actual start-up, I recommend running this in screen. Firstly, the environment needs to be sourced. The \texttt{env.sh} file contains: CouchDB address and credentials, threshold parameters for checks, names and locations of script files, and ratDB credentials. This file is not included with the repository, but is placed in the deployed location manually.
+
+\paragraph{}
+Several folders and default files need to be in place for the application to run succesfully. These are mentioned in Section~\ref{sec:dep}.
+
+\paragraph{}
+The only input required is the text file holding the run numbers for TELLIE PCA runs (one for each fibre). An example of this is shown in Subsection~\ref{subsec:simple}.
+
+\paragraph{}
+Finally, one just calls the master script. There are few command line arguments that can be provided, as shown in Figure~\ref{fig:args}. The only required argument is `-f`, providing the path to the runlist tex file. Other options of interest are `-c`, selecting the number of cores: this corresponds to the number of simultaneous jobs that can be spawned; and '-e', which is an option to reupload the environment. All other arguments allow to select which steps to run from the full suite. In normal conditions - running processing on full TELLIE PCA dataset - it is always recommended to run all steps.
+
+\paragraph{}
+An example run procedure:
+\begin{lstlisting}
+screen -S tellie_pca
+cd <Automation repository>
+source env.sh
+cd runtime
+python ../scripts/master.py -f <path/to/runlist.txt> -c <cores>
+\end{lstlisting}
+Then one can detach from the screen, and attach occassionaly to monitor.
+
+\begin{figure}
+\centering
+\noindent\makebox[1\textwidth]{
+  \includegraphics[width=1.25\textwidth]{./plots/args.png}}
+  \caption{\centering \texttt{Master script}: The available command line arguments.}
+  \label{fig:args}
+\end{figure}
+
+\clearpage
 
 \section{ToDos}
+\paragraph{}
+This section briefly lists some open questions:
+\begin{itemize}
+	\item \textit{RAT integration}: the code currently consist of custom user processors. These could all be made official part of RAT once finalised. Same goes for the PCA processor, which is currenly a heavily modified version.
+	\item \textit{Data-taking modes}: \href{https://www.snolab.ca/snoplus/private/DocDB/cgi/ShowDocument?docid=7612}{\#7612}
+	\item \textit{Tagging events outside Orca}: if one decides for continuous calibration, TELLIE is run 'alongside' ORCA. EXTA events need to be tagged externally, so that they can be extracted from data offline.
+	\item \textit{Ensure recent ECA}: recent ECA is essential for PCA calibration. This should be enforced just before running PCA.
+	\item \textit{When (from) to apply new PCA constants}: Depending on the data-taking mode, it can take days to weeks to collect enough data for PCA calibration. PCA constants can only be extracted from a full dataset. Once this is done one needs to decide whether to apply the constants from (i) the start of the set, (ii) the end of the set or, (iii) some other time (like middle of the set).
+	\item \textit{RatDB tables cache}: because we process every run multiple times (over multiple processors), the ratDB tables are loaded multiple times. In some cases (like ECA tables), this is significant size, and we also have to account for the number of consecutive ratDB connections, which sometimes causes issues (time out). One improvement would be to pre-load the tables and keep them locally while the runs are being processed. 
+\end{itemize}
 
 \section{Other documentation}
-
+\paragraph{}
+Other useful TELLIE / PCA documentation:
+\begin{itemize}
+	\item \href{https://www.snolab.ca/snoplus/private/DocDB/cgi/ShowDocument?docid=1987}{PCA calibration with SNO+ RAT}
+	\item \href{https://www.snolab.ca/snoplus/private/DocDB/cgi/ShowDocument?docid=4486&version=1}{TELLIE hardware manual}
+	\item \href{http://users.sussex.ac.uk/~mr514/TELLIE_Usersmanual.pdf}{TELLIE user manual}
+	\item \href{http://users.sussex.ac.uk/~mr514/TELLIE_angular_systematic.pdf}{TELLIE angular systematic study}
+	\item \href{http://users.sussex.ac.uk/~mr514/TELLIE_debugging_manual.pdf}{TELLIE debugging}
+	\item \href{http://users.sussex.ac.uk/~mr514/TELLIE_fibre_validation.pdf}{TELLIE fibre validation}
+	\item \href{https://www.snolab.ca/snoplus/private/DocDB/cgi/ShowDocument?docid=7192}{Michal's thesis}
+	\item Also look at the documentation folder in the repository:
+	\begin{lstlisting}
+	Automation/Doc
+	\end{lstlisting}
+\end{itemize}
 
 \end{document}

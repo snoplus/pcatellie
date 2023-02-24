@@ -958,7 +958,16 @@ This subsection lists some of the more important cuts and checks that are applie
 \clearpage
 
 \section{Deploying}\label{sec:dep}
-%(mention requirements here: rat, python, dbs...)
+
+\subsection{Requirements}
+%rat, python+modules,
+
+\subsection{External}
+%couchdb (+views +default docs +users/access), ratdb, minard mount
+
+\subsection{Setting up}
+%repo + empty folders, env + scons processors, make script folders + check templates + DL LB data
+%copy current stuff
 
 \section{Running}\label{sec:run}
 \paragraph{}
@@ -1006,6 +1015,7 @@ This section briefly lists some open questions:
 	\item \textit{Tagging events outside Orca}: if one decides for continuous calibration, TELLIE is run 'alongside' ORCA. EXTA events need to be tagged externally, so that they can be extracted from data offline.
 	\item \textit{Ensure recent ECA}: recent ECA is essential for PCA calibration. This should be enforced just before running PCA.
 	\item \textit{When (from) to apply new PCA constants}: Depending on the data-taking mode, it can take days to weeks to collect enough data for PCA calibration. PCA constants can only be extracted from a full dataset. Once this is done one needs to decide whether to apply the constants from (i) the start of the set, (ii) the end of the set or, (iii) some other time (like middle of the set).
+	\item \textit{RatDB tables cache}: because we process every run multiple times (over multiple processors), the ratDB tables are loaded multiple times. In some cases (like ECA tables), this is significant size, and we also have to account for the number of consecutive ratDB connections, which sometimes causes issues (time out). One improvement would be to pre-load the tables and keep them locally while the runs are being processed. 
 \end{itemize}
 
 \section{Other documentation}

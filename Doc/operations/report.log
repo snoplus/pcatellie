@@ -1,6 +1,6 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.4.11)  23 FEB 2023 19:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.8.4)  24 FEB 2023 18:55
 entering extended mode
- restricted \write18 enabled.
+ \write18 enabled.
  %&-line parsing enabled.
 **report.tex
 (./report.tex
@@ -301,7 +301,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 [3]
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <12> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 48.
-<./plots/overview.png, id=189, 804.00375pt x 1386.17876pt>
+<./plots/overview.png, id=204, 804.00375pt x 1386.17876pt>
 File: ./plots/overview.png Graphic file (type png)
 <use ./plots/overview.png>
 Package pdftex.def Info: ./plots/overview.png  used on input line 59.
@@ -313,37 +313,37 @@ LaTeX Warning: Float too large for page by 83.47365pt on input line 62.
 [4
 
 ] [5 <./plots/overview.png>]
-<./plots/val1.png, id=223, 1176.395pt x 413.545pt>
+<./plots/val1.png, id=238, 1176.395pt x 413.545pt>
 File: ./plots/val1.png Graphic file (type png)
 <use ./plots/val1.png>
 Package pdftex.def Info: ./plots/val1.png  used on input line 80.
 (pdftex.def)             Requested size: 429.00238pt x 150.80699pt.
-<./plots/val2.png, id=224, 1167.36125pt x 513.92pt>
+<./plots/val2.png, id=239, 1167.36125pt x 513.92pt>
 File: ./plots/val2.png Graphic file (type png)
 <use ./plots/val2.png>
 Package pdftex.def Info: ./plots/val2.png  used on input line 88.
 (pdftex.def)             Requested size: 429.00238pt x 188.86136pt.
-<./plots/val3.png, id=225, 1155.31625pt x 327.2225pt>
+<./plots/val3.png, id=240, 1155.31625pt x 327.2225pt>
 File: ./plots/val3.png Graphic file (type png)
 <use ./plots/val3.png>
 Package pdftex.def Info: ./plots/val3.png  used on input line 96.
 (pdftex.def)             Requested size: 429.00238pt x 121.5048pt.
-<./plots/val4.png, id=226, 1156.32pt x 325.215pt>
+<./plots/val4.png, id=241, 1156.32pt x 325.215pt>
 File: ./plots/val4.png Graphic file (type png)
 <use ./plots/val4.png>
 Package pdftex.def Info: ./plots/val4.png  used on input line 104.
 (pdftex.def)             Requested size: 429.00238pt x 120.65518pt.
-<./plots/val5.png, id=227, 1157.32375pt x 324.21124pt>
+<./plots/val5.png, id=242, 1157.32375pt x 324.21124pt>
 File: ./plots/val5.png Graphic file (type png)
 <use ./plots/val5.png>
 Package pdftex.def Info: ./plots/val5.png  used on input line 112.
 (pdftex.def)             Requested size: 429.00238pt x 120.1789pt.
-<./plots/val6.png, id=228, 1153.30875pt x 768.8725pt>
+<./plots/val6.png, id=243, 1153.30875pt x 768.8725pt>
 File: ./plots/val6.png Graphic file (type png)
 <use ./plots/val6.png>
 Package pdftex.def Info: ./plots/val6.png  used on input line 120.
 (pdftex.def)             Requested size: 429.00238pt x 286.00352pt.
-<./plots/val7.png, id=229, 957.5775pt x 1535.7375pt>
+<./plots/val7.png, id=244, 957.5775pt x 1535.7375pt>
 File: ./plots/val7.png Graphic file (type png)
 <use ./plots/val7.png>
 Package pdftex.def Info: ./plots/val7.png  used on input line 128.
@@ -352,22 +352,22 @@ Package pdftex.def Info: ./plots/val7.png  used on input line 128.
 
 LaTeX Warning: Float too large for page by 36.65782pt on input line 131.
 
-<./plots/val8.png, id=230, 954.56625pt x 286.06876pt>
+<./plots/val8.png, id=245, 954.56625pt x 286.06876pt>
 File: ./plots/val8.png Graphic file (type png)
 <use ./plots/val8.png>
 Package pdftex.def Info: ./plots/val8.png  used on input line 136.
 (pdftex.def)             Requested size: 429.00238pt x 128.56387pt.
-<./plots/val9.png, id=231, 957.5775pt x 289.08pt>
+<./plots/val9.png, id=246, 957.5775pt x 289.08pt>
 File: ./plots/val9.png Graphic file (type png)
 <use ./plots/val9.png>
 Package pdftex.def Info: ./plots/val9.png  used on input line 144.
 (pdftex.def)             Requested size: 429.00238pt x 129.51135pt.
-<./plots/val10.png, id=232, 954.56625pt x 289.08pt>
+<./plots/val10.png, id=247, 954.56625pt x 289.08pt>
 File: ./plots/val10.png Graphic file (type png)
 <use ./plots/val10.png>
 Package pdftex.def Info: ./plots/val10.png  used on input line 152.
 (pdftex.def)             Requested size: 429.00238pt x 129.91718pt.
-<./plots/val11.png, id=233, 953.5625pt x 1040.88875pt>
+<./plots/val11.png, id=248, 953.5625pt x 1040.88875pt>
 File: ./plots/val11.png Graphic file (type png)
 <use ./plots/val11.png>
 Package pdftex.def Info: ./plots/val11.png  used on input line 160.
@@ -375,22 +375,22 @@ Package pdftex.def Info: ./plots/val11.png  used on input line 160.
 
 LaTeX Warning: Float too large for page by 5.30032pt on input line 163.
 
-<./plots/val12.png, id=234, 954.56625pt x 396.48125pt>
+<./plots/val12.png, id=249, 954.56625pt x 396.48125pt>
 File: ./plots/val12.png Graphic file (type png)
 <use ./plots/val12.png>
 Package pdftex.def Info: ./plots/val12.png  used on input line 168.
 (pdftex.def)             Requested size: 429.00238pt x 178.18501pt.
-<./plots/val13.png, id=235, 954.56625pt x 722.7pt>
+<./plots/val13.png, id=250, 954.56625pt x 722.7pt>
 File: ./plots/val13.png Graphic file (type png)
 <use ./plots/val13.png>
 Package pdftex.def Info: ./plots/val13.png  used on input line 176.
 (pdftex.def)             Requested size: 429.00238pt x 324.79294pt.
-<./plots/val14.png, id=236, 951.555pt x 398.48875pt>
+<./plots/val14.png, id=251, 951.555pt x 398.48875pt>
 File: ./plots/val14.png Graphic file (type png)
 <use ./plots/val14.png>
 Package pdftex.def Info: ./plots/val14.png  used on input line 184.
 (pdftex.def)             Requested size: 429.00238pt x 179.65878pt.
-<./plots/val15.png, id=237, 1162.3425pt x 178.6675pt>
+<./plots/val15.png, id=252, 1162.3425pt x 178.6675pt>
 File: ./plots/val15.png Graphic file (type png)
 <use ./plots/val15.png>
 Package pdftex.def Info: ./plots/val15.png  used on input line 192.
@@ -400,7 +400,7 @@ l4.png> <./plots/val5.png>] [9 <./plots/val6.png>] [10 <./plots/val7.png>]
 [11 <./plots/val8.png> <./plots/val9.png>] [12 <./plots/val10.png>] [13 <./plot
 s/val11.png>] [14 <./plots/val12.png>] [15 <./plots/val13.png>] [16 <./plots/va
 l14.png> <./plots/val15.png>]
-<./plots/beamspot.png, id=324, 606.265pt x 529.98pt>
+<./plots/beamspot.png, id=340, 606.265pt x 529.98pt>
 File: ./plots/beamspot.png Graphic file (type png)
 <use ./plots/beamspot.png>
 Package pdftex.def Info: ./plots/beamspot.png  used on input line 230.
@@ -408,54 +408,54 @@ Package pdftex.def Info: ./plots/beamspot.png  used on input line 230.
  [17
 
 ] [18 <./plots/beamspot.png>]
-<./plots/dir.png, id=346, 504.88625pt x 524.96124pt>
+<./plots/dir.png, id=361, 504.88625pt x 524.96124pt>
 File: ./plots/dir.png Graphic file (type png)
 <use ./plots/dir.png>
 Package pdftex.def Info: ./plots/dir.png  used on input line 251.
 (pdftex.def)             Requested size: 350.99762pt x 364.95514pt.
-<./plots/as1.png, id=350, 592.2125pt x 416.55624pt>
+<./plots/as1.png, id=365, 592.2125pt x 416.55624pt>
 File: ./plots/as1.png Graphic file (type png)
 <use ./plots/as1.png>
 Package pdftex.def Info: ./plots/as1.png  used on input line 270.
 (pdftex.def)             Requested size: 350.99762pt x 246.89745pt.
-<./plots/as2.png, id=351, 717.68124pt x 227.85126pt>
+<./plots/as2.png, id=366, 717.68124pt x 227.85126pt>
 File: ./plots/as2.png Graphic file (type png)
 <use ./plots/as2.png>
 Package pdftex.def Info: ./plots/as2.png  used on input line 278.
 (pdftex.def)             Requested size: 350.99762pt x 111.436pt.
  [19] [20 <./plots/dir.png>] [21 <./plots/as1.png> <./plots/as2.png>]
-<./plots/inj.png, id=387, 896.34875pt x 262.9825pt>
+<./plots/inj.png, id=402, 896.34875pt x 262.9825pt>
 File: ./plots/inj.png Graphic file (type png)
 <use ./plots/inj.png>
 Package pdftex.def Info: ./plots/inj.png  used on input line 310.
 (pdftex.def)             Requested size: 429.00238pt x 125.86499pt.
  [22 <./plots/inj.png>]
-<./plots/val20.png, id=400, 979.66pt x 409.53pt>
+<./plots/val20.png, id=415, 979.66pt x 409.53pt>
 File: ./plots/val20.png Graphic file (type png)
 <use ./plots/val20.png>
 Package pdftex.def Info: ./plots/val20.png  used on input line 339.
 (pdftex.def)             Requested size: 429.00238pt x 179.3314pt.
-<./plots/val21.png, id=401, 953.5625pt x 290.08376pt>
+<./plots/val21.png, id=416, 953.5625pt x 290.08376pt>
 File: ./plots/val21.png Graphic file (type png)
 <use ./plots/val21.png>
 Package pdftex.def Info: ./plots/val21.png  used on input line 347.
 (pdftex.def)             Requested size: 429.00238pt x 130.50992pt.
-<./plots/val22.png, id=402, 958.58125pt x 292.09125pt>
+<./plots/val22.png, id=417, 958.58125pt x 292.09125pt>
 File: ./plots/val22.png Graphic file (type png)
 <use ./plots/val22.png>
 Package pdftex.def Info: ./plots/val22.png  used on input line 355.
 (pdftex.def)             Requested size: 429.00238pt x 130.72226pt.
-<./plots/val23.png, id=403, 954.56625pt x 401.5pt>
+<./plots/val23.png, id=418, 954.56625pt x 401.5pt>
 File: ./plots/val23.png Graphic file (type png)
 <use ./plots/val23.png>
 Package pdftex.def Info: ./plots/val23.png  used on input line 363.
 (pdftex.def)             Requested size: 429.00238pt x 180.44052pt.
-<./plots/val24.png, id=404, 955.57pt x 604.2575pt>
+<./plots/val24.png, id=419, 955.57pt x 604.2575pt>
 File: ./plots/val24.png Graphic file (type png)
 <use ./plots/val24.png>
 Package pdftex.def Info: ./plots/val24.png  used on input line 371.
 (pdftex.def)             Requested size: 429.00238pt x 271.27716pt.
-<./plots/val25.png, id=405, 952.55875pt x 1225.57875pt>
+<./plots/val25.png, id=420, 952.55875pt x 1225.57875pt>
 File: ./plots/val25.png Graphic file (type png)
 <use ./plots/val25.png>
 Package pdftex.def Info: ./plots/val25.png  used on input line 379.
@@ -464,7 +464,7 @@ Package pdftex.def Info: ./plots/val25.png  used on input line 379.
 
 LaTeX Warning: Float too large for page by 88.30618pt on input line 382.
 
-<./plots/val26.png, id=406, 954.56625pt x 719.68875pt>
+<./plots/val26.png, id=421, 954.56625pt x 719.68875pt>
 File: ./plots/val26.png Graphic file (type png)
 <use ./plots/val26.png>
 Package pdftex.def Info: ./plots/val26.png  used on input line 387.
@@ -474,7 +474,7 @@ ots/val23.png>] [26 <./plots/val24.png>] [27 <./plots/val25.png>] [28 <./plots/
 val26.png>] [29
 
 ]
-<./plots/min1.png, id=477, 206.7725pt x 245.91875pt>
+<./plots/min1.png, id=492, 206.7725pt x 245.91875pt>
 File: ./plots/min1.png Graphic file (type png)
 <use ./plots/min1.png>
 Package pdftex.def Info: ./plots/min1.png  used on input line 438.
@@ -486,47 +486,47 @@ age\OT1/cmr/m/n/12 . This is the main/overview
  []
 
 [30 <./plots/min1.png>] [31]
-<./plots/min2.png, id=566, 977.6525pt x 552.0625pt>
+<./plots/min2.png, id=581, 977.6525pt x 552.0625pt>
 File: ./plots/min2.png Graphic file (type png)
 <use ./plots/min2.png>
 Package pdftex.def Info: ./plots/min2.png  used on input line 466.
 (pdftex.def)             Requested size: 429.00238pt x 242.25119pt.
-<./plots/min3.png, id=567, 956.57375pt x 171.64125pt>
+<./plots/min3.png, id=582, 956.57375pt x 171.64125pt>
 File: ./plots/min3.png Graphic file (type png)
 <use ./plots/min3.png>
 Package pdftex.def Info: ./plots/min3.png  used on input line 474.
 (pdftex.def)             Requested size: 429.00238pt x 76.97592pt.
-<./plots/min4.png, id=568, 974.64125pt x 703.62875pt>
+<./plots/min4.png, id=583, 974.64125pt x 703.62875pt>
 File: ./plots/min4.png Graphic file (type png)
 <use ./plots/min4.png>
 Package pdftex.def Info: ./plots/min4.png  used on input line 482.
 (pdftex.def)             Requested size: 429.00238pt x 309.7157pt.
-<./plots/min8.png, id=569, 969.6225pt x 398.48875pt>
+<./plots/min8.png, id=584, 969.6225pt x 398.48875pt>
 File: ./plots/min8.png Graphic file (type png)
 <use ./plots/min8.png>
 Package pdftex.def Info: ./plots/min8.png  used on input line 490.
 (pdftex.def)             Requested size: 429.00238pt x 176.30846pt.
-<./plots/tab1.png, id=576, 953.5625pt x 1035.87pt>
+<./plots/tab1.png, id=591, 953.5625pt x 1035.87pt>
 File: ./plots/tab1.png Graphic file (type png)
 <use ./plots/tab1.png>
 Package pdftex.def Info: ./plots/tab1.png  used on input line 498.
 (pdftex.def)             Requested size: 429.00238pt x 466.04236pt.
-<./plots/tab2.png, id=577, 951.555pt x 1032.85875pt>
+<./plots/tab2.png, id=592, 951.555pt x 1032.85875pt>
 File: ./plots/tab2.png Graphic file (type png)
 <use ./plots/tab2.png>
 Package pdftex.def Info: ./plots/tab2.png  used on input line 506.
 (pdftex.def)             Requested size: 429.00238pt x 465.66472pt.
-<./plots/tab3.png, id=578, 952.55875pt x 1034.86626pt>
+<./plots/tab3.png, id=593, 952.55875pt x 1034.86626pt>
 File: ./plots/tab3.png Graphic file (type png)
 <use ./plots/tab3.png>
 Package pdftex.def Info: ./plots/tab3.png  used on input line 514.
 (pdftex.def)             Requested size: 429.00238pt x 466.08028pt.
-<./plots/tab4.png, id=579, 958.58125pt x 319.1925pt>
+<./plots/tab4.png, id=594, 958.58125pt x 319.1925pt>
 File: ./plots/tab4.png Graphic file (type png)
 <use ./plots/tab4.png>
 Package pdftex.def Info: ./plots/tab4.png  used on input line 522.
 (pdftex.def)             Requested size: 429.00238pt x 142.85114pt.
-<./plots/pca1.png, id=580, 954.56625pt x 1235.61626pt>
+<./plots/pca1.png, id=595, 954.56625pt x 1235.61626pt>
 File: ./plots/pca1.png Graphic file (type png)
 <use ./plots/pca1.png>
 Package pdftex.def Info: ./plots/pca1.png  used on input line 530.
@@ -535,17 +535,17 @@ Package pdftex.def Info: ./plots/pca1.png  used on input line 530.
 
 LaTeX Warning: Float too large for page by 62.63905pt on input line 533.
 
-<./plots/pca2.png, id=581, 953.5625pt x 834.11626pt>
+<./plots/pca2.png, id=596, 953.5625pt x 834.11626pt>
 File: ./plots/pca2.png Graphic file (type png)
 <use ./plots/pca2.png>
 Package pdftex.def Info: ./plots/pca2.png  used on input line 538.
 (pdftex.def)             Requested size: 429.00238pt x 375.27248pt.
-<./plots/pca3.png, id=582, 953.5625pt x 838.13126pt>
+<./plots/pca3.png, id=597, 953.5625pt x 838.13126pt>
 File: ./plots/pca3.png Graphic file (type png)
 <use ./plots/pca3.png>
 Package pdftex.def Info: ./plots/pca3.png  used on input line 546.
 (pdftex.def)             Requested size: 429.00238pt x 377.07884pt.
-<./plots/pca4.png, id=583, 950.55125pt x 1234.6125pt>
+<./plots/pca4.png, id=598, 950.55125pt x 1234.6125pt>
 File: ./plots/pca4.png Graphic file (type png)
 <use ./plots/pca4.png>
 Package pdftex.def Info: ./plots/pca4.png  used on input line 554.
@@ -553,7 +553,7 @@ Package pdftex.def Info: ./plots/pca4.png  used on input line 554.
 
 LaTeX Warning: Float too large for page by 65.20946pt on input line 557.
 
-<./plots/pca5.png, id=584, 952.55875pt x 1234.6125pt>
+<./plots/pca5.png, id=599, 952.55875pt x 1234.6125pt>
 File: ./plots/pca5.png Graphic file (type png)
 <use ./plots/pca5.png>
 Package pdftex.def Info: ./plots/pca5.png  used on input line 562.
@@ -561,7 +561,7 @@ Package pdftex.def Info: ./plots/pca5.png  used on input line 562.
 
 LaTeX Warning: Float too large for page by 63.37477pt on input line 565.
 
-<./plots/pca6.png, id=585, 954.56625pt x 1230.5975pt>
+<./plots/pca6.png, id=600, 954.56625pt x 1230.5975pt>
 File: ./plots/pca6.png Graphic file (type png)
 <use ./plots/pca6.png>
 Package pdftex.def Info: ./plots/pca6.png  used on input line 570.
@@ -569,12 +569,12 @@ Package pdftex.def Info: ./plots/pca6.png  used on input line 570.
 
 LaTeX Warning: Float too large for page by 60.38354pt on input line 573.
 
-<./plots/bench1.png, id=586, 954.56625pt x 363.3575pt>
+<./plots/bench1.png, id=601, 954.56625pt x 363.3575pt>
 File: ./plots/bench1.png Graphic file (type png)
 <use ./plots/bench1.png>
 Package pdftex.def Info: ./plots/bench1.png  used on input line 578.
 (pdftex.def)             Requested size: 429.00238pt x 163.29866pt.
-<./plots/bench2.png, id=587, 954.56625pt x 1608.0075pt>
+<./plots/bench2.png, id=602, 954.56625pt x 1608.0075pt>
 File: ./plots/bench2.png Graphic file (type png)
 <use ./plots/bench2.png>
 Package pdftex.def Info: ./plots/bench2.png  used on input line 586.
@@ -582,12 +582,12 @@ Package pdftex.def Info: ./plots/bench2.png  used on input line 586.
 
 LaTeX Warning: Float too large for page by 80.64084pt on input line 589.
 
-<./plots/bench3.png, id=588, 952.55875pt x 513.92pt>
+<./plots/bench3.png, id=603, 952.55875pt x 513.92pt>
 File: ./plots/bench3.png Graphic file (type png)
 <use ./plots/bench3.png>
 Package pdftex.def Info: ./plots/bench3.png  used on input line 594.
 (pdftex.def)             Requested size: 429.00238pt x 231.4579pt.
-<./plots/bench4.png, id=589, 960.58875pt x 1349.04pt>
+<./plots/bench4.png, id=604, 960.58875pt x 1349.04pt>
 File: ./plots/bench4.png Graphic file (type png)
 <use ./plots/bench4.png>
 Package pdftex.def Info: ./plots/bench4.png  used on input line 602.
@@ -595,47 +595,47 @@ Package pdftex.def Info: ./plots/bench4.png  used on input line 602.
 
 LaTeX Warning: Float too large for page by 25.3186pt on input line 605.
 
-<./plots/bench5.png, id=590, 950.55125pt x 714.67pt>
+<./plots/bench5.png, id=605, 950.55125pt x 714.67pt>
 File: ./plots/bench5.png Graphic file (type png)
 <use ./plots/bench5.png>
 Package pdftex.def Info: ./plots/bench5.png  used on input line 610.
 (pdftex.def)             Requested size: 429.00238pt x 322.54726pt.
-<./plots/bench6.png, id=591, 959.585pt x 396.48125pt>
+<./plots/bench6.png, id=606, 959.585pt x 396.48125pt>
 File: ./plots/bench6.png Graphic file (type png)
 <use ./plots/bench6.png>
 Package pdftex.def Info: ./plots/bench6.png  used on input line 618.
 (pdftex.def)             Requested size: 429.00238pt x 177.25334pt.
-<./plots/bench7.png, id=592, 959.585pt x 395.4775pt>
+<./plots/bench7.png, id=607, 959.585pt x 395.4775pt>
 File: ./plots/bench7.png Graphic file (type png)
 <use ./plots/bench7.png>
 Package pdftex.def Info: ./plots/bench7.png  used on input line 626.
 (pdftex.def)             Requested size: 429.00238pt x 176.8046pt.
-<./plots/log0.png, id=593, 1158.3275pt x 248.93pt>
+<./plots/log0.png, id=608, 1158.3275pt x 248.93pt>
 File: ./plots/log0.png Graphic file (type png)
 <use ./plots/log0.png>
 Package pdftex.def Info: ./plots/log0.png  used on input line 634.
 (pdftex.def)             Requested size: 429.00238pt x 92.1938pt.
-<./plots/log_gf.png, id=594, 951.555pt x 647.41875pt>
+<./plots/log_gf.png, id=609, 951.555pt x 647.41875pt>
 File: ./plots/log_gf.png Graphic file (type png)
 <use ./plots/log_gf.png>
 Package pdftex.def Info: ./plots/log_gf.png  used on input line 642.
 (pdftex.def)             Requested size: 429.00238pt x 291.88895pt.
-<./plots/log_tw.png, id=595, 954.56625pt x 595.22375pt>
+<./plots/log_tw.png, id=610, 954.56625pt x 595.22375pt>
 File: ./plots/log_tw.png Graphic file (type png)
 <use ./plots/log_tw.png>
 Package pdftex.def Info: ./plots/log_tw.png  used on input line 650.
 (pdftex.def)             Requested size: 429.00238pt x 267.50308pt.
-<./plots/log1.png, id=596, 903.375pt x 380.42125pt>
+<./plots/log1.png, id=611, 903.375pt x 380.42125pt>
 File: ./plots/log1.png Graphic file (type png)
 <use ./plots/log1.png>
 Package pdftex.def Info: ./plots/log1.png  used on input line 658.
 (pdftex.def)             Requested size: 429.00238pt x 180.66133pt.
-<./plots/log2.png, id=597, 959.585pt x 883.3pt>
+<./plots/log2.png, id=612, 959.585pt x 883.3pt>
 File: ./plots/log2.png Graphic file (type png)
 <use ./plots/log2.png>
 Package pdftex.def Info: ./plots/log2.png  used on input line 666.
 (pdftex.def)             Requested size: 429.00238pt x 394.89354pt.
-<./plots/log3.png, id=598, 955.57pt x 1461.46pt>
+<./plots/log3.png, id=613, 955.57pt x 1461.46pt>
 File: ./plots/log3.png Graphic file (type png)
 <use ./plots/log3.png>
 Package pdftex.def Info: ./plots/log3.png  used on input line 674.
@@ -643,22 +643,22 @@ Package pdftex.def Info: ./plots/log3.png  used on input line 674.
 
 LaTeX Warning: Float too large for page by 58.64024pt on input line 677.
 
-<./plots/min5.png, id=599, 957.5775pt x 540.0175pt>
+<./plots/min5.png, id=614, 957.5775pt x 540.0175pt>
 File: ./plots/min5.png Graphic file (type png)
 <use ./plots/min5.png>
 Package pdftex.def Info: ./plots/min5.png  used on input line 682.
 (pdftex.def)             Requested size: 429.00238pt x 241.93442pt.
-<./plots/min6.png, id=600, 955.57pt x 1008.76875pt>
+<./plots/min6.png, id=615, 955.57pt x 1008.76875pt>
 File: ./plots/min6.png Graphic file (type png)
 <use ./plots/min6.png>
 Package pdftex.def Info: ./plots/min6.png  used on input line 690.
 (pdftex.def)             Requested size: 429.00238pt x 452.87965pt.
-<./plots/min7.png, id=601, 957.5775pt x 537.00626pt>
+<./plots/min7.png, id=616, 957.5775pt x 537.00626pt>
 File: ./plots/min7.png Graphic file (type png)
 <use ./plots/min7.png>
 Package pdftex.def Info: ./plots/min7.png  used on input line 698.
 (pdftex.def)             Requested size: 429.00238pt x 240.58536pt.
-<./plots/min9.png, id=602, 955.57pt x 1673.25125pt>
+<./plots/min9.png, id=617, 955.57pt x 1673.25125pt>
 File: ./plots/min9.png Graphic file (type png)
 <use ./plots/min9.png>
 Package pdftex.def Info: ./plots/min9.png  used on input line 706.
@@ -666,7 +666,7 @@ Package pdftex.def Info: ./plots/min9.png  used on input line 706.
 
 LaTeX Warning: Float too large for page by 102.29709pt on input line 709.
 
-<./plots/min10.png, id=603, 951.555pt x 1669.23625pt>
+<./plots/min10.png, id=618, 951.555pt x 1669.23625pt>
 File: ./plots/min10.png Graphic file (type png)
 <use ./plots/min10.png>
 Package pdftex.def Info: ./plots/min10.png  used on input line 714.
@@ -674,12 +674,12 @@ Package pdftex.def Info: ./plots/min10.png  used on input line 714.
 
 LaTeX Warning: Float too large for page by 101.01611pt on input line 717.
 
-<./plots/pmt1.png, id=604, 954.56625pt x 720.6925pt>
+<./plots/pmt1.png, id=619, 954.56625pt x 720.6925pt>
 File: ./plots/pmt1.png Graphic file (type png)
 <use ./plots/pmt1.png>
 Package pdftex.def Info: ./plots/pmt1.png  used on input line 722.
 (pdftex.def)             Requested size: 429.00238pt x 323.89075pt.
-<./plots/pmt2.png, id=605, 956.57375pt x 510.90875pt>
+<./plots/pmt2.png, id=620, 956.57375pt x 510.90875pt>
 File: ./plots/pmt2.png Graphic file (type png)
 <use ./plots/pmt2.png>
 Package pdftex.def Info: ./plots/pmt2.png  used on input line 730.
@@ -712,7 +712,7 @@ or\OT1/cmr/m/n/12 .
 
 
 ]
-<./plots/thresh.png, id=788, 894.34125pt x 1247.66125pt>
+<./plots/thresh.png, id=803, 894.34125pt x 1247.66125pt>
 File: ./plots/thresh.png Graphic file (type png)
 <use ./plots/thresh.png>
 Package pdftex.def Info: ./plots/thresh.png  used on input line 775.
@@ -721,12 +721,12 @@ Package pdftex.def Info: ./plots/thresh.png  used on input line 775.
 
 LaTeX Warning: Float too large for page by 91.32315pt on input line 778.
 
-<./plots/couch.png, id=791, 314.17375pt x 322.20375pt>
+<./plots/couch.png, id=806, 314.17375pt x 322.20375pt>
 File: ./plots/couch.png Graphic file (type png)
 <use ./plots/couch.png>
 Package pdftex.def Info: ./plots/couch.png  used on input line 787.
 (pdftex.def)             Requested size: 195.0pt x 199.98058pt.
-<./plots/couchdoc.png, id=792, 346.29375pt x 1696.3375pt>
+<./plots/couchdoc.png, id=807, 346.29375pt x 1696.3375pt>
 File: ./plots/couchdoc.png Graphic file (type png)
 <use ./plots/couchdoc.png>
 Package pdftex.def Info: ./plots/couchdoc.png  used on input line 795.
@@ -782,59 +782,60 @@ ate bench-mark-ing RAT macro.
  []
 
 [72] [73]
-<./plots/ch1.png, id=870, 608.2725pt x 70.2625pt>
+<./plots/ch1.png, id=886, 608.2725pt x 70.2625pt>
 File: ./plots/ch1.png Graphic file (type png)
 <use ./plots/ch1.png>
 Package pdftex.def Info: ./plots/ch1.png  used on input line 929.
 (pdftex.def)             Requested size: 331.50238pt x 38.29283pt.
-<./plots/ch2.png, id=871, 954.56625pt x 512.91624pt>
+<./plots/ch2.png, id=887, 954.56625pt x 512.91624pt>
 File: ./plots/ch2.png Graphic file (type png)
 <use ./plots/ch2.png>
 Package pdftex.def Info: ./plots/ch2.png  used on input line 937.
 (pdftex.def)             Requested size: 390.0pt x 209.5535pt.
-<./plots/ch4.png, id=872, 1004.75375pt x 91.34125pt>
+<./plots/ch4.png, id=888, 1004.75375pt x 91.34125pt>
 File: ./plots/ch4.png Graphic file (type png)
 <use ./plots/ch4.png>
 Package pdftex.def Info: ./plots/ch4.png  used on input line 945.
 (pdftex.def)             Requested size: 390.0pt x 35.45428pt.
-<./plots/ch5.png, id=873, 947.54pt x 68.255pt>
+<./plots/ch5.png, id=889, 947.54pt x 68.255pt>
 File: ./plots/ch5.png Graphic file (type png)
 <use ./plots/ch5.png>
 Package pdftex.def Info: ./plots/ch5.png  used on input line 953.
 (pdftex.def)             Requested size: 390.0pt x 28.09303pt.
  [74
 
- <./plots/ch1.png> <./plots/ch2.png>] [75 <./plots/ch4.png> <./plots/ch5.png>]
-Overfull \hbox (13.69922pt too wide) in paragraph at lines 986--987
+ <./plots/ch1.png> <./plots/ch2.png>] [75 <./plots/ch4.png> <./plots/ch5.png>] 
+[76
+
+]
+Overfull \hbox (13.69922pt too wide) in paragraph at lines 995--996
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-<./plots/args.png, id=895, 1336.995pt x 295.1025pt>
+<./plots/args.png, id=920, 1336.995pt x 295.1025pt>
 File: ./plots/args.png Graphic file (type png)
 <use ./plots/args.png>
-Package pdftex.def Info: ./plots/args.png  used on input line 993.
+Package pdftex.def Info: ./plots/args.png  used on input line 1002.
 (pdftex.def)             Requested size: 487.5pt x 107.60118pt.
-[76
-
-] [77 <./plots/args.png>] [78
+[77 <./plots/args.png>] [78
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1028.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1038.
  [79]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1028.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1038.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1028.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1028.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1038.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1038.
 
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: A6FD24FA7CC2D3B547BB9531D4345CE5;1952.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1028.
+(rerunfilecheck)             Checksum: 3D32C5022B4BBAF98BE50CBE37BB57DF;2132.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1038.
  ) 
 Here is how much of TeX's memory you used:
- 7660 strings out of 483140
- 113989 string characters out of 5965151
- 399925 words of memory out of 5000000
- 22239 multiletter control sequences out of 15000+600000
+ 7666 strings out of 483140
+ 114079 string characters out of 5965152
+ 399927 words of memory out of 5000000
+ 22242 multiletter control sequences out of 15000+600000
  538834 words of font info for 46 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  34i,7n,36p,872b,1804s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -846,10 +847,10 @@ live/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/t
 exmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-d
 ist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on report.pdf (79 pages, 7087522 bytes).
+Output written on report.pdf (79 pages, 7089294 bytes).
 PDF statistics:
- 1032 PDF objects out of 1200 (max. 8388607)
- 789 compressed objects within 8 object streams
- 282 named destinations out of 1000 (max. 500000)
- 620 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1049 PDF objects out of 1200 (max. 8388607)
+ 805 compressed objects within 9 object streams
+ 285 named destinations out of 1000 (max. 500000)
+ 644 words of extra memory for PDF output out of 10000 (max. 10000000)
 
