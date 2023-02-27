@@ -814,16 +814,18 @@ There are bitwords used in \texttt{Validation \#1} and \texttt{Validation \#2}. 
 \paragraph{}
 This section will provide some comments on the code (TELLIE Automation repository).
 
-\subsection{Structure}
+\subsection{Structure}\label{sub:struct}
 \begin{itemize}
 	\item \textbf{Data-taking}: This folder holds documents, notes, and early attempts on the data-taking automation (no actual repository for automated TELLIE PCA data-taking!).
 	\item \textbf{Doc}: This folder holds documentation (including this doc), reports, and notes on the automated TELLIE PCA processing. Please have a look at this.
 	\item \textbf{Processing}: This contains the actual code performing the automated TELLIE PCA processing.
 	\begin{itemize}
 		\item \textit{angular\_systematic}: Processor for the angular systematic fit, see Subsection~\ref{subsub:as}.
+		\item \textit{*bench\_root}: Holds the output root files from benchmarking for each processed set, see Subsection~\ref{sub:bench}.
 		\item \textit{benchmark}: Scripts to extract comparison plots after benchmarking, see Subsection~\ref{sub:bench}.
 		\item \textit{checkPCA}: Scripts to extract plots from the output of PCA processor, see Subsection~\ref{sub:pca_cons}.
-		\item \textit{fits}: This holds text files with the results of the fit processors: direction, ang sys, and pca offset.
+		\item \textit{fits}: This holds text files with the results of the fit processors: direction, ang sys, and pca offset. See Section~\ref{sec:fits}.
+		\item \textit{logs*}: The log files holding results of fits, these are uploaded to CouchDB.
 		\item \textit{minard}: Plots for minard monitoring are stored here. See Subsection~\ref{sec:monitor}.
 		\item \textit{pca\_constants}: Holds output ratDB and log files from the PCA processor, Subsection~\ref{sub:pca_cons}.
 		\item \textit{pca\_offset}: Processor for the pca offset (injection time) fit, see Subsection~\ref{subsub:inj}.
@@ -850,6 +852,7 @@ This section will provide some comments on the code (TELLIE Automation repositor
 		\item \textit{validate2}: Processor to perform the \texttt{Validation \#2} step of the processing suite.
 	\end{itemize}
 \end{itemize}
+\footnote{*: these are not part of the github repository (since they are just holding data), and have to be added manually.}:
 
 \clearpage
 
@@ -958,15 +961,88 @@ This subsection lists some of the more important cuts and checks that are applie
 \clearpage
 
 \section{Deploying}\label{sec:dep}
+\paragraph{}
+This section summarizes some notes from the deployment.
 
 \subsection{Requirements}
-%rat, python+modules,
+\paragraph{}
+There are some requisites for the software to operate successfully.\\
+First, because the base of the software is RAT processors, a functioning RAT is required.\\
+Second, the plotting, creating macros and tables, and interfacing with couchDB is done via python scripts. Most of the modules are (usually) present with python by default, such as: os, sys, re, argparse, time, shlex, subprocess, math, json, signal, datetime. Some may need to be installed if not present, such as: couchdb, numpy, and matplotlib.
 
 \subsection{External}
-%couchdb (+views +default docs +users/access), ratdb, minard mount
+\paragraph{}
+The data from the suite is stored in CouchDB. The CouchDB database is \texttt{tellie\_auto}. There are several views available:
+\begin{itemize}
+	\item \textit{belly}: A single document holding list of fibres affected by belly plates.
+	\item \textit{benchmark}: View holding documents from the benchmarking step.
+	\item \textit{env}: A single document holding the environment variables (tune thresholds).
+	\item \textit{fibres}: A single document holding list of active fibres.
+	\item \textit{fits}: View holding documents from the fits steps.
+	\item \textit{runlist}: View holding documents defining the runlists (runs and fibres).
+	\item \textit{val1}: View holding documents from the validation 1 step.
+	\item \textit{val2}: View holding documents from the validation 2 step.
+\end{itemize}
+These views and single documents (belly, env, fibres) need to be created when deploying. Additionally, the CouchDB users need to be given access to this database. Finally, the address, and log in credentials for CouchDB need to be set up in the environment file.
+
+\paragraph{}
+Additionally, some run data is loaded from RatDB. Therefore, the credentials need to stored in the usual .pgpass file.
 
 \subsection{Setting up}
-%repo + empty folders, env + scons processors, make script folders
+\paragraph{}
+The repository is located at: \href{https://github.com/snoplus/pcatellie}{https://github.com/snoplus/pcatellie}.This is a fork from the original: \href{https://github.com/MRiganSUSX/Automation}{https://github.com/MRiganSUSX/Automation}.\\
+After cloning, one needs to create some additional directories, which hold data that is not, by default, part of the repository, such as: mianrd, pca\_constants, runtime, logs. These are mentioned in Subsection~\ref{sub:struct}. After that, the environment file (inside Processing) needs to be set up. This holds: credentials, database details, paths, scripts locations, path to RAT, and threshold values for checks.
+
+\paragraph{}
+After that, one needs to build the processors and comparison scripts. Run 'scons' in angular\_systematic, benchmark, pca\_offset, position\_fit, validate, and validate2 folders. Also run 'make' in benchmark/cd\_compare, benchmark/peak\_compare, benchmark/tw\_compare, and checkPCA. Rerun these commands when a particular processor or plotting script is changed.
+
+\paragraph{}
+Additionally, one should make sure the template RAT macros in the processor directories (angular\_systematic, pca\_offset, position\_fit, validate, validate2) and the scripts making RAT macros (create\_bench\_apply\_mac.py and create\_pca\_proc\_mac.py) are correct for the given geometry.
+
+\paragraph{}
+Because all datasets were already processed, the data was also copied over, including minard plots (in /minard), the benchmarking root files (in bench\_root), fit files (in logs), pca constants (in pca\_constants), pca tables (in pca\_tables/tables), and laserball root files (in pca\_constants/LB).
+
+\paragraph{}
+It is also important to NFS mount the minard location - where all the plots are (this is in Processing/minard) to the minard server. The server hosting the TELLIE PCA processing automation is:
+\begin{lstlisting}
+autopca.sp.snolab.ca
+(192.168.80.56)
+\end{lstlisting}
+The minard server is:
+\begin{lstlisting}
+minard.sp.snolab.ca
+(192.168.80.128)
+\end{lstlisting}
+This is how the minard location is mounted:
+\begin{lstlisting}
+/home/snotdaq/Automation/Processing/minard @ autopca
+->
+/mnt/pcatellie @ minard
+\end{lstlisting}
+and also:
+\begin{lstlisting}
+/home/snotdaq/Automation/Processing/pca_constants @ autopca
+->
+/mnt/pca_constants @ minard
+\end{lstlisting}
+Finally, symlinks are made @ minard as:
+\begin{lstlisting}
+/mnt/pca_constants -> /mnt/pcatellie/pca_constants
+/mnt/pcatellie -> /home/tlatorre/minard/minard/static
+\end{lstlisting}
+
+\paragraph{}
+The user at 'autopca' is 'snotdaq' with the usual password. The location of the repository is:
+\begin{lstlisting}
+/home/snotdaq/Automation (@ autopca)
+\end{lstlisting}
+Othe locations (@ autopca):
+\begin{lstlisting}
+/home/snotdaq/data : TELLIE PCA data to be processed
+/home/snotdaq/env.sh : RAT env is loaded here
+(Called by the Automation/Processing/env.sh)
+/home/snotdaq/rat : RAT install
+\end{lstlisting}
 
 \section{Running}\label{sec:run}
 \paragraph{}

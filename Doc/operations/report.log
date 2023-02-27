@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.8.4)  24 FEB 2023 18:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.8.4)  27 FEB 2023 14:38
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -744,113 +744,136 @@ Fi-nally, there is a plethora
 ng>] [68
 
 ]
-Overfull \hbox (3.3195pt too wide) in paragraph at lines 835--836
+Overfull \hbox (3.3195pt too wide) in paragraph at lines 837--838
 []\OT1/cmr/m/n/12 create[]bench[]apply[]mac.py: Cre-ates RAT macro to run bench
 -
  []
 
 
-Overfull \hbox (11.11491pt too wide) in paragraph at lines 844--845
+Overfull \hbox (11.11491pt too wide) in paragraph at lines 846--847
 []\OT1/cmr/m/n/12 upload[]fits.py: Parses the data from fits and up-loads a Cou
 chDB
  []
 
 [69]
-Overfull \hbox (17.93575pt too wide) in paragraph at lines 868--869
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 855.
+ [70]
+Overfull \hbox (17.93575pt too wide) in paragraph at lines 871--872
 []\OT1/cmr/m/it/12 upload en-vi-ron-ment (opt)\OT1/cmr/m/n/12 : Up-loads the en
 -vi-ron-ment vari-ables to CouchDB. 
  []
 
 
-Overfull \hbox (16.47578pt too wide) in paragraph at lines 875--876
+Overfull \hbox (16.47578pt too wide) in paragraph at lines 878--879
 []\OT1/cmr/m/it/12 upload Val-i-da-tion #1\OT1/cmr/m/n/12 : Up-loads the re-sul
 ts of \OT1/cmtt/m/n/12 Validation #1 \OT1/cmr/m/n/12 to CouchDB. 
  []
 
-[70
+[71
 
 ]
-Overfull \hbox (16.47578pt too wide) in paragraph at lines 881--882
+Overfull \hbox (16.47578pt too wide) in paragraph at lines 884--885
 []\OT1/cmr/m/it/12 upload Val-i-da-tion #2\OT1/cmr/m/n/12 : Up-loads the re-sul
 ts of \OT1/cmtt/m/n/12 Validation #2 \OT1/cmr/m/n/12 to CouchDB. 
  []
 
-[71]
-Overfull \hbox (0.8066pt too wide) in paragraph at lines 898--899
+[72]
+Overfull \hbox (0.8066pt too wide) in paragraph at lines 901--902
 []\OT1/cmr/m/it/12 create bench ap-ply mac\OT1/cmr/m/n/12 : Call script to cre-
 ate bench-mark-ing RAT macro. 
  []
 
-[72] [73]
-<./plots/ch1.png, id=886, 608.2725pt x 70.2625pt>
+[73] [74]
+<./plots/ch1.png, id=897, 608.2725pt x 70.2625pt>
 File: ./plots/ch1.png Graphic file (type png)
 <use ./plots/ch1.png>
-Package pdftex.def Info: ./plots/ch1.png  used on input line 929.
+Package pdftex.def Info: ./plots/ch1.png  used on input line 932.
 (pdftex.def)             Requested size: 331.50238pt x 38.29283pt.
-<./plots/ch2.png, id=887, 954.56625pt x 512.91624pt>
+<./plots/ch2.png, id=898, 954.56625pt x 512.91624pt>
 File: ./plots/ch2.png Graphic file (type png)
 <use ./plots/ch2.png>
-Package pdftex.def Info: ./plots/ch2.png  used on input line 937.
+Package pdftex.def Info: ./plots/ch2.png  used on input line 940.
 (pdftex.def)             Requested size: 390.0pt x 209.5535pt.
-<./plots/ch4.png, id=888, 1004.75375pt x 91.34125pt>
+<./plots/ch4.png, id=899, 1004.75375pt x 91.34125pt>
 File: ./plots/ch4.png Graphic file (type png)
 <use ./plots/ch4.png>
-Package pdftex.def Info: ./plots/ch4.png  used on input line 945.
+Package pdftex.def Info: ./plots/ch4.png  used on input line 948.
 (pdftex.def)             Requested size: 390.0pt x 35.45428pt.
-<./plots/ch5.png, id=889, 947.54pt x 68.255pt>
+<./plots/ch5.png, id=900, 947.54pt x 68.255pt>
 File: ./plots/ch5.png Graphic file (type png)
 <use ./plots/ch5.png>
-Package pdftex.def Info: ./plots/ch5.png  used on input line 953.
+Package pdftex.def Info: ./plots/ch5.png  used on input line 956.
 (pdftex.def)             Requested size: 390.0pt x 28.09303pt.
- [74
+ [75
 
- <./plots/ch1.png> <./plots/ch2.png>] [75 <./plots/ch4.png> <./plots/ch5.png>] 
-[76
+ <./plots/ch1.png> <./plots/ch2.png>] [76 <./plots/ch4.png> <./plots/ch5.png>]
+Overfull \hbox (7.7945pt too wide) in paragraph at lines 969--972
+\OT1/cmr/m/n/12 Second, the plot-ting, cre-at-ing macros and ta-bles, and in-te
+r-fac-ing with couchDB
+ []
+
+
+Overfull \hbox (0.6353pt too wide) in paragraph at lines 979--980
+[]\OT1/cmr/m/it/12 env\OT1/cmr/m/n/12 : A sin-gle doc-u-ment hold-ing the en-vi
+-ron-ment vari-ables (tune thresh-
+ []
+
+[77
 
 ]
-Overfull \hbox (13.69922pt too wide) in paragraph at lines 995--996
+Overfull \hbox (21.6896pt too wide) in paragraph at lines 993--995
+\OT1/cmr/m/n/12 data that is not, by de-fault, part of the repos-i-tory, such a
+s: mi-anrd, pca[]constants,
+ []
+
+[78] [79]
+Overfull \hbox (13.69922pt too wide) in paragraph at lines 1071--1072
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-<./plots/args.png, id=920, 1336.995pt x 295.1025pt>
+<./plots/args.png, id=974, 1336.995pt x 295.1025pt>
 File: ./plots/args.png Graphic file (type png)
 <use ./plots/args.png>
-Package pdftex.def Info: ./plots/args.png  used on input line 1002.
+Package pdftex.def Info: ./plots/args.png  used on input line 1078.
 (pdftex.def)             Requested size: 487.5pt x 107.60118pt.
-[77 <./plots/args.png>] [78
+[80] [81 <./plots/args.png>] [82
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1038.
- [79]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1038.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1115.
+ [83]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1115.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1038.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1038.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1115.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1115.
 
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 3D32C5022B4BBAF98BE50CBE37BB57DF;2132.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1038.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1115.
  ) 
 Here is how much of TeX's memory you used:
- 7666 strings out of 483140
- 114079 string characters out of 5965152
- 399927 words of memory out of 5000000
- 22242 multiletter control sequences out of 15000+600000
+ 7708 strings out of 483140
+ 114618 string characters out of 5965152
+ 399967 words of memory out of 5000000
+ 22244 multiletter control sequences out of 15000+600000
  538834 words of font info for 46 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 34i,7n,36p,872b,1804s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 34i,8n,36p,872b,1804s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/michal/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.60
 0pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></
 usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on report.pdf (79 pages, 7089294 bytes).
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmtt12.pfb>
+Output written on report.pdf (83 pages, 7130895 bytes).
 PDF statistics:
- 1049 PDF objects out of 1200 (max. 8388607)
- 805 compressed objects within 9 object streams
- 285 named destinations out of 1000 (max. 500000)
+ 1129 PDF objects out of 1200 (max. 8388607)
+ 878 compressed objects within 9 object streams
+ 325 named destinations out of 1000 (max. 500000)
  644 words of extra memory for PDF output out of 10000 (max. 10000000)
 
